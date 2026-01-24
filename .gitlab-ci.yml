@@ -1,0 +1,79 @@
+stages:
+  - test
+  - collect
+  - build
+  - pages
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+test:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install -r requirements.txt
+    - pip install -r requirements-dev.txt
+    - pytest
+  artifacts:
+    when: always
+    expire_in: 1 week
+
+collect:
+  stage: collect
+  image: python:3.11
+  script:
+    - pip install -r requirements.txt
+    - cp config.example.yml config.yml
+    - ./scripts/metrics collect --config config.yml
+    - ./scripts/metrics export --config config.yml
+  artifacts:
+    paths:
+      - data/metrics.db
+      - output/latest.json
+      - output/history.json
+    expire_in: 1 week
+
+build:
+  stage: build
+  image: python:3.11
+  script:
+    - pip install -r requirements.txt
+    - cp config.example.yml config.yml
+
+    # colecteaza datele
+    - ./scripts/metrics collect --config config.yml
+    - ./scripts/metrics export --config config.yml
+
+    # asigura structura ceruta de UI
+    - mkdir -p public/data
+    - mv output/latest.json public/data/latest.json
+    - mv output/history.json public/data/history.json
+
+    # build UI
+    - ./scripts/metrics build-dashboard --config config.yml
+
+    # sanity check (esential)
+    - test -f public/data/latest.json
+    - test -f public/index.html
+
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+
+
+pages:
+  stage: pages
+  script:
+    - echo "Deploying Pages"
+  artifacts:
+    paths:
+      - public
+  dependencies:
+    - build
+  only:
+    - main
