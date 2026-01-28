@@ -1,10 +1,10 @@
-# Trailwaze Metrics - User Guide
+# RnDMetrics - User Guide
 
 ## Overview
 
-Trailwaze Metrics is a GitLab analytics system that automatically collects metrics from your GitLab projects and displays them in an interactive dashboard. It tracks commits, code quality, coverage metrics, and custom epics over time.
+RnDMetrics is a comprehensive GitLab analytics system that automatically collects metrics from your GitLab projects and displays them in an interactive dashboard. It tracks commits, code quality, coverage metrics, and custom epics over time.
 
-### What Trailwaze Metrics Does
+### What RnDMetrics Does
 
 - **Collects metrics** from your GitLab project daily (commits, branches, coverage)
 - **Tracks epics** based on commit message patterns you define

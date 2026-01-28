@@ -1,6 +1,6 @@
-# GitLab Project Metrics Dashboard
+# RnDMetrics - Research & Development Metrics Dashboard
 
-Read-only GitLab analytics system that collects daily repository metrics, stores them in SQLite, and publishes a static dashboard via GitLab Pages.
+A comprehensive GitLab analytics system that automatically collects daily repository metrics, analyzes development patterns, stores data in SQLite, and publishes an interactive dashboard via GitLab Pages.
 
 ## Quick start
 1. Copy and edit the config:

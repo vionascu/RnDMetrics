@@ -1,6 +1,6 @@
-# Trailwaze Metrics - Integration Guide (Plug & Play)
+# RnDMetrics - Integration Guide (Plug & Play)
 
-This guide explains how to integrate Trailwaze Metrics into any GitLab project in under 10 minutes.
+This guide explains how to integrate RnDMetrics into any GitLab project in under 10 minutes.
 
 ---
 
@@ -16,18 +16,18 @@ If you haven't already, create a GitLab personal access token:
 2. Create a token with scopes: `api`, `read_repository`
 3. Copy the token
 
-#### Step 2: Copy Trailwaze to Your Project
+#### Step 2: Copy RnDMetrics to Your Project
 
 Option A: Add as a submodule:
 ```bash
 cd your-project
-git submodule add <trailwaze-repo-url> trailwaze-metrics
+git submodule add <rndmetrics-repo-url> rndmetrics
 cd trailwaze-metrics
 ```
 
 Option B: Copy files directly:
 ```bash
-cp -r trailwaze-metrics/* your-project/metrics-tools/
+cp -r rndmetrics/* your-project/metrics-tools/
 cd your-project/metrics-tools
 ```
 
@@ -68,13 +68,13 @@ python3 -m http.server 8000 --directory public
 
 ### For Automated Collection in GitLab CI/CD
 
-#### Step 1: Add Trailwaze to Your Repository
+#### Step 1: Add RnDMetrics to Your Repository
 
 **Option A: Recommended - As a Git Submodule**
 
 ```bash
 cd your-project
-git submodule add <trailwaze-repo-url> trailwaze-metrics
+git submodule add <rndmetrics-repo-url> rndmetrics
 git add .gitmodules trailwaze-metrics
 git commit -m "Add Trailwaze Metrics submodule"
 git push
@@ -83,7 +83,7 @@ git push
 **Option B: Copy All Files**
 
 ```bash
-cp -r /path/to/trailwaze-metrics/* your-project/
+cp -r /path/to/rndmetrics/* your-project/
 git add .
 git commit -m "Add Trailwaze Metrics"
 git push
@@ -133,14 +133,14 @@ collect:
   stage: collect
   image: python:3.11
   script:
-    - pip install -r trailwaze-metrics/requirements.txt
-    - cp trailwaze-metrics/config.example.yml trailwaze-metrics/config.yml
-    - ./trailwaze-metrics/scripts/metrics collect --config trailwaze-metrics/config.yml
-    - ./trailwaze-metrics/scripts/metrics export --config trailwaze-metrics/config.yml
+    - pip install -r rndmetrics/requirements.txt
+    - cp rndmetrics/config.example.yml rndmetrics/config.yml
+    - ./rndmetrics/scripts/metrics collect --config rndmetrics/config.yml
+    - ./rndmetrics/scripts/metrics export --config rndmetrics/config.yml
   artifacts:
     paths:
-      - trailwaze-metrics/data/metrics.db
-      - trailwaze-metrics/output/
+      - rndmetrics/data/metrics.db
+      - rndmetrics/output/
     expire_in: 1 week
 
 # Build dashboard
@@ -148,13 +148,13 @@ build:
   stage: build
   image: python:3.11
   script:
-    - pip install -r trailwaze-metrics/requirements.txt
-    - cp trailwaze-metrics/config.example.yml trailwaze-metrics/config.yml
-    - ./trailwaze-metrics/scripts/metrics collect --config trailwaze-metrics/config.yml
-    - ./trailwaze-metrics/scripts/metrics export --config trailwaze-metrics/config.yml
+    - pip install -r rndmetrics/requirements.txt
+    - cp rndmetrics/config.example.yml rndmetrics/config.yml
+    - ./rndmetrics/scripts/metrics collect --config rndmetrics/config.yml
+    - ./rndmetrics/scripts/metrics export --config rndmetrics/config.yml
     - mkdir -p public/metrics
-    - ./trailwaze-metrics/scripts/metrics build-dashboard --config trailwaze-metrics/config.yml
-    - cp -r trailwaze-metrics/public/* public/metrics/
+    - ./rndmetrics/scripts/metrics build-dashboard --config rndmetrics/config.yml
+    - cp -r rndmetrics/public/* public/metrics/
   artifacts:
     paths:
       - public
@@ -178,7 +178,7 @@ If you don't have `.gitlab-ci.yml`, create a new one with the above content.
 
 #### Step 4: Customize Configuration
 
-Edit `trailwaze-metrics/config.yml`:
+Edit `rndmetrics/config.yml`:
 
 ```yaml
 project:
@@ -208,7 +208,7 @@ ui:
 
 1. Commit and push your changes:
 ```bash
-git add .gitlab-ci.yml trailwaze-metrics/
+git add .gitlab-ci.yml rndmetrics/
 git commit -m "Add Trailwaze Metrics integration"
 git push
 ```
@@ -217,7 +217,7 @@ git push
 3. You should see the pipeline running
 4. After the `build` stage completes, check your dashboard at:
    - **Deployments → Pages** (if main branch)
-   - Or locally: `trailwaze-metrics/public/index.html`
+   - Or locally: `rndmetrics/public/index.html`
 
 ---
 
@@ -242,7 +242,7 @@ project-metrics/
 │   │   └── public/
 │   └── ...
 ├── .gitlab-ci.yml  (loops through all projects)
-└── trailwaze-metrics/ (shared)
+└── rndmetrics/ (shared)
 ```
 
 **Option B: Centralized Metrics Dashboard**
@@ -366,7 +366,7 @@ curl -X POST \
 ```
 your-project/
 ├── .gitlab-ci.yml           # Updated with metrics stages
-├── trailwaze-metrics/       # (Submodule or copied)
+├── rndmetrics/       # (Submodule or copied)
 │   ├── metrics/             # Main Python package
 │   ├── scripts/
 │   │   └── metrics          # CLI script

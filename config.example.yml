@@ -29,7 +29,7 @@ export:
   public_dir: "./public"
 
 ui:
-  title: "GitLab Metrics Dashboard"
+  title: "RnDMetrics Dashboard"
   theme: "dark"
 
 storage:
