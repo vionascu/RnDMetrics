@@ -17,6 +17,16 @@
       <div class="eyebrow">GitLab Metrics</div>
       <h1 class="title" id="page-title">Project Dashboard</h1>
       <p class="subtitle snapshot" id="snapshot">Snapshot: --</p>
+
+      <!-- Date Range Picker -->
+      <div class="date-range-picker">
+        <label>Select Period:</label>
+        <input type="date" id="start-date" />
+        <span class="date-separator">to</span>
+        <input type="date" id="end-date" />
+        <button id="filter-btn" class="filter-btn">Apply Filter</button>
+        <button id="reset-btn" class="filter-btn secondary">Reset</button>
+      </div>
     </div>
     <div class="stat-cards">
       <div class="card accent">
@@ -30,6 +40,14 @@
       <div class="card">
         <div class="card-label">Coverage</div>
         <div class="card-value" id="coverage">--</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Human Code</div>
+        <div class="card-value" id="human-code">--</div>
+      </div>
+      <div class="card">
+        <div class="card-label">AI Generated</div>
+        <div class="card-value" id="ai-code">--</div>
       </div>
     </div>
   </header>
@@ -55,6 +73,13 @@
         <span class="panel-note">Repository QA signal</span>
       </div>
       <canvas id="tests-chart"></canvas>
+    </section>
+    <section class="panel wide">
+      <div class="panel-head">
+        <h2>Human vs AI Generated Code</h2>
+        <span class="panel-note">Code origin analysis</span>
+      </div>
+      <canvas id="human-ai-chart"></canvas>
     </section>
     <section class="panel">
       <div class="panel-head">

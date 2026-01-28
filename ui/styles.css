@@ -151,6 +151,83 @@ body {
   color: var(--text);
 }
 
+.date-range-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+.date-range-picker label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.date-range-picker input[type="date"] {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.date-range-picker input[type="date"]:hover {
+  border-color: rgba(89, 209, 201, 0.4);
+}
+
+.date-range-picker input[type="date"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(89, 209, 201, 0.2);
+}
+
+.date-separator {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.filter-btn {
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--bg);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(89, 209, 201, 0.25);
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(89, 209, 201, 0.35);
+}
+
+.filter-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(89, 209, 201, 0.2);
+}
+
+.filter-btn.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.filter-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
 .footer {
   text-align: center;
   color: var(--muted);
@@ -166,5 +243,16 @@ body {
   }
   .panel.wide {
     grid-column: span 1;
+  }
+  .date-range-picker {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .date-range-picker input[type="date"] {
+    width: 100%;
+  }
+  .filter-btn {
+    width: auto;
   }
 }
