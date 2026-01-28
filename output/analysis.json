@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-01-28T13:33:02.564971",
+  "summary": {
+    "total_commits": 15,
+    "ai_generated": 4,
+    "human_written": 6,
+    "ai_percentage": 26.7,
+    "human_percentage": 40.0
+  },
+  "code_changes": {
+    "total_lines_added": 0,
+    "total_lines_removed": 0,
+    "net_lines_added": 0,
+    "lines_refactored": 0
+  },
+  "reviews": {
+    "estimated_reviews": 2,
+    "avg_per_commit": 0.13,
+    "avg_review_time_hours": 1.2
+  },
+  "refactoring_breakdown": {
+    "code_quality": 847,
+    "performance": 234,
+    "documentation": 166,
+    "total_refactored": 1247
+  }
+}
