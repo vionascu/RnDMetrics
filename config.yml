@@ -1,0 +1,37 @@
+project:
+  gitlab_url: "https://gitlab.com"
+  project_id: "77854212"
+  token_env: "GITLAB_TOKEN"
+  default_branch: "main"
+  repo_url: ""
+
+collection:
+  since_days: 365
+  shallow_clone: true
+  clone_depth: 50
+  repo_path: "./.tmp/repo"
+  include_paths: ["."]
+  exclude_paths: ["node_modules", "dist", "build", ".git"]
+  exclude_extensions: ["mbtiles", "png", "jpg", "jpeg", "gif", "zip", "pdf", "mp4", "mp3"]
+
+epics:
+  rules:
+    - key: "Epic-Auth"
+      pattern: "auth|login|oauth|sso"
+    - key: "Epic-UI"
+      pattern: "ui|frontend|dashboard|chart"
+
+retention:
+  days: 365
+
+export:
+  output_dir: "./output"
+  public_dir: "./public"
+
+ui:
+  title: "GitLab Metrics Dashboard"
+  theme: "dark"
+
+storage:
+  db_path: "./data/metrics.db"
+  schema_path: "./sql/schema.sql"

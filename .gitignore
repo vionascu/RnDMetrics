@@ -1,0 +1,8 @@
+/.tmp
+/data/metrics.db
+/output/*.json
+/public
+__pycache__/
+*.pyc
+.venv/
+.env
