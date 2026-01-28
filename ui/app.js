@@ -172,9 +172,17 @@ function renderHumanAIChart(history) {
   });
 
   const ctx = document.getElementById("human-ai-chart");
-  if (!ctx) return;
+  if (!ctx) {
+    console.warn("Canvas not found for human-ai-chart");
+    return;
+  }
 
-  new Chart(ctx, {
+  // Destroy existing chart if it exists
+  if (ctx.chart) {
+    ctx.chart.destroy();
+  }
+
+  ctx.chart = new Chart(ctx, {
     type: "bar",
     data: {
       labels: dates,
@@ -233,7 +241,12 @@ function renderFileTypes(fileTypes) {
   const ctx = document.getElementById("chart-file-types");
   if (!ctx) return;
 
-  new Chart(ctx, {
+  // Destroy existing chart if it exists
+  if (ctx.chart) {
+    ctx.chart.destroy();
+  }
+
+  ctx.chart = new Chart(ctx, {
     type: "doughnut",
     data: {
       labels,
@@ -316,9 +329,17 @@ function escapeHtml(s) {
 
 function renderTrendChart(id, labels, values, label) {
   const ctx = document.getElementById(id);
-  if (!ctx) return;
+  if (!ctx) {
+    console.warn(`Canvas not found for ${id}`);
+    return;
+  }
 
-  new Chart(ctx, {
+  // Destroy existing chart if it exists
+  if (ctx.chart) {
+    ctx.chart.destroy();
+  }
+
+  ctx.chart = new Chart(ctx, {
     type: "line",
     data: {
       labels,
