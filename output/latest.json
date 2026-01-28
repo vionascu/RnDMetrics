@@ -1,0 +1,321 @@
+{
+  "project": {
+    "name": "TrailWaze",
+    "web_url": "https://gitlab.com/vic.ionascu/trailwaze"
+  },
+  "snapshot_date": "2026-01-28",
+  "loc_total": 24543,
+  "test_files": 1,
+  "file_types": [
+    {
+      "extension": "js",
+      "files": 14
+    },
+    {
+      "extension": "json",
+      "files": 4
+    },
+    {
+      "extension": "md",
+      "files": 4
+    },
+    {
+      "extension": "css",
+      "files": 2
+    },
+    {
+      "extension": "ds_store",
+      "files": 2
+    },
+    {
+      "extension": "html",
+      "files": 2
+    },
+    {
+      "extension": "gitignore",
+      "files": 1
+    },
+    {
+      "extension": "info",
+      "files": 1
+    },
+    {
+      "extension": "xml",
+      "files": 1
+    },
+    {
+      "extension": "yml",
+      "files": 1
+    }
+  ],
+  "epics": [
+    {
+      "key": "Epic-Auth",
+      "commits": 2
+    },
+    {
+      "key": "Epic-UI",
+      "commits": 2
+    }
+  ],
+  "epic_commits": {
+    "Epic-Auth": 2,
+    "Epic-UI": 2
+  },
+  "source_files": [
+    {
+      "path": "apps/mobile/package-lock.json",
+      "loc": 21011,
+      "extension": "json"
+    },
+    {
+      "path": "apps/mobile/__tests__/mvp-epics.test.js",
+      "loc": 688,
+      "extension": "js"
+    },
+    {
+      "path": "dashboard.html",
+      "loc": 684,
+      "extension": "html"
+    },
+    {
+      "path": "TEST_COVERAGE_REPORT.md",
+      "loc": 479,
+      "extension": "md"
+    },
+    {
+      "path": "apps/mobile/App.js",
+      "loc": 464,
+      "extension": "js"
+    },
+    {
+      "path": "apps/mobile/coverage/lcov-report/base.css",
+      "loc": 224,
+      "extension": "css"
+    },
+    {
+      "path": "apps/mobile/coverage/lcov-report/sorter.js",
+      "loc": 210,
+      "extension": "js"
+    },
+    {
+      "path": "apps/mobile/WebMap.web.js",
+      "loc": 132,
+      "extension": "js"
+    },
+    {
+      "path": "apps/mobile/coverage/lcov-report/index.html",
+      "loc": 101,
+      "extension": "html"
+    },
+    {
+      "path": "docs/mvp-epics.md",
+      "loc": 98,
+      "extension": "md"
+    },
+    {
+      "path": "apps/mobile/coverage/lcov-report/block-navigation.js",
+      "loc": 87,
+      "extension": "js"
+    },
+    {
+      "path": "apps/mobile/README.md",
+      "loc": 64,
+      "extension": "md"
+    },
+    {
+      "path": "apps/mobile/package.json",
+      "loc": 64,
+      "extension": "json"
+    },
+    {
+      "path": "README.md",
+      "loc": 53,
+      "extension": "md"
+    },
+    {
+      "path": "apps/mobile/.gitignore",
+      "loc": 41,
+      "extension": "gitignore"
+    },
+    {
+      "path": "apps/mobile/app.json",
+      "loc": 40,
+      "extension": "json"
+    },
+    {
+      "path": ".gitlab-ci.yml",
+      "loc": 31,
+      "extension": "yml"
+    },
+    {
+      "path": "apps/mobile/e2e/init.js",
+      "loc": 19,
+      "extension": "js"
+    },
+    {
+      "path": "apps/mobile/e2e/app.e2e.js",
+      "loc": 11,
+      "extension": "js"
+    },
+    {
+      "path": "apps/mobile/index.js",
+      "loc": 8,
+      "extension": "js"
+    }
+  ],
+  "coverage": null,
+  "daily_commits": {
+    "2026-01-20": 8,
+    "2026-01-21": 2,
+    "2026-01-23": 1
+  },
+  "repo_metrics": {
+    "lines_of_code": 24543,
+    "test_files": 1,
+    "file_types": [
+      {
+        "extension": "js",
+        "files": 14
+      },
+      {
+        "extension": "json",
+        "files": 4
+      },
+      {
+        "extension": "md",
+        "files": 4
+      },
+      {
+        "extension": "css",
+        "files": 2
+      },
+      {
+        "extension": "ds_store",
+        "files": 2
+      },
+      {
+        "extension": "html",
+        "files": 2
+      },
+      {
+        "extension": "gitignore",
+        "files": 1
+      },
+      {
+        "extension": "info",
+        "files": 1
+      },
+      {
+        "extension": "xml",
+        "files": 1
+      },
+      {
+        "extension": "yml",
+        "files": 1
+      }
+    ],
+    "source_files": [
+      {
+        "path": "apps/mobile/package-lock.json",
+        "loc": 21011,
+        "extension": "json"
+      },
+      {
+        "path": "apps/mobile/__tests__/mvp-epics.test.js",
+        "loc": 688,
+        "extension": "js"
+      },
+      {
+        "path": "dashboard.html",
+        "loc": 684,
+        "extension": "html"
+      },
+      {
+        "path": "TEST_COVERAGE_REPORT.md",
+        "loc": 479,
+        "extension": "md"
+      },
+      {
+        "path": "apps/mobile/App.js",
+        "loc": 464,
+        "extension": "js"
+      },
+      {
+        "path": "apps/mobile/coverage/lcov-report/base.css",
+        "loc": 224,
+        "extension": "css"
+      },
+      {
+        "path": "apps/mobile/coverage/lcov-report/sorter.js",
+        "loc": 210,
+        "extension": "js"
+      },
+      {
+        "path": "apps/mobile/WebMap.web.js",
+        "loc": 132,
+        "extension": "js"
+      },
+      {
+        "path": "apps/mobile/coverage/lcov-report/index.html",
+        "loc": 101,
+        "extension": "html"
+      },
+      {
+        "path": "docs/mvp-epics.md",
+        "loc": 98,
+        "extension": "md"
+      },
+      {
+        "path": "apps/mobile/coverage/lcov-report/block-navigation.js",
+        "loc": 87,
+        "extension": "js"
+      },
+      {
+        "path": "apps/mobile/README.md",
+        "loc": 64,
+        "extension": "md"
+      },
+      {
+        "path": "apps/mobile/package.json",
+        "loc": 64,
+        "extension": "json"
+      },
+      {
+        "path": "README.md",
+        "loc": 53,
+        "extension": "md"
+      },
+      {
+        "path": "apps/mobile/.gitignore",
+        "loc": 41,
+        "extension": "gitignore"
+      },
+      {
+        "path": "apps/mobile/app.json",
+        "loc": 40,
+        "extension": "json"
+      },
+      {
+        "path": ".gitlab-ci.yml",
+        "loc": 31,
+        "extension": "yml"
+      },
+      {
+        "path": "apps/mobile/e2e/init.js",
+        "loc": 19,
+        "extension": "js"
+      },
+      {
+        "path": "apps/mobile/e2e/app.e2e.js",
+        "loc": 11,
+        "extension": "js"
+      },
+      {
+        "path": "apps/mobile/index.js",
+        "loc": 8,
+        "extension": "js"
+      }
+    ]
+  }
+}
