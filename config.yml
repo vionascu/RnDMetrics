@@ -3,7 +3,7 @@ project:
   project_id: "77854212"
   token_env: "GITLAB_TOKEN"
   default_branch: "main"
-  repo_url: ""
+  repo_url: "https://gitlab.com/vic.ionascu/trailwaze.git"
 
 collection:
   since_days: 365
@@ -29,7 +29,7 @@ export:
   public_dir: "./public"
 
 ui:
-  title: "GitLab Metrics Dashboard"
+  title: "RnDMetrics Dashboard"
   theme: "dark"
 
 storage:
