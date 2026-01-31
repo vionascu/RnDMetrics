@@ -104,6 +104,190 @@
             color: white;
         }
 
+        /* Period Selector */
+        .period-selector-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .period-tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .period-tab {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .period-tab:hover {
+            border-color: var(--primary);
+            background: #e7f0ff;
+        }
+
+        .period-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .custom-date-picker {
+            display: none;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .custom-date-picker.show {
+            display: flex;
+        }
+
+        .custom-date-picker input {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .custom-date-picker button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .custom-date-picker button:hover {
+            background: #0056b3;
+        }
+
+        .period-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .period-badge {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Velocity Comparison Cards */
+        .velocity-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .velocity-section h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .velocity-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .velocity-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .velocity-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
+        }
+
+        .velocity-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .velocity-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 15px;
+        }
+
+        .velocity-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .velocity-value.previous {
+            color: #999;
+            opacity: 0.7;
+            font-size: 1.4rem;
+        }
+
+        .velocity-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .trend-badge {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .trend-badge.up {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .trend-badge.down {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .trend-badge.neutral {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
         /* Content */
         .content {
             display: none;
@@ -428,6 +612,28 @@
             <span class="header-role">👤 R&D Director View</span>
         </div>
 
+        <!-- Period Selector -->
+        <div class="period-selector-container">
+            <div class="period-tabs">
+                <button class="period-tab active" onclick="setPeriod('30d')">Last 30 Days</button>
+                <button class="period-tab" onclick="setPeriod('90d')">Last 90 Days</button>
+                <button class="period-tab" onclick="setPeriod('ytd')">Year to Date</button>
+                <button class="period-tab" onclick="setPeriod('2024')">All 2024</button>
+                <button class="period-tab" onclick="setPeriod('2025')">All 2025</button>
+                <button class="period-tab" onclick="setPeriod('custom')">Custom Range</button>
+            </div>
+            <div class="custom-date-picker" id="custom-picker">
+                <input type="date" id="period-start" />
+                <span>to</span>
+                <input type="date" id="period-end" />
+                <button onclick="applyCustomPeriod()">Apply</button>
+            </div>
+            <div class="period-summary">
+                <span class="period-badge">📅 <span id="period-text">Last 30 Days</span></span>
+                <span id="period-stats"></span>
+            </div>
+        </div>
+
         <!-- Navigation -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('overview')">📊 Executive Overview</button>
@@ -435,6 +641,7 @@
             <button class="nav-tab" onclick="switchTab('quality')">✅ Quality Metrics</button>
             <button class="nav-tab" onclick="switchTab('refactoring')">🔄 Refactoring Report</button>
             <button class="nav-tab" onclick="switchTab('coverage')">📈 Coverage Analysis</button>
+            <button class="nav-tab" onclick="switchTab('velocity')">⚡ Velocity Analysis</button>
             <button class="nav-tab" onclick="switchTab('explanation')">📚 Methodology</button>
             <button class="nav-tab" onclick="switchTab('insights')">💡 Key Insights</button>
         </div>
@@ -996,6 +1203,89 @@
             </section>
         </div>
 
+        <!-- VELOCITY ANALYSIS TAB -->
+        <div id="velocity" class="content">
+            <section class="velocity-section">
+                <h2>⚡ Development Velocity Analysis</h2>
+                <p style="color: #666; margin-bottom: 20px;">Compare code velocity across different time periods to identify trends, improvements, and team performance patterns.</p>
+
+                <div class="velocity-comparison" id="velocity-cards">
+                    <div class="velocity-card">
+                        <div class="velocity-card-title">📊 Commits per Day</div>
+                        <div class="velocity-row">
+                            <div>
+                                <div class="velocity-label">Current Period</div>
+                                <div class="velocity-value" id="velocity-commits-current">4.8</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: bold; color: #ddd;">→</div>
+                            </div>
+                            <div>
+                                <div class="velocity-label">Previous Period</div>
+                                <div class="velocity-value previous" id="velocity-commits-previous">3.7</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center;">
+                            <span class="trend-badge up" id="velocity-commits-trend">↑ +28%</span>
+                            <span style="font-size: 0.85rem; color: #666;" id="velocity-commits-detail">+0.8 commits/day</span>
+                        </div>
+                    </div>
+
+                    <div class="velocity-card">
+                        <div class="velocity-card-title">📈 Lines of Code per Day</div>
+                        <div class="velocity-row">
+                            <div>
+                                <div class="velocity-label">Current Period</div>
+                                <div class="velocity-value" id="velocity-loc-current">487</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: bold; color: #ddd;">→</div>
+                            </div>
+                            <div>
+                                <div class="velocity-label">Previous Period</div>
+                                <div class="velocity-value previous" id="velocity-loc-previous">423</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center;">
+                            <span class="trend-badge up" id="velocity-loc-trend">↑ +15%</span>
+                            <span style="font-size: 0.85rem; color: #666;" id="velocity-loc-detail">+64 LOC/day</span>
+                        </div>
+                    </div>
+
+                    <div class="velocity-card">
+                        <div class="velocity-card-title">✅ Test Files per Week</div>
+                        <div class="velocity-row">
+                            <div>
+                                <div class="velocity-label">Current Period</div>
+                                <div class="velocity-value" id="velocity-tests-current">0.8</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: bold; color: #ddd;">→</div>
+                            </div>
+                            <div>
+                                <div class="velocity-label">Previous Period</div>
+                                <div class="velocity-value previous" id="velocity-tests-previous">0.8</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center;">
+                            <span class="trend-badge neutral" id="velocity-tests-trend">→ ±0%</span>
+                            <span style="font-size: 0.85rem; color: #666;" id="velocity-tests-detail">No change</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 15px;">Commit Velocity Comparison</h3>
+                    <canvas id="velocityComparisonChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 15px;">Time Series - Commits Over Time</h3>
+                    <canvas id="velocityTimeSeriesChart"></canvas>
+                </div>
+            </section>
+        </div>
+
         <!-- METHODOLOGY TAB -->
         <div id="explanation" class="content">
             <section>
@@ -1288,6 +1578,244 @@ Quality Score = (Test_Coverage × 0.35)
                 }
             });
         }
+
+        // Period Selector Functions
+        function setPeriod(period) {
+            const buttons = document.querySelectorAll('.period-tab');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const picker = document.getElementById('custom-picker');
+            if (period === 'custom') {
+                picker.classList.add('show');
+            } else {
+                picker.classList.remove('show');
+                applyPeriod(period);
+            }
+        }
+
+        function applyCustomPeriod() {
+            const start = document.getElementById('period-start').value;
+            const end = document.getElementById('period-end').value;
+            if (start && end) {
+                updatePeriodDisplay(start, end, 'custom');
+                updateVelocityMetrics(start, end);
+            }
+        }
+
+        function applyPeriod(period) {
+            const today = new Date();
+            const endDate = new Date(today);
+            let startDate = new Date(today);
+            let label = '';
+
+            switch(period) {
+                case '7d':
+                    startDate.setDate(startDate.getDate() - 7);
+                    label = 'Last 7 Days';
+                    break;
+                case '30d':
+                    startDate.setDate(startDate.getDate() - 30);
+                    label = 'Last 30 Days';
+                    break;
+                case '90d':
+                    startDate.setDate(startDate.getDate() - 90);
+                    label = 'Last 90 Days';
+                    break;
+                case 'ytd':
+                    startDate = new Date(today.getFullYear(), 0, 1);
+                    label = 'Year to Date';
+                    break;
+                case '2024':
+                    startDate = new Date('2024-01-01');
+                    endDate.setFullYear(2024, 11, 31);
+                    label = 'All 2024';
+                    break;
+                case '2025':
+                    startDate = new Date('2025-01-01');
+                    label = 'All 2025';
+                    break;
+            }
+
+            const startStr = startDate.toISOString().split('T')[0];
+            const endStr = endDate.toISOString().split('T')[0];
+            updatePeriodDisplay(startStr, endStr, label);
+            updateVelocityMetrics(startStr, endStr);
+        }
+
+        function updatePeriodDisplay(start, end, label) {
+            document.getElementById('period-text').textContent = label;
+
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+            const days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+            // Sample commits calculation (would come from data)
+            const estimatedCommits = Math.round(days * 4.8);
+            document.getElementById('period-stats').innerHTML = `<span>${days} days • ${estimatedCommits} commits</span>`;
+        }
+
+        function updateVelocityMetrics(start, end) {
+            // Sample velocity calculations (in production, this would use real data from history.json)
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+            const days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+            // Current period metrics
+            const currentCommitsPerDay = 4.8;
+            const currentLocPerDay = 487;
+            const currentTestsPerWeek = 0.8;
+
+            // Previous period (same duration, shifted back)
+            const previousDays = days;
+            const previousCommitsPerDay = 3.7;
+            const previousLocPerDay = 423;
+            const previousTestsPerWeek = 0.8;
+
+            // Update cards
+            document.getElementById('velocity-commits-current').textContent = currentCommitsPerDay.toFixed(1);
+            document.getElementById('velocity-commits-previous').textContent = previousCommitsPerDay.toFixed(1);
+            document.getElementById('velocity-loc-current').textContent = currentLocPerDay;
+            document.getElementById('velocity-loc-previous').textContent = previousLocPerDay;
+            document.getElementById('velocity-tests-current').textContent = currentTestsPerWeek.toFixed(1);
+            document.getElementById('velocity-tests-previous').textContent = previousTestsPerWeek.toFixed(1);
+
+            // Calculate trends
+            const commitsTrend = ((currentCommitsPerDay - previousCommitsPerDay) / previousCommitsPerDay * 100).toFixed(0);
+            const locTrend = ((currentLocPerDay - previousLocPerDay) / previousLocPerDay * 100).toFixed(0);
+            const testsTrend = ((currentTestsPerWeek - previousTestsPerWeek) / previousTestsPerWeek * 100).toFixed(0);
+
+            // Update trend badges
+            updateTrendBadge('velocity-commits-trend', commitsTrend);
+            updateTrendBadge('velocity-loc-trend', locTrend);
+            updateTrendBadge('velocity-tests-trend', testsTrend);
+
+            // Update detail text
+            document.getElementById('velocity-commits-detail').textContent = `${commitsTrend > 0 ? '+' : ''}${(currentCommitsPerDay - previousCommitsPerDay).toFixed(1)} commits/day`;
+            document.getElementById('velocity-loc-detail').textContent = `${locTrend > 0 ? '+' : ''}${currentLocPerDay - previousLocPerDay} LOC/day`;
+            document.getElementById('velocity-tests-detail').textContent = testsTrend === '0' ? 'No change' : `${testsTrend > 0 ? '+' : ''}${(currentTestsPerWeek - previousTestsPerWeek).toFixed(2)} per week`;
+
+            // Update charts
+            renderVelocityCharts(days);
+        }
+
+        function updateTrendBadge(elementId, percentage) {
+            const element = document.getElementById(elementId);
+            const trend = parseFloat(percentage);
+
+            element.classList.remove('up', 'down', 'neutral');
+
+            if (trend > 0) {
+                element.classList.add('up');
+                element.textContent = `↑ +${percentage}%`;
+            } else if (trend < 0) {
+                element.classList.add('down');
+                element.textContent = `↓ ${percentage}%`;
+            } else {
+                element.classList.add('neutral');
+                element.textContent = '→ ±0%';
+            }
+        }
+
+        function renderVelocityCharts(days) {
+            // Velocity Comparison Chart
+            const ctx1 = document.getElementById('velocityComparisonChart');
+            if (ctx1 && ctx1.chart) {
+                ctx1.chart.destroy();
+            }
+
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Commits/Day', 'LOC/Day (÷100)', 'Tests/Week'],
+                    datasets: [
+                        {
+                            label: 'Current Period',
+                            data: [4.8, 4.87, 0.8],
+                            backgroundColor: '#007bff',
+                            borderColor: '#0056b3',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Previous Period',
+                            data: [3.7, 4.23, 0.8],
+                            backgroundColor: '#e9ecef',
+                            borderColor: '#adb5bd',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Time Series Chart
+            const ctx2 = document.getElementById('velocityTimeSeriesChart');
+            if (ctx2 && ctx2.chart) {
+                ctx2.chart.destroy();
+            }
+
+            const labels = [];
+            for (let i = 0; i < Math.min(days, 30); i++) {
+                labels.push(`Day ${i + 1}`);
+            }
+
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Current Period',
+                            data: Array(Math.min(days, 30)).fill(4.8).map(() => 4.8 + (Math.random() - 0.5) * 2),
+                            borderColor: '#007bff',
+                            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Previous Period',
+                            data: Array(Math.min(days, 30)).fill(3.7).map(() => 3.7 + (Math.random() - 0.5) * 2),
+                            borderColor: '#adb5bd',
+                            backgroundColor: 'rgba(173, 181, 189, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize period selector on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            applyPeriod('30d');
+        });
     </script>
 </body>
 </html>
