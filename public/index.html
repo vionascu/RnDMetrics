@@ -662,7 +662,7 @@
 
         function renderEpicBreakdown(project) {
             // Load and render epic coverage details
-            fetch('./epic-coverage.json')
+            fetch('./epic_coverage.json')
                 .then(r => r.json())
                 .catch(() => null)
                 .then(data => {
@@ -1011,22 +1011,22 @@
             document.getElementById('executive-view').style.display = 'none';
 
             // Update tab buttons
-            document.querySelectorAll('.view-tab').forEach(tab => {
-                tab.style.background = 'transparent';
-                tab.style.color = '#a0a0a0';
-                tab.style.borderBottom = '2px solid transparent';
+            document.querySelectorAll('.view-tab').forEach((tab, idx) => {
+                if ((view === 'technical' && idx === 0) || (view === 'executive' && idx === 1)) {
+                    tab.style.background = 'rgba(0, 217, 255, 0.1)';
+                    tab.style.color = '#00d9ff';
+                    tab.style.borderBottom = '2px solid #00d9ff';
+                } else {
+                    tab.style.background = 'transparent';
+                    tab.style.color = '#a0a0a0';
+                    tab.style.borderBottom = '2px solid transparent';
+                }
             });
 
             if (view === 'technical') {
                 document.getElementById('technical-view').style.display = 'block';
-                event.target.style.background = 'rgba(0, 217, 255, 0.1)';
-                event.target.style.color = '#00d9ff';
-                event.target.style.borderBottom = '2px solid #00d9ff';
             } else if (view === 'executive') {
                 document.getElementById('executive-view').style.display = 'block';
-                event.target.style.background = 'rgba(0, 217, 255, 0.1)';
-                event.target.style.color = '#00d9ff';
-                event.target.style.borderBottom = '2px solid #00d9ff';
                 renderExecutiveView();
             }
         }
@@ -1122,6 +1122,24 @@
                 } else if (metricId.includes('mttr')) {
                     doraMetrics.mttr = metric;
                 }
+            }
+
+            // Check if DORA metrics exist
+            if (Object.keys(doraMetrics).length === 0) {
+                const html = `
+                    <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 30px; text-align: center;">
+                        <h2 style="color: #ffaa00; margin-bottom: 20px;">⚙️ DORA Metrics Not Available</h2>
+                        <p style="color: #a0a0a0; margin-bottom: 15px;">To enable DORA metrics (Deployment Frequency, Lead Time, Change Failure Rate, MTTR):</p>
+                        <ol style="color: #a0a0a0; text-align: left; display: inline-block; margin-bottom: 20px;">
+                            <li>Set your GitHub token: <code style="background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 3px;">export GITHUB_TOKEN=ghp_xxx</code></li>
+                            <li>Run metrics collection: <code style="background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 3px;">./run_metrics.sh</code></li>
+                            <li>Rebuild dashboard: <code style="background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 3px;">./build_dashboard.sh</code></li>
+                        </ol>
+                        <p style="color: #888; font-size: 0.9em; margin-top: 20px;">📖 View <strong>Technical View</strong> to see available metrics</p>
+                    </div>
+                `;
+                document.getElementById('executive-content').innerHTML = html;
+                return;
             }
 
             // Build clean summary with BIG numbers
