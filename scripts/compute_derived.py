@@ -95,23 +95,42 @@ class DerivedMetricsCompute:
             if "commits.count" in metric_id or "commits_count" in metric_id:
                 repo = self._extract_project_name(metric_id)
                 commits = raw_value.get("count", 0)
-                date_range = raw_value.get("range", {})
+                commits_by_week = raw_value.get("commits_by_week", {})
 
-                # Compute commits per day
-                if "from" in date_range and "to" in date_range:
-                    from_dt = datetime.fromisoformat(date_range["from"])
-                    to_dt = datetime.fromisoformat(date_range["to"])
-                    days = (to_dt - from_dt).days + 1
+                # If we have weekly breakdown, use it; otherwise fall back to total
+                if commits_by_week:
+                    # Store weekly breakdown as the primary metric
+                    self.derived_data[f"{repo}_activity_commits_weekly"] = {
+                        "value": commits_by_week,
+                        "unit": "commits by week",
+                        "source_metrics": [metric_id],
+                        "calculation": f"Grouped {commits} commits by ISO week number",
+                        "total": commits
+                    }
 
-                    if days > 0:
-                        commits_per_day = commits / days
+                    # Also store total for reference
+                    self.derived_data[f"{repo}_activity_commits_total"] = {
+                        "value": commits,
+                        "unit": "commits",
+                        "source_metrics": [metric_id],
+                        "calculation": f"Total commits in period",
+                        "weekly_breakdown": commits_by_week
+                    }
+                else:
+                    # Fallback if no weekly data available (old data)
+                    date_range = raw_value.get("range", {})
+                    if "from" in date_range and "to" in date_range:
+                        from_dt = datetime.fromisoformat(date_range["from"])
+                        to_dt = datetime.fromisoformat(date_range["to"])
+                        days = (to_dt - from_dt).days + 1
 
-                        self.derived_data[f"{repo}_activity_commits_per_day"] = {
-                            "value": round(commits_per_day, 2),
-                            "unit": "commits/day",
-                            "source_metrics": [metric_id],
-                            "calculation": f"{commits} commits / {days} days"
-                        }
+                        if days > 0:
+                            self.derived_data[f"{repo}_activity_commits_total"] = {
+                                "value": commits,
+                                "unit": "commits",
+                                "source_metrics": [metric_id],
+                                "calculation": f"Total commits over {days} days"
+                            }
 
     def _compute_quality_metrics(self):
         """Compute quality-level derived metrics."""

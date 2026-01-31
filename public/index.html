@@ -432,15 +432,27 @@
                 html += '<div class="metrics-grid">';
 
                 metrics.forEach(metric => {
-                    const value = typeof metric.value === 'number' ? metric.value.toFixed(2) : metric.value;
                     const sources = metric.source_metrics ? metric.source_metrics.join(', ') : 'N/A';
+                    let valueHtml = '';
+
+                    // Handle weekly breakdown specially
+                    if (metric.id.includes('commits_weekly') && typeof metric.value === 'object') {
+                        const weeks = Object.entries(metric.value).sort();
+                        valueHtml = '<div style="font-size: 0.9em;">';
+                        weeks.forEach(([week, count]) => {
+                            valueHtml += `<div style="padding: 4px 0; display: flex; justify-content: space-between;"><span>${week}:</span> <strong style="color: #00d9ff;">${count}</strong></div>`;
+                        });
+                        valueHtml += '</div>';
+                    } else {
+                        const value = typeof metric.value === 'number' ? metric.value.toFixed(2) : (typeof metric.value === 'object' ? JSON.stringify(metric.value) : metric.value);
+                        valueHtml = `<span class="metric-value">${value}</span><span class="metric-unit">${metric.unit || ''}</span>`;
+                    }
 
                     html += `
                         <div class="metric-card">
                             <div class="metric-name">${metric.id.split('_').slice(1).join('_').replace(/_/g, ' ').toUpperCase()}</div>
                             <div>
-                                <span class="metric-value">${value}</span>
-                                <span class="metric-unit">${metric.unit || ''}</span>
+                                ${valueHtml}
                             </div>
                             ${metric.calculation ? `<div class="metric-calc"><strong>Calculated:</strong><br>${metric.calculation}</div>` : ''}
                             <div class="evidence-trail">

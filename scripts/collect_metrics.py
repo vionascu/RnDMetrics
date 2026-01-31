@@ -269,7 +269,7 @@ class MetricsCollector:
             print(f"    ❌ {metric_id}: {e}")
 
     def _count_commits(self, repo_path: Path) -> Tuple[Dict, List[str]]:
-        """Count commits in date range."""
+        """Count commits in date range and group by week."""
         cmd = [
             "git", "log",
             f"--since={self.date_from}",
@@ -282,15 +282,49 @@ class MetricsCollector:
         if result.returncode != 0:
             raise RuntimeError(f"git log failed: {result.stderr}")
 
-        commits = [line for line in result.stdout.strip().split('\n') if line]
-        count = len(commits) // 3  # Hash, date, author per commit
+        lines = [line for line in result.stdout.strip().split('\n') if line]
+
+        # Parse commits: every 3 lines = hash, date, author
+        commits_by_week = {}
+        commit_list = []
+
+        for i in range(0, len(lines), 3):
+            if i + 2 < len(lines):
+                commit_hash = lines[i]
+                commit_date_str = lines[i + 1]
+                commit_author = lines[i + 2]
+
+                # Parse date and extract week number
+                try:
+                    commit_date = datetime.fromisoformat(commit_date_str)
+                    # Get ISO calendar (year, week, weekday)
+                    iso_year, iso_week, _ = commit_date.isocalendar()
+                    week_key = f"{iso_year}-W{iso_week:02d}"
+
+                    if week_key not in commits_by_week:
+                        commits_by_week[week_key] = 0
+                    commits_by_week[week_key] += 1
+
+                    commit_list.append({
+                        "hash": commit_hash,
+                        "date": commit_date_str,
+                        "author": commit_author,
+                        "week": week_key
+                    })
+                except ValueError:
+                    # Skip malformed dates
+                    pass
+
+        total_count = len(commit_list)
 
         return {
-            "count": count,
+            "count": total_count,
             "range": {
                 "from": self.date_from,
                 "to": self.date_to
             },
+            "commits_by_week": commits_by_week,
+            "commits_list": commit_list,
             "command": " ".join(cmd)
         }, [" ".join(cmd)]
 
