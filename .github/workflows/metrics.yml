@@ -12,7 +12,9 @@ on:
     branches:
       - main
     paths:
-      - 'docs/dashboard*.html'
+      - 'scripts/**'
+      - 'tools/**'
+      - 'config/**'
       - '.github/workflows/metrics.yml'
 
 permissions:
@@ -46,43 +48,49 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt || echo "No requirements.txt found"
+          pip install pyyaml
 
-      - name: Run metrics collection
+      - name: Run metrics collection pipeline
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Run metrics collection script if it exists
-          if [ -f "./scripts/metrics" ]; then
-            chmod +x ./scripts/metrics
-            ./scripts/metrics run --config config.yml || true
-          else
-            echo "Metrics collection script not found. Creating sample output..."
-            mkdir -p output
-            echo '{"timestamp": "2026-01-31T00:00:00", "status": "collected"}' > output/latest.json
-          fi
+          chmod +x run_metrics.sh
+          chmod +x scripts/collect_metrics.py
+          chmod +x scripts/compute_derived.py
+          chmod +x tools/quality_gate.py
 
-      - name: Verify metrics output
+          echo "🔍 Running evidence-backed metrics collection..."
+          ./run_metrics.sh --range last_30_days
+
+      - name: Build dashboard
+        run: |
+          chmod +x build_dashboard.sh
+          echo "📊 Building dashboard from metrics..."
+          ./build_dashboard.sh --artifacts artifacts --output public
+
+      - name: Verify collection output
         id: check-update
         run: |
-          if [ -f "./output/latest.json" ]; then
+          if [ -f "artifacts/manifest.json" ]; then
             echo "updated=true" >> $GITHUB_OUTPUT
-            echo "✅ Metrics file created successfully"
+            echo "✅ Metrics collection completed successfully"
+            echo ""
+            echo "📊 Metrics collected:"
+            python3 -c "import json; m = json.load(open('artifacts/manifest.json')); print(f'  Time range: {m.get(\"time_range\")}'); print(f'  Metrics: {len(m.get(\"metrics_collected\", []))} collected'); print(f'  Quality gates: {m.get(\"quality_gates\", {}).get(\"evidence_completeness\")}')"
           else
-            mkdir -p output
-            echo "⚠️ Creating default metrics output..."
-            echo '{"status": "collected", "timestamp": "'$(date -Iseconds)'"}' > output/latest.json
-            echo "updated=true" >> $GITHUB_OUTPUT
+            echo "❌ Metrics collection failed"
+            exit 1
           fi
 
-      - name: Upload metrics artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: metrics-data
-          path: output/
+          name: metrics-artifacts
+          path: artifacts/
+          retention-days: 30
 
   deploy-dashboard:
-    name: Build & Deploy Dashboard to GitHub Pages
+    name: Deploy Dashboard to GitHub Pages
     needs: collect-metrics
     runs-on: ubuntu-latest
 
@@ -94,33 +102,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download metrics artifact
+      - name: Download metrics artifacts
         uses: actions/download-artifact@v3
         with:
-          name: metrics-data
-          path: output/
+          name: metrics-artifacts
+          path: artifacts/
 
-      - name: Verify dashboard files
+      - name: Prepare web content
         run: |
-          echo "📊 Dashboard files:"
-          ls -lh docs/dashboard*.html || echo "Dashboard files not found"
-          echo ""
-          echo "📁 Output directory:"
-          ls -lh output/ || echo "Output directory empty"
+          echo "📁 Preparing web content..."
+          mkdir -p public
+
+          # Copy dashboard HTML
+          if [ -f "public/index.html" ]; then
+            echo "✅ Dashboard exists at public/index.html"
+          else
+            echo "⚠️ Creating minimal dashboard"
+            mkdir -p public
+          fi
+
+          # Copy metrics data and evidence
+          mkdir -p public/data
+          cp artifacts/manifest.json public/data/ 2>/dev/null || true
+          cp artifacts/raw/*.json public/data/ 2>/dev/null || true
+          cp artifacts/derived/*.json public/data/ 2>/dev/null || true
+
+          # Copy documentation
+          mkdir -p public/docs
+          cp Documents/METHODOLOGY.md public/docs/ 2>/dev/null || true
+          cp README_METRICS_SYSTEM.md public/ 2>/dev/null || true
+
+          echo "✅ Web content prepared"
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
-
-      - name: Create web content
-        run: |
-          mkdir -p public
-          cp docs/dashboard.html public/index.html
-          cp docs/dashboard-executive.html public/executive.html
-          mkdir -p public/data
-          cp output/*.json public/data/ 2>/dev/null || true
-          mkdir -p public/docs
-          cp docs/*.md public/docs/ 2>/dev/null || true
-          echo "✅ Dashboard content prepared successfully"
 
       - name: Upload artifact to Pages
         uses: actions/upload-pages-artifact@v2
@@ -140,10 +155,31 @@ jobs:
     steps:
       - name: Check job status
         run: |
-          if [ "${{ needs.collect-metrics.result }}" = "success" ] && [ "${{ needs.deploy-dashboard.result }}" = "success" ]; then
-            echo "✅ Metrics collection and dashboard deployment completed successfully"
-            echo "📊 Dashboard available at: https://vionascu.github.io/RnDMetrics/"
+          COLLECT_STATUS="${{ needs.collect-metrics.result }}"
+          DEPLOY_STATUS="${{ needs.deploy-dashboard.result }}"
+
+          echo "========================================="
+          echo "  Metrics Pipeline Complete"
+          echo "========================================="
+          echo ""
+          echo "Metrics Collection: $COLLECT_STATUS"
+          echo "Dashboard Deployment: $DEPLOY_STATUS"
+          echo ""
+
+          if [ "$COLLECT_STATUS" = "success" ] && [ "$DEPLOY_STATUS" = "success" ]; then
+            echo "✅ Evidence-Backed Metrics Pipeline PASSED"
+            echo ""
+            echo "📊 Dashboard available at:"
+            echo "   https://vionascu.github.io/RnDMetrics/"
+            echo ""
+            echo "📁 Metrics Data:"
+            echo "   - Evidence Trail: Check artifacts/manifest.json"
+            echo "   - Raw Metrics: artifacts/raw/"
+            echo "   - Derived Metrics: artifacts/derived/"
+            echo ""
           else
-            echo "⚠️ One or more jobs failed"
+            echo "❌ Pipeline FAILED"
+            [ "$COLLECT_STATUS" != "success" ] && echo "  - Metrics collection failed"
+            [ "$DEPLOY_STATUS" != "success" ] && echo "  - Dashboard deployment failed"
             exit 1
           fi
