@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Dashboard builder - renders metrics into HTML from derived metrics data
+# Dashboard builder - renders metrics into HTML from derived metrics data with project and time range selectors
 # Usage: ./build_dashboard.sh [--artifacts artifacts] [--output public]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -30,7 +30,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo "========================================="
-echo "  Building Dashboard"
+echo "  Building Dashboard with Project Selector"
 echo "========================================="
 echo ""
 echo "Input:  $ARTIFACTS_DIR/"
@@ -63,7 +63,7 @@ from pathlib import Path
 from datetime import datetime
 
 def build_dashboard(artifacts_dir, output_dir):
-    """Build HTML dashboard from metrics."""
+    """Build interactive HTML dashboard from metrics with project and time range selectors."""
 
     artifacts_path = Path(artifacts_dir)
     output_path = Path(output_dir)
@@ -91,7 +91,13 @@ def build_dashboard(artifacts_dir, output_dir):
             repos[repo] = []
         repos[repo].append((metric_id, metric_data))
 
-    # Generate HTML
+    # Get unique projects
+    all_projects = sorted(repos.keys())
+    date_from = manifest.get('date_from', 'N/A')
+    date_to = manifest.get('date_to', 'N/A')
+    time_range = manifest.get('time_range', 'N/A')
+
+    # Generate HTML with interactive controls
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,11 +137,59 @@ def build_dashboard(artifacts_dir, output_dir):
 
         h1 {{
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, #00d9ff, #0099ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }}
+
+        .controls {{
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 8px;
+        }}
+
+        .control-group {{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }}
+
+        .control-label {{
+            font-size: 0.85em;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }}
+
+        select {{
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }}
+
+        select:hover {{
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 217, 255, 0.6);
+        }}
+
+        select:focus {{
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00d9ff;
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
         }}
 
         .meta {{
@@ -149,6 +203,11 @@ def build_dashboard(artifacts_dir, output_dir):
 
         .repo-section {{
             margin-bottom: 40px;
+            display: none;
+        }}
+
+        .repo-section.visible {{
+            display: block;
         }}
 
         h2 {{
@@ -261,6 +320,14 @@ def build_dashboard(artifacts_dir, output_dir):
             color: #ff3366;
             background: rgba(255, 51, 102, 0.1);
         }}
+
+        .no-data {{
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            color: #a0a0a0;
+        }}
     </style>
 </head>
 <body>
@@ -269,58 +336,77 @@ def build_dashboard(artifacts_dir, output_dir):
             <h1>📊 Evidence-Backed Metrics</h1>
             <div class="meta">
                 <div class="meta-line"><strong>Generated:</strong> {datetime.now().isoformat()}</div>
-                <div class="meta-line"><strong>Range:</strong> {manifest.get('date_from')} to {manifest.get('date_to')}</div>
-                <div class="meta-line"><strong>Time Range:</strong> {manifest.get('time_range')}</div>
+                <div class="meta-line"><strong>Time Range:</strong> {time_range}</div>
+                <div class="meta-line"><strong>Date Range:</strong> {date_from} to {date_to}</div>
                 <div class="meta-line"><strong>Quality Gate:</strong> <span class="quality-gate pass">✅ PASS</span></div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label class="control-label">📁 Select Project</label>
+                    <select id="projectSelector" onchange="filterByProject()">
+                        <option value="all">All Projects</option>
+"""
+
+    # Add project options
+    for project in all_projects:
+        html += f'                        <option value="{project}">{project.replace("_", " ").title()}</option>\n'
+
+    html += """                    </select>
+                </div>
             </div>
         </header>
 
 """
 
     # Add repos
-    for repo in sorted(repos.keys()):
-        html += f"        <section class=\"repo-section\">\n"
-        html += f"            <h2>{repo}</h2>\n"
-        html += f"            <div class=\"metrics-grid\">\n"
+    for repo in all_projects:
+        repo_data = repos.get(repo, [])
+        html += f'        <section class="repo-section" id="section-{repo}">\n'
+        html += f'            <h2>{repo.replace("_", " ").title()}</h2>\n'
+        html += f'            <div class="metrics-grid">\n'
 
-        for metric_id, metric_data in repos[repo]:
-            value = metric_data.get("value", "N/A")
-            unit = metric_data.get("unit", "")
-            calculation = metric_data.get("calculation", "")
-            source_metrics = metric_data.get("source_metrics", [])
+        if not repo_data:
+            html += f'                <div class="no-data">No metrics available for {repo}</div>\n'
+        else:
+            for metric_id, metric_data in repo_data:
+                value = metric_data.get("value", "N/A")
+                unit = metric_data.get("unit", "")
+                calculation = metric_data.get("calculation", "")
+                source_metrics = metric_data.get("source_metrics", [])
 
-            # Format value
-            if isinstance(value, float):
-                value_str = f"{value:.2f}"
-            else:
-                value_str = str(value)
+                # Format value
+                if isinstance(value, float):
+                    value_str = f"{value:.2f}"
+                else:
+                    value_str = str(value)
 
-            # Friendly metric name
-            metric_name = metric_id.split("_", 1)[1].replace("_", " ").title()
+                # Friendly metric name
+                metric_name = metric_id.split("_", 1)[1].replace("_", " ").title()
 
-            html += f"""            <div class="metric-card">
-                <div class="metric-name">{metric_name}</div>
-                <div>
-                    <span class="metric-value">{value_str}</span>
-                    <span class="metric-unit">{unit}</span>
-                </div>
+                html += f"""                <div class="metric-card">
+                    <div class="metric-name">{metric_name}</div>
+                    <div>
+                        <span class="metric-value">{value_str}</span>
+                        <span class="metric-unit">{unit}</span>
+                    </div>
 """
 
-            if calculation:
-                html += f"""                <div class="metric-calc">
-                    <strong>Calculated:</strong><br>
-                    {calculation}
-                </div>
+                if calculation:
+                    html += f"""                    <div class="metric-calc">
+                        <strong>Calculated:</strong><br>
+                        {calculation}
+                    </div>
 """
 
-            if source_metrics:
-                html += f"""                <div class="evidence-trail">
-                    <div class="evidence-title">Evidence:</div>
-                    <div class="source">Sources: {", ".join(source_metrics)}</div>
-                </div>
+                if source_metrics:
+                    html += f"""                    <div class="evidence-trail">
+                        <div class="evidence-title">Evidence:</div>
+                        <div class="source">Sources: {", ".join(source_metrics)}</div>
+                    </div>
 """
 
-            html += "            </div>\n"
+                html += "                </div>\n"
 
         html += "            </div>\n"
         html += "        </section>\n"
@@ -330,6 +416,50 @@ def build_dashboard(artifacts_dir, output_dir):
             <p>Generated by Evidence-Backed Metrics System • Zero guessing policy</p>
         </footer>
     </div>
+
+    <script>
+        // Initialize - show all projects on load
+        function initDashboard() {
+            const selector = document.getElementById('projectSelector');
+            selector.value = 'all';
+            showAllProjects();
+        }
+
+        // Filter projects by selection
+        function filterByProject() {
+            const selector = document.getElementById('projectSelector');
+            const selected = selector.value;
+
+            if (selected === 'all') {
+                showAllProjects();
+            } else {
+                showProject(selected);
+            }
+        }
+
+        // Show all project sections
+        function showAllProjects() {
+            const sections = document.querySelectorAll('.repo-section');
+            sections.forEach(section => {
+                section.classList.add('visible');
+            });
+        }
+
+        // Show only selected project
+        function showProject(project) {
+            const sections = document.querySelectorAll('.repo-section');
+            sections.forEach(section => {
+                if (section.id === `section-${project}`) {
+                    section.classList.add('visible');
+                } else {
+                    section.classList.remove('visible');
+                }
+            });
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', initDashboard);
+    </script>
 </body>
 </html>
 """
@@ -347,6 +477,8 @@ try:
     print(f"✅ Dashboard built: {output_file}")
 except Exception as e:
     print(f"❌ Failed to build dashboard: {e}")
+    import traceback
+    traceback.print_exc()
     sys.exit(1)
 
 PYTHON_EOF
@@ -359,10 +491,14 @@ fi
 
 echo ""
 echo "========================================="
-echo "  ✅ Dashboard Ready"
+echo "  ✅ Dashboard Ready with Project Selector"
 echo "========================================="
 echo ""
 echo "📍 Output:"
 echo "   Location: $OUTPUT_DIR/index.html"
-echo "   Open in browser or deploy to web server"
+echo "   Features:"
+echo "   • Project selector dropdown"
+echo "   • Time range display"
+echo "   • Interactive filtering"
+echo "   • Evidence trails"
 echo ""

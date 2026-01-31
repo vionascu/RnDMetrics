@@ -2,26 +2,21 @@
 # All repos scanned locally. CI artifacts can be added via ci_artifacts_path.
 
 repos:
-  - name: TrailEquip
-    path: ../TrailEquip
+  - name: trail-equip
+    path: ../trail-equip
+    github_url: "https://github.com/vionascu/trail-equip"
     default_branch: main
     language: java
-    ci_artifacts_path: ../ci_artifacts/TrailEquip
+    ci_artifacts_path: ../ci_artifacts/trail-equip
     description: "Trail equipment recommendation system (microservices, Java/Spring)"
 
-  - name: TrailWaze
-    path: ../TrailWaze
+  - name: trailwaze
+    path: ../trailwaze
+    github_url: "https://github.com/vionascu/trailwaze"
     default_branch: main
     language: mixed
-    ci_artifacts_path: ../ci_artifacts/TrailWaze
+    ci_artifacts_path: ../ci_artifacts/trailwaze
     description: "Trail navigation mobile/web app (React Native/React)"
-
-  - name: RnDMetrics
-    path: .
-    default_branch: main
-    language: python
-    ci_artifacts_path: ../ci_artifacts/RnDMetrics
-    description: "R&D metrics collection and analytics system (Python)"
 
 # Time zone for all timestamps
 timezone: UTC
@@ -32,9 +27,8 @@ timezone: UTC
 # - javascript_jsdoc: % public functions with JSDoc
 docs_coverage_strategy:
   default: "code_comments"  # method: code_comments | api_spec | readme_sections
-  TrailEquip: "java_javadoc"
-  TrailWaze: "javascript_jsdoc"
-  RnDMetrics: "python_docstrings"
+  trail-equip: "java_javadoc"
+  trailwaze: "javascript_jsdoc"
 
 # AI-generated code tracking (default: N/A unless explicit signal)
 ai_tracking:
