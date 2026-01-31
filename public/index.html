@@ -469,12 +469,16 @@
                     }
                     // Handle epic metrics with badges
                     else if (metric.id.includes('_epic_')) {
-                        if (metric.id.includes('_epic_covered') || (metric.id.includes('_epic_total') && metric.unit === 'epics')) {
+                        if (metric.id.includes('_epic_total')) {
+                            // Epic total: just show the number without icon
+                            valueHtml = `<span class="metric-value">${metric.value}</span> <span class="metric-unit">${metric.unit || ''}</span>`;
+                        } else if (metric.id.includes('_epic_covered') || metric.id.includes('_epic_not_covered')) {
+                            // Epic covered/not covered: show with badge and icon
                             const isCovered = metric.id.includes('_covered') && !metric.id.includes('_not_covered');
                             const percent = metric.percentage !== undefined ? metric.percentage.toFixed(1) : 'N/A';
                             const badgeColor = isCovered ? '#00ff88' : '#ff3366';
                             const badgeIcon = isCovered ? '✅' : '❌';
-                            const label = isCovered ? 'Covered' : (metric.id.includes('_not_covered') ? 'Not Covered' : 'Total');
+                            const label = isCovered ? 'Covered' : 'Not Covered';
                             valueHtml = `
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <span style="background: ${badgeColor}22; color: ${badgeColor}; padding: 6px 12px; border-radius: 16px; border: 1px solid ${badgeColor}; font-weight: bold;">
@@ -482,7 +486,7 @@
                                     </span>
                                 </div>
                             `;
-                            if (metric.percentage !== undefined && !metric.id.includes('_total')) {
+                            if (metric.percentage !== undefined) {
                                 valueHtml += `<div style="margin-top: 4px; font-size: 0.85em; color: #a0a0a0;">${percent}%</div>`;
                             }
                         } else {

@@ -330,11 +330,13 @@ class MetricsCollector:
 
     def _collect_diff_stats(self, repo_path: Path) -> Tuple[Dict, List[str]]:
         """Collect LOC added/deleted stats."""
+        # Use git log with commit ranges to calculate diffs
         cmd = [
-            "git", "diff",
+            "git", "log",
             f"--since={self.date_from}",
             f"--until={self.date_to}",
-            "--shortstat"
+            "--shortstat",
+            "--format="
         ]
         result = subprocess.run(cmd, cwd=repo_path, capture_output=True, text=True)
 
@@ -347,20 +349,26 @@ class MetricsCollector:
                 "range": {"from": self.date_from, "to": self.date_to}
             }, [" ".join(cmd)]
 
-        # Parse shortstat output
+        # Parse shortstat output from git log
         output = result.stdout.strip()
         loc_added = loc_deleted = files_changed = 0
 
-        if "files changed" in output:
-            parts = output.split(",")
+        # git log --shortstat shows stats for each commit, need to aggregate
+        for line in output.split('\n'):
+            line = line.strip()
+            if not line or "files changed" not in line:
+                continue
+
+            # Parse each stat line (one per commit)
+            parts = line.split(",")
             for part in parts:
                 part = part.strip()
                 if "files changed" in part:
-                    files_changed = int(part.split()[0])
+                    files_changed += int(part.split()[0])
                 elif "insertions" in part:
-                    loc_added = int(part.split()[0])
+                    loc_added += int(part.split()[0])
                 elif "deletions" in part:
-                    loc_deleted = int(part.split()[0])
+                    loc_deleted += int(part.split()[0])
 
         return {
             "loc_added": loc_added,

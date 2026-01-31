@@ -1,29 +1,47 @@
 {
   "dimension": "velocity",
-  "computed_at": "2026-01-31T16:23:03.835350+00:00",
+  "computed_at": "2026-01-31T16:49:57.139796+00:00",
   "metrics": {
     "vionascu_trailwaze_velocity_loc_net": {
-      "value": 0,
+      "value": 27889,
       "unit": "lines",
       "source_metrics": [
         "vionascu_trailwaze_diffs.stats"
       ],
       "components": {
-        "added": 0,
-        "deleted": 0
+        "added": 28135,
+        "deleted": 246
       },
       "dimension": "velocity"
     },
+    "vionascu_trailwaze_velocity_churn_ratio": {
+      "value": 0.01,
+      "unit": "ratio",
+      "source_metrics": [
+        "vionascu_trailwaze_diffs.stats"
+      ],
+      "interpretation": "deletions per insertion (higher = more refactoring)",
+      "dimension": "velocity"
+    },
     "vionascu_trail-equip_velocity_loc_net": {
-      "value": 0,
+      "value": 26451,
       "unit": "lines",
       "source_metrics": [
         "vionascu_trail-equip_diffs.stats"
       ],
       "components": {
-        "added": 0,
-        "deleted": 0
+        "added": 36459,
+        "deleted": 10008
       },
+      "dimension": "velocity"
+    },
+    "vionascu_trail-equip_velocity_churn_ratio": {
+      "value": 0.27,
+      "unit": "ratio",
+      "source_metrics": [
+        "vionascu_trail-equip_diffs.stats"
+      ],
+      "interpretation": "deletions per insertion (higher = more refactoring)",
       "dimension": "velocity"
     }
   }
