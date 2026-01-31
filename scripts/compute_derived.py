@@ -404,6 +404,15 @@ def main():
     computer = DerivedMetricsCompute(raw_dir, derived_dir, manifest)
     success = computer.run()
 
+    if success:
+        # Also compute epic detail metrics
+        print()
+        print("[EPIC DETAIL METRICS] Computing epic-specific metrics...")
+        import subprocess
+        result = subprocess.run([sys.executable, "scripts/compute_epic_derived.py"], cwd=artifacts_dir.parent)
+        if result.returncode != 0:
+            print("⚠️  Epic detail metrics computation had issues")
+
     return 0 if success else 1
 
 

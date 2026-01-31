@@ -1,0 +1,422 @@
+{
+  "dimension": "epic_detail",
+  "computed_at": "2026-01-31T17:11:38.127928+00:00",
+  "metrics": {
+    "vionascu_trailwaze_epic_epic-1_test_count": {
+      "value": 4,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_number": "1",
+      "epic_title": "Mobile app foundation (React Native + Expo)",
+      "user_stories": 2,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Mobile app foundation (React Native + Expo)"
+    },
+    "vionascu_trailwaze_epic_epic-1_us_US1.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Mobile app foundation (React Native + Expo)",
+      "us_id": "US1.1",
+      "us_title": "US1.1 - Launch the app on a phone",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US1.1 - Launch the app on a phone"
+    },
+    "vionascu_trailwaze_epic_epic-1_us_US1.2_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Mobile app foundation (React Native + Expo)",
+      "us_id": "US1.2",
+      "us_title": "US1.2 - Minimal repo structure",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US1.2 - Minimal repo structure"
+    },
+    "vionascu_trailwaze_epic_epic-2_test_count": {
+      "value": 8,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_number": "2",
+      "epic_title": "Offline maps (MapLibre + MBTiles)",
+      "user_stories": 4,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Offline maps (MapLibre + MBTiles)"
+    },
+    "vionascu_trailwaze_epic_epic-2_us_US2.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "Offline maps (MapLibre + MBTiles)",
+      "us_id": "US2.1",
+      "us_title": "US2.1 - See an offline map",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US2.1 - See an offline map"
+    },
+    "vionascu_trailwaze_epic_epic-2_us_US2.2_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "Offline maps (MapLibre + MBTiles)",
+      "us_id": "US2.2",
+      "us_title": "US2.2 - Show position on the map",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US2.2 - Show position on the map"
+    },
+    "vionascu_trailwaze_epic_epic-2_us_US2.3_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "Offline maps (MapLibre + MBTiles)",
+      "us_id": "US2.3",
+      "us_title": "US2.3 - Display GPX tracks",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US2.3 - Display GPX tracks"
+    },
+    "vionascu_trailwaze_epic_epic-2_us_US2.4_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "Offline maps (MapLibre + MBTiles)",
+      "us_id": "US2.4",
+      "us_title": "US2.4 - Themed layers (bear, ice, obstacles)",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US2.4 - Themed layers (bear, ice, obstacles)"
+    },
+    "vionascu_trailwaze_epic_epic-3_test_count": {
+      "value": 6,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_number": "3",
+      "epic_title": "Local storage (reports, cache, sync)",
+      "user_stories": 3,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Local storage (reports, cache, sync)"
+    },
+    "vionascu_trailwaze_epic_epic-3_us_US3.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_title": "Local storage (reports, cache, sync)",
+      "us_id": "US3.1",
+      "us_title": "US3.1 - Save reports locally",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US3.1 - Save reports locally"
+    },
+    "vionascu_trailwaze_epic_epic-3_us_US3.2_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_title": "Local storage (reports, cache, sync)",
+      "us_id": "US3.2",
+      "us_title": "US3.2 - Cache tracks and reports",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US3.2 - Cache tracks and reports"
+    },
+    "vionascu_trailwaze_epic_epic-3_us_US3.3_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_title": "Local storage (reports, cache, sync)",
+      "us_id": "US3.3",
+      "us_title": "US3.3 - Sync queue",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US3.3 - Sync queue"
+    },
+    "vionascu_trailwaze_epic_epic-4_test_count": {
+      "value": 4,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-4",
+      "epic_number": "4",
+      "epic_title": "Fast backend for sync (Supabase/Firebase)",
+      "user_stories": 2,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Fast backend for sync (Supabase/Firebase)"
+    },
+    "vionascu_trailwaze_epic_epic-4_us_US4.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-4",
+      "epic_title": "Fast backend for sync (Supabase/Firebase)",
+      "us_id": "US4.1",
+      "us_title": "US4.1 - Automatic sync when signal returns",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US4.1 - Automatic sync when signal returns"
+    },
+    "vionascu_trailwaze_epic_epic-4_us_US4.2_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-4",
+      "epic_title": "Fast backend for sync (Supabase/Firebase)",
+      "us_id": "US4.2",
+      "us_title": "US4.2 - New reports from my area",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US4.2 - New reports from my area"
+    },
+    "vionascu_trailwaze_epic_epic-5_test_count": {
+      "value": 4,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-5",
+      "epic_number": "5",
+      "epic_title": "Weather, wind, alerts",
+      "user_stories": 2,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Weather, wind, alerts"
+    },
+    "vionascu_trailwaze_epic_epic-5_us_US5.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-5",
+      "epic_title": "Weather, wind, alerts",
+      "us_id": "US5.1",
+      "us_title": "US5.1 - Simple forecast for key points",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US5.1 - Simple forecast for key points"
+    },
+    "vionascu_trailwaze_epic_epic-5_us_US5.2_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-5",
+      "epic_title": "Weather, wind, alerts",
+      "us_id": "US5.2",
+      "us_title": "US5.2 - Essential route-level alerts",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US5.2 - Essential route-level alerts"
+    },
+    "vionascu_trailwaze_epic_epic-6_test_count": {
+      "value": 30,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_number": "6",
+      "epic_title": "Waze-style reporting without signal",
+      "user_stories": 4,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Waze-style reporting without signal"
+    },
+    "vionascu_trailwaze_epic_epic-6_us_US6.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "Waze-style reporting without signal",
+      "us_id": "US6.1",
+      "us_title": "US6.1 - Fast reporting button",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US6.1 - Fast reporting button"
+    },
+    "vionascu_trailwaze_epic_epic-6_us_US6.2_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "Waze-style reporting without signal",
+      "us_id": "US6.2",
+      "us_title": "US6.2 - Choose report type",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US6.2 - Choose report type"
+    },
+    "vionascu_trailwaze_epic_epic-6_us_US6.3_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "Waze-style reporting without signal",
+      "us_id": "US6.3",
+      "us_title": "US6.3 - Add photo and text",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US6.3 - Add photo and text"
+    },
+    "vionascu_trailwaze_epic_epic-6_us_US6.4_test_count": {
+      "value": 24,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "Waze-style reporting without signal",
+      "us_id": "US6.4",
+      "us_title": "US6.4 - Automatic expiration (TTL)",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for US6.4 - Automatic expiration (TTL)"
+    },
+    "vionascu_trailwaze_epic_summary": {
+      "value": {
+        "epics": 6,
+        "user_stories": 17,
+        "tests": 56
+      },
+      "dimension": "epic",
+      "unit": "summary",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Aggregated epic/US/test counts"
+    },
+    "vionascu_trail-equip_epic_epic-1_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_number": "1",
+      "epic_title": "Trail Discovery & Exploration",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Trail Discovery & Exploration"
+    },
+    "vionascu_trail-equip_epic_epic-2_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_number": "2",
+      "epic_title": "OpenStreetMap Integration",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in OpenStreetMap Integration"
+    },
+    "vionascu_trail-equip_epic_epic-3_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_number": "3",
+      "epic_title": "Weather Integration & Trail Planning",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Weather Integration & Trail Planning"
+    },
+    "vionascu_trail-equip_epic_epic-4_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-4",
+      "epic_number": "4",
+      "epic_title": "Community Hazard Reporting",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Community Hazard Reporting"
+    },
+    "vionascu_trail-equip_epic_epic-5_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-5",
+      "epic_number": "5",
+      "epic_title": "Trail Export & GPS Support",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Trail Export & GPS Support"
+    },
+    "vionascu_trail-equip_epic_epic-6_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_number": "6",
+      "epic_title": "API Gateway & Microservices",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in API Gateway & Microservices"
+    },
+    "vionascu_trail-equip_epic_epic-7_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-7",
+      "epic_number": "7",
+      "epic_title": "Production Deployment & Scaling",
+      "user_stories": 0,
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Total tests in Production Deployment & Scaling"
+    },
+    "vionascu_trail-equip_epic_summary": {
+      "value": {
+        "epics": 7,
+        "user_stories": 0,
+        "tests": 8
+      },
+      "dimension": "epic",
+      "unit": "summary",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Aggregated epic/US/test counts"
+    }
+  }
+}

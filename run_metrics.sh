@@ -85,6 +85,14 @@ fi
 
 echo ""
 
+# Step 1a-bis: Parse epic/US coverage from test files
+echo "📊 Parsing epic and user story coverage..."
+echo ""
+
+python3 scripts/parse_epic_coverage.py
+
+echo ""
+
 # Step 1b: Run collection
 echo "🔍 Running metrics collection..."
 echo ""

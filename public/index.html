@@ -336,6 +336,30 @@
             historyData = await histResp.json();
         }
 
+        function getMetricExplanation(metricId) {
+            const explanations = {
+                'churn_ratio': 'Lines deleted ÷ Lines added. Low (<0.5) = mostly new features. High (>1.0) = active refactoring. 0.25 means ~1 line deleted for every 4 added.',
+                'loc_net': 'Net lines of code change: added minus deleted. Shows overall codebase growth direction.',
+                'files_per_commit': 'Average files changed per commit. Higher = larger commits, Lower = focused commits.',
+                'test_pass_rate': 'Percentage of tests passing. 100% = all tests passing, <80% = needs attention.',
+                'epic_total': 'Total number of epics in the project requirements.',
+                'epic_covered': 'Number of epics with test coverage. Higher coverage = better quality assurance.',
+                'epic_not_covered': 'Number of epics without test coverage. These need attention from testing perspective.',
+                'commits_total': 'Total commits in the selected time period.',
+                'commits_weekly': 'Commits grouped by ISO week number. Shows development pace and consistency.',
+                'unit_count': 'Number of unit tests. 🔬 indicates unit-level testing.',
+                'integration_count': 'Number of integration tests. 🔗 indicates integration-level testing.',
+                'api_count': 'Number of API/E2E tests. 🌐 indicates end-to-end testing.'
+            };
+
+            for (let [key, explanation] of Object.entries(explanations)) {
+                if (metricId.includes(key)) {
+                    return explanation;
+                }
+            }
+            return null;
+        }
+
         function populateProjectSelector() {
             // Extract unique projects from metric IDs
             const projects = new Set();
@@ -384,6 +408,54 @@
             document.getElementById('dateTo').value = to;
         }
 
+        function aggregateMetrics() {
+            // When "all" is selected, aggregate metrics from all projects
+            const aggregated = {};
+
+            Object.entries(allMetrics).forEach(([metricId, metric]) => {
+                // Extract dimension from the metric (e.g., "activity", "velocity")
+                const parts = metricId.split('_');
+                let dimensionIndex = -1;
+                for (let i = 0; i < parts.length; i++) {
+                    if (['activity', 'velocity', 'quality', 'test', 'epic'].includes(parts[i])) {
+                        dimensionIndex = i;
+                        break;
+                    }
+                }
+
+                if (dimensionIndex === -1) return;
+
+                // Extract metric type (e.g., "commits_total", "loc_net")
+                const metricType = parts.slice(dimensionIndex).join('_');
+
+                // Skip metrics that shouldn't be aggregated
+                const skipAggregation = ['commits_weekly', 'epic_covered', 'epic_not_covered', 'test_pass_rate'];
+                if (skipAggregation.some(skip => metricType.includes(skip))) {
+                    return;
+                }
+
+                if (!aggregated[metricType]) {
+                    aggregated[metricType] = {
+                        value: 0,
+                        count: 0,
+                        dimension: metric.dimension,
+                        unit: metric.unit,
+                        isAggregated: true,
+                        source_metrics: []
+                    };
+                }
+
+                // Sum numeric values
+                if (typeof metric.value === 'number') {
+                    aggregated[metricType].value += metric.value;
+                    aggregated[metricType].count += 1;
+                    aggregated[metricType].source_metrics.push(metricId);
+                }
+            });
+
+            return aggregated;
+        }
+
         function applyFilters() {
             const project = document.getElementById('projectSelector').value;
             const dateFrom = document.getElementById('dateFrom').value;
@@ -409,7 +481,15 @@
 
             // Group metrics by dimension
             const byDimension = {};
-            Object.entries(allMetrics).forEach(([metricId, metric]) => {
+            let metricsToRender = allMetrics;
+
+            // If "all" is selected, aggregate metrics
+            if (project === 'all') {
+                const aggregated = aggregateMetrics();
+                metricsToRender = aggregated;
+            }
+
+            Object.entries(metricsToRender).forEach(([metricId, metric]) => {
                 // Filter by project if not "all"
                 if (project !== 'all') {
                     // Check if metric ID starts with the project prefix
@@ -498,12 +578,17 @@
                         valueHtml = `<span class="metric-value">${value}</span><span class="metric-unit">${metric.unit || ''}</span>`;
                     }
 
+                    const explanation = getMetricExplanation(metric.id);
+                    const tooltipTitle = explanation ? `title="${explanation}"` : '';
+                    const aggregationNote = metric.isAggregated ? `<span style="font-size: 0.75em; color: #ffaa00; margin-left: 4px;">(Sum of ${metric.count} projects)</span>` : '';
+
                     html += `
-                        <div class="metric-card">
-                            <div class="metric-name">${metric.id.split('_').slice(1).join('_').replace(/_/g, ' ').toUpperCase()}</div>
+                        <div class="metric-card" ${tooltipTitle} style="${explanation ? 'cursor: help;' : ''}">
+                            <div class="metric-name">${metric.id.split('_').slice(1).join('_').replace(/_/g, ' ').toUpperCase()} ${aggregationNote}</div>
                             <div>
                                 ${valueHtml}
                             </div>
+                            ${explanation ? `<div style="font-size: 0.8em; color: #a0a0a0; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0,217,255,0.2);"><strong>ℹ️ What this means:</strong><br>${explanation}</div>` : ''}
                             ${metric.calculation ? `<div class="metric-calc"><strong>Calculated:</strong><br>${metric.calculation}</div>` : ''}
                             <div class="evidence-trail">
                                 <div class="evidence-title">Evidence:</div>
