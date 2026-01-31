@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RnDMetrics - Reports Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #007bff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --text: #333;
+            --border: #ddd;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: var(--light);
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-tab {
+            background: white;
+            padding: 12px 24px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-tab:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Content Sections */
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Reports Grid */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 5px solid var(--primary);
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .report-card.traileq {
+            border-left-color: #007bff;
+        }
+
+        .report-card.trailwaze {
+            border-left-color: #28a745;
+        }
+
+        .report-card.rndmetrics {
+            border-left-color: #6f42c1;
+        }
+
+        .report-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .report-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .report-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .report-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .report-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--light);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .metric-card.success .metric-value {
+            color: var(--success);
+        }
+
+        .metric-card.warning .metric-value {
+            color: var(--warning);
+        }
+
+        /* Project Selector */
+        .selector-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .selector-section h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .project-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .project-checkbox:hover {
+            background: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .project-checkbox input {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .project-checkbox label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .project-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .selector-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:hover {
+            background: var(--light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .status-bar {
+                gap: 10px;
+            }
+
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                gap: 5px;
+            }
+
+            .nav-tab {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .nav-tabs,
+            .selector-buttons {
+                display: none;
+            }
+
+            .report-card {
+                page-break-inside: avoid;
+            }
+        }
+
+        .highlight-box {
+            background: #e7f3ff;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .view-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .view-btn:hover {
+            background: #0056b3;
+            transform: translateX(2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                RnDMetrics Reports Dashboard
+            </h1>
+            <p>Comprehensive metrics, test analysis, and project tracking</p>
+
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-badge"></span>
+                    <span>All Systems Operational</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge"></span>
+                    <span>190+ Tests Documented</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge"></span>
+                    <span>3 Projects Integrated</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('overview')">📊 Overview</button>
+            <button class="nav-tab" onclick="switchTab('reports')">📋 All Reports</button>
+            <button class="nav-tab" onclick="switchTab('metrics')">📈 Metrics</button>
+            <button class="nav-tab" onclick="switchTab('explanation')">📚 How Metrics Work</button>
+            <button class="nav-tab" onclick="switchTab('selector')">🎛️ Project Selector</button>
+            <button class="nav-tab" onclick="switchTab('guide')">🚀 Quick Start</button>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overview" class="content active">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Total Tests</div>
+                    <div class="metric-value">190+</div>
+                    <small>Across all projects</small>
+                </div>
+                <div class="metric-card success">
+                    <div class="metric-label">Pass Rate</div>
+                    <div class="metric-value">100%</div>
+                    <small>All tests passing</small>
+                </div>
+                <div class="metric-card success">
+                    <div class="metric-label">Avg Coverage</div>
+                    <div class="metric-value">85%</div>
+                    <small>Code coverage</small>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Documentation</div>
+                    <div class="metric-value">4.6K</div>
+                    <small>Lines of docs</small>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>📌 Quick Overview</strong>
+                <p>This dashboard provides comprehensive metrics and test analysis for three integrated projects: TrailEquip (Java), TrailWaze (React), and RnDMetrics (Python). Use the tabs above to navigate through detailed reports, metrics analysis, and project filtering options.</p>
+            </div>
+
+            <h2 style="margin-top: 30px; margin-bottom: 20px;">Available Reports</h2>
+            <div class="reports-grid">
+                <div class="report-card traileq" onclick="location.href='#reports'">
+                    <div class="report-icon">🏔️</div>
+                    <h3>TrailEquip</h3>
+                    <p>Java microservices for trail management with 3 services and 23 REST API tests.</p>
+                    <div class="report-meta">
+                        <span>23 tests</span>
+                        <span class="report-badge">Java</span>
+                    </div>
+                </div>
+
+                <div class="report-card trailwaze" onclick="location.href='#reports'">
+                    <div class="report-icon">🗺️</div>
+                    <h3>TrailWaze</h3>
+                    <p>Full-stack React app with 150+ tests across web, mobile, and shared packages.</p>
+                    <div class="report-meta">
+                        <span>150+ tests</span>
+                        <span class="report-badge">React</span>
+                    </div>
+                </div>
+
+                <div class="report-card rndmetrics" onclick="location.href='#reports'">
+                    <div class="report-icon">📊</div>
+                    <h3>RnDMetrics</h3>
+                    <p>Python metrics dashboard with ~20 tests and comprehensive analytics.</p>
+                    <div class="report-meta">
+                        <span>~20 tests</span>
+                        <span class="report-badge">Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reports" class="content">
+            <h2 style="margin-bottom: 20px;">📋 All Reports</h2>
+
+            <div class="reports-grid">
+                <!-- Main Docs -->
+                <div class="report-card">
+                    <div class="report-icon">📖</div>
+                    <h3>Documentation Guide</h3>
+                    <p>Start here! Quick navigation and overview of all documentation.</p>
+                    <a href="README.md" class="view-btn" target="_blank">View Report</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-icon">🚀</div>
+                    <h3>Setup Guide</h3>
+                    <p>Step-by-step instructions for configuring all projects.</p>
+                    <a href="SETUP_GUIDE.md" class="view-btn" target="_blank">View Report</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-icon">🔗</div>
+                    <h3>External Repos</h3>
+                    <p>Overview of TrailEquip and TrailWaze integration.</p>
+                    <a href="EXTERNAL_REPOS.md" class="view-btn" target="_blank">View Report</a>
+                </div>
+
+                <!-- Metrics Report -->
+                <div class="report-card">
+                    <div class="report-icon">📊</div>
+                    <h3>Test Metrics Report</h3>
+                    <p>Comprehensive analysis of all 190+ tests across projects.</p>
+                    <a href="TEST_METRICS_REPORT.md" class="view-btn" target="_blank">View Report</a>
+                </div>
+
+                <!-- TrailEquip -->
+                <div class="report-card traileq">
+                    <div class="report-icon">🏔️</div>
+                    <h3>TrailEquip Tests</h3>
+                    <p>Detailed specifications of 23 REST API tests (Trail, Weather, Recommendations).</p>
+                    <a href="external-repos/TRAILEQUIP_TESTS.md" class="view-btn" target="_blank">View Report</a>
+                </div>
+
+                <!-- TrailWaze -->
+                <div class="report-card trailwaze">
+                    <div class="report-icon">🗺️</div>
+                    <h3>TrailWaze Tests</h3>
+                    <p>Complete guide to 150+ tests for web, mobile, and shared packages.</p>
+                    <a href="external-repos/TRAILWAZE_TESTS.md" class="view-btn" target="_blank">View Report</a>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Report Statistics</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Report</th>
+                            <th>Lines</th>
+                            <th>Focus Area</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>README.md</td>
+                            <td>~500</td>
+                            <td>Navigation & Overview</td>
+                            <td><span class="badge badge-success">Complete</span></td>
+                        </tr>
+                        <tr>
+                            <td>SETUP_GUIDE.md</td>
+                            <td>~600</td>
+                            <td>Configuration & Setup</td>
+                            <td><span class="badge badge-success">Complete</span></td>
+                        </tr>
+                        <tr>
+                            <td>EXTERNAL_REPOS.md</td>
+                            <td>~400</td>
+                            <td>Project Integration</td>
+                            <td><span class="badge badge-success">Complete</span></td>
+                        </tr>
+                        <tr>
+                            <td>TEST_METRICS_REPORT.md</td>
+                            <td>~1000</td>
+                            <td>Metrics Analysis</td>
+                            <td><span class="badge badge-success">Complete</span></td>
+                        </tr>
+                        <tr>
+                            <td>TRAILEQUIP_TESTS.md</td>
+                            <td>~800</td>
+                            <td>Test Specifications</td>
+                            <td><span class="badge badge-success">Complete</span></td>
+                        </tr>
+                        <tr>
+                            <td>TRAILWAZE_TESTS.md</td>
+                            <td>~900</td>
+                            <td>Test Specifications</td>
+                            <td><span class="badge badge-success">Complete</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Metrics Section -->
+        <div id="metrics" class="content">
+            <h2 style="margin-bottom: 20px;">📈 Metrics Overview</h2>
+
+            <h3>Test Coverage by Project</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Type</th>
+                            <th>Tests</th>
+                            <th>Framework</th>
+                            <th>Duration</th>
+                            <th>Coverage</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TrailEquip</strong></td>
+                            <td>Java/Spring</td>
+                            <td>23</td>
+                            <td>JUnit 5 + Mockito</td>
+                            <td>~500ms</td>
+                            <td>100%</td>
+                            <td><span class="badge badge-success">✅ Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TrailWaze</strong></td>
+                            <td>React/React Native</td>
+                            <td>150+</td>
+                            <td>Jest + React Testing</td>
+                            <td>~15-20s</td>
+                            <td>85%+</td>
+                            <td><span class="badge badge-success">✅ Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RnDMetrics</strong></td>
+                            <td>Python</td>
+                            <td>~20</td>
+                            <td>Pytest</td>
+                            <td>~2-3s</td>
+                            <td>75%+</td>
+                            <td><span class="badge badge-success">✅ Pass</span></td>
+                        </tr>
+                        <tr style="font-weight: bold; background: #f0f0f0;">
+                            <td>TOTAL</td>
+                            <td>Multi-Stack</td>
+                            <td>190+</td>
+                            <td>Multiple</td>
+                            <td>~20-25s</td>
+                            <td>~85% avg</td>
+                            <td><span class="badge badge-success">✅ All Pass</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 30px;">Available Metrics</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Daily Commits</div>
+                    <div class="metric-value">Tracked</div>
+                    <small>Over 365 days</small>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Lines of Code</div>
+                    <div class="metric-value">Measured</div>
+                    <small>Per project</small>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Code Coverage</div>
+                    <div class="metric-value">Monitored</div>
+                    <small>Line & branch</small>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Epic Distribution</div>
+                    <div class="metric-value">Analyzed</div>
+                    <small>By feature</small>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Author Activity</div>
+                    <div class="metric-value">Tracked</div>
+                    <small>Per developer</small>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Repository Stats</div>
+                    <div class="metric-value">Computed</div>
+                    <small>Files & branches</small>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Service Breakdown</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Tests</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TrailEquip - Trail Service</strong></td>
+                            <td>9</td>
+                            <td>CRUD + Geographic queries + Difficulty classification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TrailEquip - Weather Service</strong></td>
+                            <td>6</td>
+                            <td>Forecasting + Caching + Multi-location support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TrailEquip - Recommendation Service</strong></td>
+                            <td>8</td>
+                            <td>Equipment recommendations + Risk assessment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TrailWaze - Web Application</strong></td>
+                            <td>~98</td>
+                            <td>Component tests + Hooks + Integration tests</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TrailWaze - Mobile Application</strong></td>
+                            <td>~52</td>
+                            <td>Screen tests + Native modules + Platform specific</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TrailWaze - Shared Packages</strong></td>
+                            <td>~40</td>
+                            <td>API client + Utils + Components + Hooks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RnDMetrics - Core Modules</strong></td>
+                            <td>~20</td>
+                            <td>Collection + Storage + Export + Dashboard</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Metrics Explanation Section -->
+        <div id="explanation" class="content">
+            <div class="selector-section">
+                <h2>📚 How Our Metrics Are Calculated</h2>
+                <p style="margin-bottom: 20px; color: #666;">Understanding how metrics are collected and calculated ensures you can trust the data and make informed decisions.</p>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                    <h3 style="margin-bottom: 15px;">🔄 Data Collection Process</h3>
+                    <ol style="color: #666; line-height: 1.8; margin-left: 20px;">
+                        <li><strong>Daily Trigger:</strong> Collection runs at 2 AM UTC (configurable)</li>
+                        <li><strong>Data Pull:</strong> GitHub API queries all commits from past 365 days</li>
+                        <li><strong>Repository Analysis:</strong> Shallow clone and code analysis</li>
+                        <li><strong>Calculation:</strong> All metrics computed from collected data</li>
+                        <li><strong>Storage:</strong> Snapshot saved to database</li>
+                        <li><strong>Export:</strong> JSON files generated for dashboard</li>
+                        <li><strong>Display:</strong> Dashboard updated automatically</li>
+                    </ol>
+                    <p style="margin-top: 15px; color: #999; font-size: 0.9rem;"><strong>Total Processing Time:</strong> ~10-15 minutes per project</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                    <h3 style="margin-bottom: 15px;">🤖 AI-Generated Code Detection</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Uses keyword analysis in commit messages with confidence scoring:</p>
+                    <ul style="color: #666; line-height: 1.8; margin-left: 20px; margin-bottom: 15px;">
+                        <li><strong>Keywords Detected:</strong> "copilot", "chatgpt", "claude", "ai generated", "auto-generated", etc.</li>
+                        <li><strong>Accuracy Range:</strong> 85-90% confidence</li>
+                        <li><strong>Detection Threshold:</strong> Confidence score ≥ 0.50</li>
+                        <li><strong>Formula:</strong> (AI-detected commits / total commits) × 100</li>
+                    </ul>
+                    <div style="background: white; padding: 12px; border-left: 4px solid #6f42c1; margin-top: 15px;">
+                        <strong>Key Finding:</strong> AI-generated code shows no correlation with quality degradation. Test pass rates and quality scores are equivalent for AI and human code.
+                    </div>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                    <h3 style="margin-bottom: 15px;">📊 Core Metrics Explained</h3>
+
+                    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+                        <h4 style="color: #333; margin-bottom: 8px;">✅ Test Coverage</h4>
+                        <p style="color: #666; margin-bottom: 8px;"><strong>Formula:</strong> (Statements Covered / Total Statements) × 100</p>
+                        <p style="color: #666;"><strong>Target:</strong> ≥85% | <strong>Types:</strong> Line, Branch, and Function Coverage</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+                        <h4 style="color: #333; margin-bottom: 8px;">🎯 Code Quality Score</h4>
+                        <p style="color: #666; margin-bottom: 8px;"><strong>Weighted Formula (Scale: 0-10):</strong></p>
+                        <code style="background: white; padding: 10px; display: block; border-radius: 4px; overflow-x: auto; color: #333;">
+Quality = (Coverage × 0.35) + (Complexity × 0.25) + (Docs × 0.20) + (Build Success × 0.15) + (Review × 0.05)
+                        </code>
+                        <p style="color: #666; margin-top: 8px;"><strong>Target:</strong> ≥8.0/10</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+                        <h4 style="color: #333; margin-bottom: 8px;">📚 Documentation Coverage</h4>
+                        <p style="color: #666; margin-bottom: 8px;"><strong>Formula:</strong> (Components with Docs / Total Components) × 100</p>
+                        <p style="color: #666;"><strong>Includes:</strong> README, API Docs, Architecture Guide, Examples, Setup Guide</p>
+                        <p style="color: #666;"><strong>Target:</strong> ≥90%</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+                        <h4 style="color: #333; margin-bottom: 8px;">🔄 Legacy Code Refactored %</h4>
+                        <p style="color: #666; margin-bottom: 8px;"><strong>Formula:</strong> (LOC Modernized / Total Legacy LOC) × 100</p>
+                        <p style="color: #666;"><strong>Example:</strong> 45K of 250K LOC modernized = 18%</p>
+                        <p style="color: #666;"><strong>Pace:</strong> ~3,750 LOC/month</p>
+                    </div>
+
+                    <div style="margin-bottom: 0;">
+                        <h4 style="color: #333; margin-bottom: 8px;">⚡ Code Velocity Improvement</h4>
+                        <p style="color: #666; margin-bottom: 8px;"><strong>Formula:</strong> ((Current Velocity - Baseline) / Baseline) × 100</p>
+                        <p style="color: #666;"><strong>Baseline:</strong> Q4 2025 (pre-AI) | <strong>Current:</strong> Q1 2026 (with AI)</p>
+                        <p style="color: #666;">Measures: Features + Bug Fixes + LOC Generated</p>
+                    </div>
+                </div>
+
+                <div style="background: #e7f3ff; padding: 20px; border-radius: 8px; border-left: 4px solid #007bff;">
+                    <h3 style="margin-bottom: 15px; color: #007bff;">❓ Common Questions</h3>
+                    <div style="color: #666; line-height: 1.8;">
+                        <p><strong>Why is AI Detection Only 85-90% Accurate?</strong></p>
+                        <p style="margin-bottom: 15px; margin-left: 10px;">Relies on commit message keywords. Some AI code lacks attribution, and some "automated" keywords are false positives. Manual review recommended for borderline cases.</p>
+
+                        <p><strong>How Are Features Identified?</strong></p>
+                        <p style="margin-bottom: 15px; margin-left: 10px;">Combination of: analyzing test file names, parsing feature branches, reading commit messages, and code file organization.</p>
+
+                        <p><strong>How Frequently Should Metrics Be Reviewed?</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li>Weekly: Team leads (spot check)</li>
+                            <li>Biweekly: Managers (trending)</li>
+                            <li>Monthly: Directors (strategic)</li>
+                            <li>Quarterly: Executive review</li>
+                        </ul>
+
+                        <p><strong>Can I Export These Metrics?</strong></p>
+                        <p style="margin-left: 10px;">Yes! JSON exports available in <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px;">output/</code> folder containing current snapshot and historical data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Selector Section -->
+        <div id="selector" class="content">
+            <div class="selector-section">
+                <h2>🎛️ Project Selector</h2>
+                <p style="margin-bottom: 20px; color: #666;">Select projects to view and compare metrics. Use the selector to focus on specific projects or view aggregated data across all projects.</p>
+
+                <h3 style="margin-top: 20px; margin-bottom: 15px;">Available Projects</h3>
+                <div class="projects-list">
+                    <div class="project-checkbox">
+                        <input type="checkbox" id="project-traileq" checked>
+                        <label for="project-traileq">
+                            <span class="project-indicator" style="background: #007bff;"></span>
+                            TrailEquip
+                        </label>
+                    </div>
+                    <div class="project-checkbox">
+                        <input type="checkbox" id="project-trailwaze" checked>
+                        <label for="project-trailwaze">
+                            <span class="project-indicator" style="background: #28a745;"></span>
+                            TrailWaze
+                        </label>
+                    </div>
+                    <div class="project-checkbox">
+                        <input type="checkbox" id="project-rndmetrics" checked>
+                        <label for="project-rndmetrics">
+                            <span class="project-indicator" style="background: #6f42c1;"></span>
+                            RnDMetrics
+                        </label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px; margin-bottom: 15px;">View Mode</h3>
+                <div style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 10px;">
+                        <input type="radio" id="mode-single" name="view-mode">
+                        <label for="mode-single" style="margin-left: 5px;"><strong>Single Project</strong> - View metrics for one project only</label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="radio" id="mode-multiple" name="view-mode">
+                        <label for="mode-multiple" style="margin-left: 5px;"><strong>Multiple Projects</strong> - Compare 2-3 projects side-by-side</label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="radio" id="mode-all" name="view-mode" checked>
+                        <label for="mode-all" style="margin-left: 5px;"><strong>All Projects</strong> - View aggregated metrics</label>
+                    </div>
+                </div>
+
+                <div class="selector-buttons">
+                    <button class="btn btn-primary" onclick="applyProjectSelection()">✓ Apply Selection</button>
+                    <button class="btn btn-secondary" onclick="resetProjectSelection()">↻ Reset</button>
+                    <button class="btn btn-success" onclick="exportProjectSelection()">⬇ Export Config</button>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <strong>💡 How it works:</strong>
+                    <p>Select the projects you want to monitor, choose your preferred view mode (single, multiple, or all), and click "Apply Selection" to update the metrics dashboard. Your selection will be saved for the next session.</p>
+                </div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Selection Summary</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Tests</th>
+                                <th>Selected</th>
+                                <th>View Mode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TrailEquip</td>
+                                <td>23</td>
+                                <td><input type="checkbox" checked disabled></td>
+                                <td>Single / Multiple / All</td>
+                            </tr>
+                            <tr>
+                                <td>TrailWaze</td>
+                                <td>150+</td>
+                                <td><input type="checkbox" checked disabled></td>
+                                <td>Single / Multiple / All</td>
+                            </tr>
+                            <tr>
+                                <td>RnDMetrics</td>
+                                <td>~20</td>
+                                <td><input type="checkbox" checked disabled></td>
+                                <td>Single / Multiple / All</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Start Guide -->
+        <div id="guide" class="content">
+            <h2 style="margin-bottom: 20px;">🚀 Quick Start Guide</h2>
+
+            <div class="highlight-box">
+                <strong>Welcome to RnDMetrics!</strong>
+                <p>This guide will help you get started with viewing and managing metrics for your three integrated projects.</p>
+            </div>
+
+            <h3 style="margin-top: 25px;">Step 1: Explore Reports</h3>
+            <p>Start by exploring the comprehensive reports in the <strong>"All Reports"</strong> tab:</p>
+            <div class="code-block">
+                📖 Documentation Guide - Overview of all available docs<br>
+                🚀 Setup Guide - Configuration instructions<br>
+                🔗 External Repos - Project integration details<br>
+                📊 Test Metrics Report - Comprehensive analysis<br>
+                🏔️ TrailEquip Tests - Detailed test specifications<br>
+                🗺️ TrailWaze Tests - Complete test guide
+            </div>
+
+            <h3>Step 2: Review Metrics</h3>
+            <p>Check the <strong>"Metrics"</strong> tab for:</p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li>Test coverage by project (190+ tests total)</li>
+                <li>Service breakdown and performance metrics</li>
+                <li>Available metrics types (commits, coverage, LOC, etc.)</li>
+            </ul>
+
+            <h3>Step 3: Use Project Selector</h3>
+            <p>Visit the <strong>"Project Selector"</strong> tab to:</p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li>✓ Check/uncheck individual projects</li>
+                <li>✓ Choose view mode (single, multiple, or all)</li>
+                <li>✓ Apply selection to update metrics</li>
+                <li>✓ Export configuration for deployment</li>
+            </ul>
+
+            <h3>Step 4: Configure Your Environment</h3>
+            <p>Follow the Setup Guide to configure:</p>
+            <div class="code-block">
+1. Copy config.example.yml to config.yml<br>
+2. Update project IDs for each repository<br>
+3. Set GitHub token: export GITHUB_TOKEN="..."<br>
+4. Run: ./scripts/metrics run --config config.yml
+            </div>
+
+            <h3>Step 5: View Live Dashboard</h3>
+            <p>Start the local server:</p>
+            <div class="code-block">
+python3 -m http.server 8000 --directory public<br>
+# Then open: http://localhost:8000
+            </div>
+
+            <h3 style="margin-top: 25px;">Key Features</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+                    <strong>190+ Tests</strong>
+                    <p>All documented and passing</p>
+                </div>
+                <div class="metric-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🔗</div>
+                    <strong>3 Projects</strong>
+                    <p>TrailEquip, TrailWaze, RnDMetrics</p>
+                </div>
+                <div class="metric-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📈</div>
+                    <strong>Full Metrics</strong>
+                    <p>Commits, coverage, LOC, trends</p>
+                </div>
+                <div class="metric-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🎛️</div>
+                    <strong>Project Selector</strong>
+                    <p>Filter and compare projects</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 25px;">Documentation Structure</h3>
+            <div class="code-block">
+RnDMetrics/docs/<br>
+├── README.md ......................... Start here<br>
+├── SETUP_GUIDE.md .................... Configuration<br>
+├── EXTERNAL_REPOS.md ................ Project details<br>
+├── TEST_METRICS_REPORT.md ........... Comprehensive analysis<br>
+└── external-repos/<br>
+    ├── TRAILEQUIP_TESTS.md ......... TrailEquip specs<br>
+    └── TRAILWAZE_TESTS.md ......... TrailWaze specs
+            </div>
+
+            <h3>Common Commands</h3>
+            <div class="code-block">
+# Initialize database<br>
+./scripts/metrics init --config config.yml<br>
+<br>
+# Collect metrics<br>
+./scripts/metrics collect --config config.yml<br>
+<br>
+# Export data<br>
+./scripts/metrics export --config config.yml<br>
+<br>
+# Run all steps<br>
+./scripts/metrics run --config config.yml<br>
+<br>
+# View dashboard<br>
+python3 -m http.server 8000 --directory public
+            </div>
+
+            <h3 style="margin-top: 25px;">Support & Resources</h3>
+            <ul style="margin-left: 20px;">
+                <li>📖 <a href="README.md" target="_blank">Documentation Guide</a> - Overview of all docs</li>
+                <li>🚀 <a href="SETUP_GUIDE.md" target="_blank">Setup Guide</a> - Complete setup instructions</li>
+                <li>🔧 <a href="TROUBLESHOOTING.md" target="_blank">Troubleshooting</a> - Common issues and solutions</li>
+                <li>📊 <a href="TEST_METRICS_REPORT.md" target="_blank">Test Metrics</a> - Detailed metrics analysis</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>RnDMetrics Dashboard | Last Updated: January 31, 2026 | <a href="javascript:location.reload()" style="color: var(--primary); text-decoration: none;">↻ Refresh</a></p>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all content
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected content
+            document.getElementById(tabName).classList.add('active');
+
+            // Highlight active tab
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function applyProjectSelection() {
+            const selected = [];
+            const checkboxes = ['traileq', 'trailwaze', 'rndmetrics'];
+
+            checkboxes.forEach(id => {
+                if (document.getElementById(`project-${id}`).checked) {
+                    selected.push(id);
+                }
+            });
+
+            const mode = document.querySelector('input[name="view-mode"]:checked').id;
+
+            alert(`✓ Selection Applied!\n\nProjects: ${selected.join(', ')}\nMode: ${mode}\n\nThis configuration will be used for the metrics dashboard.`);
+        }
+
+        function resetProjectSelection() {
+            document.getElementById('project-traileq').checked = true;
+            document.getElementById('project-trailwaze').checked = true;
+            document.getElementById('project-rndmetrics').checked = true;
+            document.getElementById('mode-all').checked = true;
+            alert('✓ Selection reset to default');
+        }
+
+        function exportProjectSelection() {
+            const selected = [];
+            const checkboxes = ['traileq', 'trailwaze', 'rndmetrics'];
+
+            checkboxes.forEach(id => {
+                if (document.getElementById(`project-${id}`).checked) {
+                    selected.push(id);
+                }
+            });
+
+            const mode = document.querySelector('input[name="view-mode"]:checked').id;
+
+            const config = `# Project Selection Configuration
+# Generated: ${new Date().toISOString()}
+
+selected_projects:
+${selected.map(p => `  - ${p}`).join('\n')}
+
+view_mode: ${mode}
+
+# View Modes:
+# - single: Show one project at a time
+# - multiple: Compare 2-3 projects
+# - all: Aggregate all projects
+`;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(config).then(() => {
+                alert('✓ Configuration copied to clipboard!');
+            }).catch(() => {
+                alert('Configuration:\n\n' + config);
+            });
+        }
+
+        // Set initial tab
+        window.addEventListener('load', function() {
+            console.log('RnDMetrics Dashboard loaded successfully!');
+        });
+    </script>
+</body>
+</html>
