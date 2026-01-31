@@ -125,52 +125,50 @@ class EpicCoverageParser:
             mvp_content = f.read()
 
         # Extract epics and user stories from MVP_EPICS.md
-        # Format: ### EPIC N: Title
-        #         #### US N.N: Title
+        # Build a map of epic number -> user stories
+        epics_map = {}
 
-        epics = []
-        core_section = mvp_content.split("## USER STORIES")[0] if "## USER STORIES" in mvp_content else mvp_content
+        # Parse user stories first: #### US N.N - Title
+        us_pattern = r"#### US([\d.]+) - (.+)"
+        for us_match in re.finditer(us_pattern, mvp_content):
+            us_id = us_match.group(1)
+            us_title = us_match.group(2).strip()
+            epic_num = us_id.split('.')[0]  # Extract epic number from US1.1 -> 1
 
-        # Parse epics
+            if epic_num not in epics_map:
+                epics_map[epic_num] = {"user_stories": []}
+
+            # Count tests for this US
+            test_count = sum(1 for f in test_files if us_id.replace(".", "") in f.read_text(errors='ignore'))
+
+            epics_map[epic_num]["user_stories"].append({
+                "id": f"US{us_id}",
+                "title": us_title,
+                "test_count": test_count
+            })
+
+        # Now parse epics: ### EPIC N: Title (only unique ones)
         epic_pattern = r"### EPIC\s+(\d+):\s*([^\n]+)"
-        us_pattern = r"#### US\s+([\d.]+):\s*([^\n]+)"
-
-        current_epic = None
+        epics = []
         seen_epics = set()
 
-        for line in core_section.split('\n'):
-            epic_match = re.match(epic_pattern, line)
-            if epic_match:
-                epic_num = epic_match.group(1)
-                epic_title = epic_match.group(2).strip()
+        for epic_match in re.finditer(epic_pattern, mvp_content):
+            epic_num = epic_match.group(1)
+            epic_title = epic_match.group(2).strip()
 
-                if epic_num not in seen_epics:
-                    current_epic = {
-                        "epic_id": f"epic-{epic_num}",
-                        "epic_number": epic_num,
-                        "epic_title": epic_title,
-                        "user_stories": [],
-                        "us_count": 0,
-                        "total_tests": 0
-                    }
-                    epics.append(current_epic)
-                    seen_epics.add(epic_num)
+            if epic_num not in seen_epics:
+                user_stories = epics_map.get(epic_num, {}).get("user_stories", [])
+                total_epic_tests = sum(us["test_count"] for us in user_stories)
 
-            us_match = re.match(us_pattern, line)
-            if us_match and current_epic:
-                us_id = us_match.group(1)
-                us_title = us_match.group(2).strip()
-
-                # Try to estimate test count from test files mentioning this US
-                test_count = sum(1 for f in test_files if us_id.replace(".", "") in f.read_text(errors='ignore'))
-
-                current_epic["user_stories"].append({
-                    "id": f"US{us_id}",
-                    "title": us_title,
-                    "test_count": test_count
+                epics.append({
+                    "epic_id": f"epic-{epic_num}",
+                    "epic_number": epic_num,
+                    "epic_title": epic_title,
+                    "user_stories": user_stories,
+                    "us_count": len(user_stories),
+                    "total_tests": total_epic_tests
                 })
-                current_epic["us_count"] += 1
-                current_epic["total_tests"] += test_count
+                seen_epics.add(epic_num)
 
         return {
             "project": "vionascu_trail-equip",

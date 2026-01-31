@@ -157,61 +157,178 @@
         "epic_id": "epic-1",
         "epic_number": "1",
         "epic_title": "Trail Discovery & Exploration",
-        "user_stories": [],
-        "us_count": 0,
-        "total_tests": 0
+        "user_stories": [
+          {
+            "id": "US1.1",
+            "title": "View Trail List",
+            "test_count": 3
+          },
+          {
+            "id": "US1.2",
+            "title": "Filter Trails by Difficulty",
+            "test_count": 7
+          },
+          {
+            "id": "US1.3",
+            "title": "Search Trails by Name",
+            "test_count": 0
+          },
+          {
+            "id": "US1.4",
+            "title": "View Trail Details",
+            "test_count": 0
+          },
+          {
+            "id": "US1.5",
+            "title": "View Trail on Map",
+            "test_count": 5
+          }
+        ],
+        "us_count": 5,
+        "total_tests": 15
       },
       {
         "epic_id": "epic-2",
         "epic_number": "2",
         "epic_title": "OpenStreetMap Integration",
-        "user_stories": [],
-        "us_count": 0,
-        "total_tests": 0
+        "user_stories": [
+          {
+            "id": "US2.1",
+            "title": "Import All Bucegi Trails",
+            "test_count": 1
+          },
+          {
+            "id": "US2.2",
+            "title": "Import Trails by Geographic Area",
+            "test_count": 0
+          },
+          {
+            "id": "US2.3",
+            "title": "Export Trail as GeoJSON",
+            "test_count": 2
+          },
+          {
+            "id": "US2.4",
+            "title": "Export Trail as GPX",
+            "test_count": 4
+          }
+        ],
+        "us_count": 4,
+        "total_tests": 7
       },
       {
         "epic_id": "epic-3",
         "epic_number": "3",
         "epic_title": "Weather Integration & Trail Planning",
-        "user_stories": [],
-        "us_count": 0,
-        "total_tests": 0
+        "user_stories": [
+          {
+            "id": "US3.1",
+            "title": "View 7-Day Weather Forecast",
+            "test_count": 0
+          },
+          {
+            "id": "US3.2",
+            "title": "Get Equipment Recommendations",
+            "test_count": 4
+          },
+          {
+            "id": "US3.3",
+            "title": "View Weather Warnings",
+            "test_count": 0
+          }
+        ],
+        "us_count": 3,
+        "total_tests": 4
       },
       {
         "epic_id": "epic-4",
         "epic_number": "4",
         "epic_title": "Community Hazard Reporting",
-        "user_stories": [],
-        "us_count": 0,
-        "total_tests": 0
+        "user_stories": [
+          {
+            "id": "US4.1",
+            "title": "Report Trail Hazard",
+            "test_count": 3
+          },
+          {
+            "id": "US4.2",
+            "title": "View Hazard Reports",
+            "test_count": 4
+          }
+        ],
+        "us_count": 2,
+        "total_tests": 7
       },
       {
         "epic_id": "epic-5",
         "epic_number": "5",
         "epic_title": "Trail Export & GPS Support",
-        "user_stories": [],
-        "us_count": 0,
-        "total_tests": 0
+        "user_stories": [
+          {
+            "id": "US5.1",
+            "title": "Export Multiple Trails",
+            "test_count": 2
+          },
+          {
+            "id": "US5.2",
+            "title": "Import GPX from External Source",
+            "test_count": 3
+          }
+        ],
+        "us_count": 2,
+        "total_tests": 5
       },
       {
         "epic_id": "epic-6",
         "epic_number": "6",
         "epic_title": "API Gateway & Microservices",
-        "user_stories": [],
-        "us_count": 0,
+        "user_stories": [
+          {
+            "id": "US6.1",
+            "title": "Route API Requests",
+            "test_count": 0
+          },
+          {
+            "id": "US6.2",
+            "title": "Health Check All Services",
+            "test_count": 0
+          },
+          {
+            "id": "US6.3",
+            "title": "Automatic Service Recovery",
+            "test_count": 0
+          }
+        ],
+        "us_count": 3,
         "total_tests": 0
       },
       {
         "epic_id": "epic-7",
         "epic_number": "7",
         "epic_title": "Production Deployment & Scaling",
-        "user_stories": [],
-        "us_count": 0,
+        "user_stories": [
+          {
+            "id": "US7.1",
+            "title": "Deploy Application to Production",
+            "test_count": 0
+          },
+          {
+            "id": "US7.2",
+            "title": "Database Scaling",
+            "test_count": 0
+          },
+          {
+            "id": "US7.3",
+            "title": "Configure Environment Variables",
+            "test_count": 0
+          }
+        ],
+        "us_count": 3,
         "total_tests": 0
       }
     ],
     "total_epics": 7,
-    "total_user_stories": 0,
+    "total_user_stories": 22,
     "total_tests": 8,
     "test_files_found": 8
   }
