@@ -65,8 +65,8 @@ class DerivedMetricsCompute:
         parts = metric_id.split('_')
 
         # Find where the metric type starts
-        # Common metric types: commits, diffs, tests, coverage, docs
-        metric_types = ['commits', 'diffs', 'tests', 'coverage', 'docs']
+        # Common metric types: commits, diffs, tests, coverage, docs, epics
+        metric_types = ['commits', 'diffs', 'tests', 'coverage', 'docs', 'epics']
 
         for i in range(len(parts) - 1, -1, -1):
             if any(mt in parts[i].lower() for mt in metric_types):

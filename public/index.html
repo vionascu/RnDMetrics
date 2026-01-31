@@ -348,10 +348,10 @@
                 // Reconstruct full project name by finding it in the metric ID
                 const parts = metricId.split('_');
 
-                // Project name is everything before the first "activity" or "velocity"
+                // Project name is everything before the first dimension keyword
                 let projectName = '';
                 for (let i = 0; i < parts.length; i++) {
-                    if (parts[i] === 'activity' || parts[i] === 'velocity' || parts[i] === 'quality' || parts[i] === 'test') {
+                    if (parts[i] === 'activity' || parts[i] === 'velocity' || parts[i] === 'quality' || parts[i] === 'test' || parts[i] === 'epic') {
                         // Found metric type, everything before is project
                         projectName = parts.slice(0, i).join('_');
                         break;
