@@ -1,0 +1,36 @@
+# GitHub Pages Configuration for RnDMetrics
+
+# Site metadata
+title: "RnDMetrics Dashboard"
+description: "Real-time R&D metrics and analytics for software projects"
+author: "vionascu"
+url: "https://vionascu.github.io/RnDMetrics"
+
+# GitHub Pages settings
+theme: null  # No Jekyll theme, using custom HTML
+plugins: []
+
+# Build settings
+future: false
+encoding: UTF-8
+markdown: kramdown
+
+# Exclude from processing
+exclude:
+  - .gitignore
+  - .github
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - scripts
+  - .tmp
+  - data
+  - config.yml
+  - requirements.txt
+
+# Collections
+collections:
+  docs:
+    output: false

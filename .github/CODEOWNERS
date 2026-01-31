@@ -1,0 +1,15 @@
+# CODEOWNERS file for RnDMetrics repository
+# This file defines code ownership and review requirements
+
+# Default owners for all code
+* @vionascu
+
+# Documentation owners
+/docs/ @vionascu
+*.md @vionascu
+
+# Workflow files
+.github/workflows/ @vionascu
+
+# Dashboard owners
+/docs/dashboard*.html @vionascu

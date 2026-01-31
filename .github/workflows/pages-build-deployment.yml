@@ -1,0 +1,140 @@
+name: Build and deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'public/**'
+      - '.github/workflows/pages-build-deployment.yml'
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Prepare dashboard files
+        run: |
+          mkdir -p build
+
+          # Copy dashboard HTML files
+          cp docs/dashboard.html build/index.html
+          cp docs/dashboard-executive.html build/executive.html
+
+          # Copy documentation
+          mkdir -p build/docs
+          cp docs/*.md build/docs/
+
+          # Create sitemap and index
+          cat > build/sitemap.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RnDMetrics - Sitemap</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 40px; background: #f5f5f5; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    h1 { color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+    .section { margin: 30px 0; }
+    .section h2 { font-size: 1.2rem; color: #333; margin-bottom: 15px; }
+    .link-list { list-style: none; padding: 0; }
+    .link-list li { margin: 10px 0; }
+    .link-list a { color: #007bff; text-decoration: none; font-weight: 500; }
+    .link-list a:hover { text-decoration: underline; }
+    .badge { display: inline-block; padding: 4px 12px; background: #e8f4f8; color: #0066cc; border-radius: 20px; font-size: 0.85rem; margin-left: 10px; }
+    .updated { color: #999; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🗺️ RnDMetrics Dashboard - Sitemap</h1>
+    <p class="updated">Last updated: <script>document.write(new Date().toLocaleString())</script></p>
+
+    <div class="section">
+      <h2>📊 Dashboards</h2>
+      <ul class="link-list">
+        <li><a href="/">Basic Dashboard</a> <span class="badge">Main</span></li>
+        <li><a href="/executive.html">Executive Dashboard</a> <span class="badge">Analytics</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📖 Documentation</h2>
+      <ul class="link-list">
+        <li><a href="/docs/README.md">Project Overview</a></li>
+        <li><a href="/docs/SETUP_GUIDE.md">Setup & Installation</a></li>
+        <li><a href="/docs/EXTERNAL_REPOS.md">External Repositories</a></li>
+        <li><a href="/docs/METRICS_QUICK_REFERENCE.md">Metrics Quick Reference</a></li>
+        <li><a href="/docs/METRICS_CALCULATION_METHODOLOGY.md">Calculation Methodology</a></li>
+        <li><a href="/docs/TEST_METRICS_REPORT.md">Test Metrics Report</a></li>
+        <li><a href="/docs/EXECUTIVE_METRICS_REPORT.md">Executive Report</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🧪 Test Documentation</h2>
+      <ul class="link-list">
+        <li><a href="/docs/external-repos/TRAILEQUIP_TESTS.md">TrailEquip Tests</a></li>
+        <li><a href="/docs/external-repos/TRAILWAZE_TESTS.md">TrailWaze Tests</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🔧 Resources</h2>
+      <ul class="link-list">
+        <li><a href="https://github.com/vionascu/RnDMetrics">GitHub Repository</a></li>
+        <li><a href="https://github.com/vionascu/trail-equip">TrailEquip Project</a></li>
+        <li><a href="https://github.com/vionascu/trailwaze">TrailWaze Project</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+EOF
+
+          echo "✅ Dashboard files prepared for deployment"
+          ls -la build/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'build'
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
