@@ -254,6 +254,179 @@
             color: #ff3366;
             margin: 20px 0;
         }
+
+        /* View tabs and panels */
+        .view-tab {
+            transition: all 0.3s ease;
+        }
+
+        .view-tab:hover {
+            background: rgba(0, 217, 255, 0.15) !important;
+        }
+
+        .view-panel {
+            transition: opacity 0.3s ease;
+        }
+
+        .view-panel.active {
+            display: block !important;
+        }
+
+        /* CEO Dashboard Styles */
+        .exec-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(0, 217, 255, 0.3);
+        }
+
+        .kpi-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .kpi-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .kpi-classification {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .kpi-trend {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .kpi-interpretation {
+            font-size: 0.85em;
+            color: #a0a0a0;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .exec-insights {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .exec-insights h2 {
+            margin-bottom: 20px;
+            color: #00d9ff;
+        }
+
+        .insight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .insight-item {
+            padding: 15px;
+            border-left: 3px solid;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .insight-item.success {
+            border-left-color: #00ff88;
+            color: #00ff88;
+        }
+
+        .insight-item.warning {
+            border-left-color: #ffaa00;
+            color: #ffaa00;
+        }
+
+        .insight-item.alert {
+            border-left-color: #ff9900;
+            color: #ff9900;
+        }
+
+        .insight-item.critical {
+            border-left-color: #ff3366;
+            color: #ff3366;
+        }
+
+        .insight-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .insight-message {
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .insight-recommendation {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .health-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .health-matrix th,
+        .health-matrix td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .health-matrix th {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .health-matrix td {
+            border-radius: 4px;
+        }
+
+        .health-score-cell {
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
@@ -283,10 +456,30 @@
                     <button onclick="resetFilters()">🔄 Reset</button>
                 </div>
             </div>
+
+            <!-- View Selector Tabs -->
+            <div class="view-switcher" style="margin-top: 20px; display: flex; gap: 10px; border-bottom: 2px solid rgba(0, 217, 255, 0.2);">
+                <button class="view-tab active" onclick="switchView('technical')" style="padding: 10px 20px; background: rgba(0, 217, 255, 0.1); border: none; color: #00d9ff; cursor: pointer; border-bottom: 2px solid #00d9ff; font-weight: bold;">
+                    🔧 Technical View
+                </button>
+                <button class="view-tab" onclick="switchView('executive')" style="padding: 10px 20px; background: transparent; border: none; color: #a0a0a0; cursor: pointer; border-bottom: 2px solid transparent; font-weight: bold;">
+                    📊 Executive View
+                </button>
+            </div>
         </header>
 
-        <div id="content">
-            <div class="loading">Loading metrics data...</div>
+        <!-- Technical View (existing dashboard)-->
+        <div id="technical-view" class="view-panel active" style="display: block;">
+            <div id="content">
+                <div class="loading">Loading metrics data...</div>
+            </div>
+        </div>
+
+        <!-- Executive View (new CEO dashboard) -->
+        <div id="executive-view" class="view-panel" style="display: none;">
+            <div id="executive-content" style="padding: 0;">
+                <div class="loading">Loading executive dashboard...</div>
+            </div>
         </div>
 
         <footer>
@@ -602,6 +795,26 @@
                             </div>
                         `;
                     }
+                    // Handle epic summary metrics with object value
+                    if (metric.id.includes('_epic_summary')) {
+                        const summary = metric.value;
+                        valueHtml = `
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; text-align: center;">
+                                <div>
+                                    <div style="font-size: 1.4em; color: #00ff88; font-weight: bold;">${summary.epics}</div>
+                                    <div style="font-size: 0.85em; color: #a0a0a0;">Epics</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.4em; color: #00ccff; font-weight: bold;">${summary.user_stories}</div>
+                                    <div style="font-size: 0.85em; color: #a0a0a0;">User Stories</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.4em; color: #ffaa00; font-weight: bold;">${summary.tests}</div>
+                                    <div style="font-size: 0.85em; color: #a0a0a0;">Tests</div>
+                                </div>
+                            </div>
+                        `;
+                    }
                     // Handle epic metrics with badges
                     else if (metric.id.includes('_epic_')) {
                         if (metric.id.includes('_epic_total')) {
@@ -785,6 +998,232 @@
             initializeDateInputs();
             document.getElementById('projectSelector').value = 'all';
             applyFilters();
+        }
+
+        // View switching functionality
+        let currentView = 'technical';
+
+        function switchView(view) {
+            currentView = view;
+
+            // Hide both views
+            document.getElementById('technical-view').style.display = 'none';
+            document.getElementById('executive-view').style.display = 'none';
+
+            // Update tab buttons
+            document.querySelectorAll('.view-tab').forEach(tab => {
+                tab.style.background = 'transparent';
+                tab.style.color = '#a0a0a0';
+                tab.style.borderBottom = '2px solid transparent';
+            });
+
+            if (view === 'technical') {
+                document.getElementById('technical-view').style.display = 'block';
+                event.target.style.background = 'rgba(0, 217, 255, 0.1)';
+                event.target.style.color = '#00d9ff';
+                event.target.style.borderBottom = '2px solid #00d9ff';
+            } else if (view === 'executive') {
+                document.getElementById('executive-view').style.display = 'block';
+                event.target.style.background = 'rgba(0, 217, 255, 0.1)';
+                event.target.style.color = '#00d9ff';
+                event.target.style.borderBottom = '2px solid #00d9ff';
+                renderExecutiveView();
+            }
+        }
+
+        // CEO Dashboard Functions
+        function getHealthColor(classification) {
+            const colors = {
+                'elite': '#00ff88',    // green
+                'high': '#00d9ff',     // blue
+                'medium': '#ffaa00',   // yellow
+                'low': '#ff3366'       // red
+            };
+            return colors[classification] || '#999';
+        }
+
+        function calculateTrend(current, previous) {
+            if (!previous || previous === 0)
+                return { direction: 'neutral', percent: 0, symbol: '→' };
+
+            const change = ((current - previous) / previous) * 100;
+            return {
+                direction: change > 5 ? 'up' : (change < -5 ? 'down' : 'neutral'),
+                percent: Math.abs(change).toFixed(1),
+                symbol: change > 5 ? '↑' : (change < -5 ? '↓' : '→')
+            };
+        }
+
+        function generateExecutiveInsights(doraMetrics) {
+            const insights = [];
+
+            // Deployment Frequency analysis
+            if (doraMetrics.deployment_frequency && doraMetrics.deployment_frequency.classification === 'elite') {
+                insights.push({
+                    type: 'success',
+                    title: 'Elite Deployment Velocity',
+                    message: `Team deploys ${doraMetrics.deployment_frequency.value.toFixed(2)} times per day`,
+                    recommendation: 'Maintain current pace. Consider documenting best practices.'
+                });
+            } else if (doraMetrics.deployment_frequency && doraMetrics.deployment_frequency.classification === 'low') {
+                insights.push({
+                    type: 'warning',
+                    title: 'Low Deployment Frequency',
+                    message: `Deploying ${doraMetrics.deployment_frequency.value.toFixed(2)} times per day`,
+                    recommendation: 'Investigate bottlenecks in deployment pipeline. Consider CI/CD automation.'
+                });
+            }
+
+            // Lead Time analysis
+            if (doraMetrics.lead_time && doraMetrics.lead_time.value > 168) {
+                insights.push({
+                    type: 'alert',
+                    title: 'Long Lead Times',
+                    message: `Average time to production: ${(doraMetrics.lead_time.value / 24).toFixed(1)} days`,
+                    recommendation: 'Review PR approval process. Implement feature flags for faster releases.'
+                });
+            }
+
+            // CFR analysis
+            if (doraMetrics.change_failure_rate && doraMetrics.change_failure_rate.value > 30) {
+                insights.push({
+                    type: 'critical',
+                    title: 'High Change Failure Rate',
+                    message: `${doraMetrics.change_failure_rate.value.toFixed(1)}% of deployments cause failures`,
+                    recommendation: 'Prioritize test coverage. Implement canary deployments and rollback procedures.'
+                });
+            } else if (doraMetrics.change_failure_rate && doraMetrics.change_failure_rate.classification === 'elite') {
+                insights.push({
+                    type: 'success',
+                    title: 'Low Change Failure Rate',
+                    message: `Only ${doraMetrics.change_failure_rate.value.toFixed(1)}% of deployments fail`,
+                    recommendation: 'Excellent quality metrics. Continue current practices.'
+                });
+            }
+
+            return insights;
+        }
+
+        function renderExecutiveView() {
+            const project = document.getElementById('projectSelector').value;
+
+            // Extract DORA metrics
+            const doraMetrics = {};
+            for (const [metricId, metric] of Object.entries(allMetrics)) {
+                if (!metricId.includes(project) && project !== 'all') continue;
+                if (!metric.dimension || metric.dimension !== 'dora') continue;
+
+                if (metricId.includes('deployment_frequency')) {
+                    doraMetrics.deployment_frequency = metric;
+                } else if (metricId.includes('lead_time')) {
+                    doraMetrics.lead_time = metric;
+                } else if (metricId.includes('change_failure_rate')) {
+                    doraMetrics.change_failure_rate = metric;
+                } else if (metricId.includes('mttr')) {
+                    doraMetrics.mttr = metric;
+                }
+            }
+
+            // Build KPI cards
+            let kpiHtml = '<div class="exec-summary">';
+
+            const metrics = [
+                { key: 'deployment_frequency', label: 'Deployment Frequency', icon: '🚀', suffix: '/day' },
+                { key: 'lead_time', label: 'Lead Time for Changes', icon: '⏱️', suffix: 'hrs' },
+                { key: 'change_failure_rate', label: 'Change Failure Rate', icon: '⚠️', suffix: '%' },
+                { key: 'mttr', label: 'Mean Time to Recovery', icon: '🔧', suffix: 'hrs' }
+            ];
+
+            for (const metric of metrics) {
+                const data = doraMetrics[metric.key];
+                if (!data) continue;
+
+                const color = getHealthColor(data.classification || 'medium');
+                const value = data.value || 0;
+
+                kpiHtml += `
+                    <div class="kpi-card" style="border-top: 3px solid ${color};">
+                        <div class="kpi-label">${metric.icon} ${metric.label}</div>
+                        <div class="kpi-value" style="color: ${color};">${value.toFixed(1)} ${metric.suffix}</div>
+                        <div class="kpi-classification" style="background: ${color}22; color: ${color}; border: 1px solid ${color};">
+                            ${data.classification ? data.classification.toUpperCase() : 'N/A'}
+                        </div>
+                        <div class="kpi-interpretation">
+                            ${metric.key === 'deployment_frequency' ? 'Higher is better - Elite teams deploy multiple times daily' :
+                              metric.key === 'lead_time' ? 'Lower is better - Elite teams deploy within 24 hours' :
+                              metric.key === 'change_failure_rate' ? 'Lower is better - Elite teams have <15% failure rate' :
+                              'Lower is better - Elite teams recover in <1 hour'}
+                        </div>
+                    </div>
+                `;
+            }
+
+            kpiHtml += '</div>';
+
+            // Build insights section
+            const insights = generateExecutiveInsights(doraMetrics);
+            let insightHtml = '<div class="exec-insights">';
+            insightHtml += '<h2>📋 Key Insights</h2>';
+            insightHtml += '<div class="insight-list">';
+
+            if (insights.length === 0) {
+                insightHtml += '<div style="color: #a0a0a0;">Loading insights...</div>';
+            } else {
+                for (const insight of insights) {
+                    insightHtml += `
+                        <div class="insight-item ${insight.type}">
+                            <div class="insight-title">${insight.title}</div>
+                            <div class="insight-message">${insight.message}</div>
+                            <div class="insight-recommendation">💡 ${insight.recommendation}</div>
+                        </div>
+                    `;
+                }
+            }
+
+            insightHtml += '</div></div>';
+
+            // Build health matrix
+            let healthHtml = '<h2>📊 Project Health Matrix</h2>';
+            healthHtml += '<table class="health-matrix">';
+            healthHtml += '<thead><tr><th>Project</th><th>Deployment Freq</th><th>Lead Time</th><th>CFR</th><th>MTTR</th><th>Overall Health</th></tr></thead>';
+            healthHtml += '<tbody>';
+
+            // Collect all projects
+            const projects = new Set();
+            for (const metricId of Object.keys(allMetrics)) {
+                const proj = metricId.split('_').slice(0, 2).join('_');
+                if (proj && proj !== 'all') projects.add(proj);
+            }
+
+            for (const proj of projects) {
+                const metrics_for_proj = {};
+                for (const [metricId, metric] of Object.entries(allMetrics)) {
+                    if (!metricId.startsWith(proj)) continue;
+                    if (!metric.classification) continue;
+                    if (metricId.includes('deployment_frequency')) metrics_for_proj.df = metric.classification;
+                    else if (metricId.includes('lead_time')) metrics_for_proj.lt = metric.classification;
+                    else if (metricId.includes('change_failure_rate')) metrics_for_proj.cfr = metric.classification;
+                    else if (metricId.includes('mttr')) metrics_for_proj.mttr = metric.classification;
+                }
+
+                const projectName = proj.split('_').slice(1).join(' ').toUpperCase();
+                const overallHealth = [metrics_for_proj.df, metrics_for_proj.lt, metrics_for_proj.cfr, metrics_for_proj.mttr]
+                    .filter(Boolean)[0] || 'unknown';
+
+                healthHtml += `<tr>`;
+                healthHtml += `<td style="text-align: left;">${projectName}</td>`;
+                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.df || 'low')}22; color: ${getHealthColor(metrics_for_proj.df || 'low')};">${(metrics_for_proj.df || 'N/A').toUpperCase()}</span></td>`;
+                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.lt || 'low')}22; color: ${getHealthColor(metrics_for_proj.lt || 'low')};">${(metrics_for_proj.lt || 'N/A').toUpperCase()}</span></td>`;
+                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.cfr || 'low')}22; color: ${getHealthColor(metrics_for_proj.cfr || 'low')};">${(metrics_for_proj.cfr || 'N/A').toUpperCase()}</span></td>`;
+                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.mttr || 'low')}22; color: ${getHealthColor(metrics_for_proj.mttr || 'low')};">${(metrics_for_proj.mttr || 'N/A').toUpperCase()}</span></td>`;
+                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(overallHealth)}22; color: ${getHealthColor(overallHealth)}; font-weight: bold;">${overallHealth.toUpperCase()}</span></td>`;
+                healthHtml += '</tr>';
+            }
+
+            healthHtml += '</tbody></table>';
+
+            const finalHtml = kpiHtml + insightHtml + healthHtml;
+            document.getElementById('executive-content').innerHTML = finalHtml;
         }
     </script>
 </body>

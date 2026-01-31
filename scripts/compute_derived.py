@@ -40,6 +40,7 @@ class DerivedMetricsCompute:
             self._compute_velocity_metrics()
             self._compute_test_metrics()
             self._compute_epic_metrics()
+            self._compute_dora_metrics()
 
             # Write derived metrics
             self._write_derived_data()
@@ -65,8 +66,8 @@ class DerivedMetricsCompute:
         parts = metric_id.split('_')
 
         # Find where the metric type starts
-        # Common metric types: commits, diffs, tests, coverage, docs, epics
-        metric_types = ['commits', 'diffs', 'tests', 'coverage', 'docs', 'epics']
+        # Common metric types: commits, diffs, tests, coverage, docs, epics, deployments, lead_time, failures, mttr, file_churn, refactor
+        metric_types = ['commits', 'diffs', 'tests', 'coverage', 'docs', 'epics', 'deployments', 'lead_time', 'failures', 'mttr', 'file_churn', 'refactor']
 
         for i in range(len(parts) - 1, -1, -1):
             if any(mt in parts[i].lower() for mt in metric_types):
@@ -317,6 +318,147 @@ class DerivedMetricsCompute:
                     "dimension": "epic",
                     "percentage": (epics_not_covered / total_epics * 100) if total_epics > 0 else 0
                 }
+
+    def _compute_dora_metrics(self):
+        """Compute DORA 4 key metrics (Deployment Frequency, Lead Time, CFR, MTTR)."""
+        print("  Computing DORA metrics...")
+
+        for metric_id, raw_value in self.raw_data.items():
+            # Deployment Frequency
+            if "deployments.metrics" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                freq = raw_value.get("frequency_per_day", 0)
+                classification = self._classify_deployment_frequency(freq)
+
+                self.derived_data[f"{repo}_dora_deployment_frequency"] = {
+                    "value": round(freq, 3),
+                    "unit": "per day",
+                    "classification": classification,
+                    "source_metrics": [metric_id],
+                    "dimension": "dora"
+                }
+
+            # Lead Time for Changes
+            if "lead_time.metrics" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                avg_hours = raw_value.get("average_hours", 0)
+                classification = self._classify_lead_time(avg_hours)
+
+                self.derived_data[f"{repo}_dora_lead_time"] = {
+                    "value": round(avg_hours, 1),
+                    "unit": "hours",
+                    "classification": classification,
+                    "percentiles": {
+                        "median": raw_value.get("median_hours", 0),
+                        "p95": raw_value.get("p95_hours", 0)
+                    },
+                    "source_metrics": [metric_id],
+                    "dimension": "dora"
+                }
+
+            # Change Failure Rate
+            if "failures.metrics" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                cfr = raw_value.get("failure_rate_percent", 0)
+                classification = self._classify_cfr(cfr)
+
+                self.derived_data[f"{repo}_dora_change_failure_rate"] = {
+                    "value": round(cfr, 1),
+                    "unit": "percent",
+                    "classification": classification,
+                    "source_metrics": [metric_id],
+                    "dimension": "dora"
+                }
+
+            # Mean Time To Recovery
+            if "mttr.metrics" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                mttr = raw_value.get("average_hours", 0)
+                classification = self._classify_mttr(mttr)
+
+                self.derived_data[f"{repo}_dora_mttr"] = {
+                    "value": round(mttr, 1),
+                    "unit": "hours",
+                    "classification": classification,
+                    "source_metrics": [metric_id],
+                    "dimension": "dora"
+                }
+
+            # File Churn
+            if "file_churn.metrics" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                total_files = raw_value.get("total_files_changed", 0)
+
+                self.derived_data[f"{repo}_file_churn_total"] = {
+                    "value": total_files,
+                    "unit": "files",
+                    "source_metrics": [metric_id],
+                    "dimension": "quality"
+                }
+
+            # Refactor Metrics
+            if "refactor.metrics" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                refactor_ratio = raw_value.get("refactor_ratio_percent", 0)
+                refactor_commits = raw_value.get("refactor_commits", 0)
+
+                self.derived_data[f"{repo}_refactor_ratio"] = {
+                    "value": round(refactor_ratio, 1),
+                    "unit": "percent",
+                    "source_metrics": [metric_id],
+                    "dimension": "quality"
+                }
+
+                self.derived_data[f"{repo}_refactor_commits"] = {
+                    "value": refactor_commits,
+                    "unit": "commits",
+                    "source_metrics": [metric_id],
+                    "dimension": "quality"
+                }
+
+    def _classify_deployment_frequency(self, per_day: float) -> str:
+        """Classify deployment frequency as elite/high/medium/low."""
+        if per_day >= 1.0:
+            return "elite"
+        elif per_day >= 1/7:  # 1 per week
+            return "high"
+        elif per_day >= 1/30:  # 1 per month
+            return "medium"
+        else:
+            return "low"
+
+    def _classify_lead_time(self, hours: float) -> str:
+        """Classify lead time as elite/high/medium/low."""
+        if hours < 24:
+            return "elite"
+        elif hours < 168:  # 1 week
+            return "high"
+        elif hours < 720:  # 1 month
+            return "medium"
+        else:
+            return "low"
+
+    def _classify_cfr(self, percent: float) -> str:
+        """Classify change failure rate as elite/high/medium/low."""
+        if percent <= 15:
+            return "elite"
+        elif percent <= 30:
+            return "high"
+        elif percent <= 45:
+            return "medium"
+        else:
+            return "low"
+
+    def _classify_mttr(self, hours: float) -> str:
+        """Classify MTTR as elite/high/medium/low."""
+        if hours < 1:
+            return "elite"
+        elif hours < 24:
+            return "high"
+        elif hours < 168:  # 1 week
+            return "medium"
+        else:
+            return "low"
 
     def _write_derived_data(self):
         """Write computed derived metrics to files."""
