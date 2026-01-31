@@ -1579,6 +1579,84 @@ Quality Score = (Test_Coverage × 0.35)
             });
         }
 
+        // Global data storage
+        let allHistoryData = [];
+
+        // Load history data from JSON
+        async function loadHistoryData() {
+            try {
+                const response = await fetch('../output/history.json');
+                const data = await response.json();
+                allHistoryData = data.snapshots || [];
+                console.log('Loaded', allHistoryData.length, 'snapshots from history.json');
+                return true;
+            } catch (error) {
+                console.warn('Could not load history.json, using fallback data');
+                return false;
+            }
+        }
+
+        // Filter snapshots by date range
+        function getSnapshotsInRange(startDate, endDate) {
+            const start = new Date(startDate).getTime();
+            const end = new Date(endDate).getTime();
+
+            return allHistoryData.filter(snapshot => {
+                const snapTime = new Date(snapshot.snapshot_date).getTime();
+                return snapTime >= start && snapTime <= end;
+            });
+        }
+
+        // Calculate velocity metrics from snapshots
+        function calculateVelocityMetrics(snapshots) {
+            if (snapshots.length === 0) {
+                return { commitsPerDay: 0, locPerDay: 0, testFilesPerWeek: 0, totalCommits: 0 };
+            }
+
+            // Count total commits
+            let totalCommits = 0;
+            const dailyCommitCounts = {};
+
+            snapshots.forEach(snapshot => {
+                if (snapshot.daily_commits) {
+                    Object.entries(snapshot.daily_commits).forEach(([date, count]) => {
+                        dailyCommitCounts[date] = (dailyCommitCounts[date] || 0) + count;
+                        totalCommits += count;
+                    });
+                }
+            });
+
+            const uniqueDays = Object.keys(dailyCommitCounts).length;
+            const commitsPerDay = uniqueDays > 0 ? totalCommits / uniqueDays : 0;
+
+            // Calculate LOC change
+            let locStart = 0, locEnd = 0;
+            if (snapshots.length > 0) {
+                locStart = snapshots[0].repo_metrics?.lines_of_code || 0;
+                locEnd = snapshots[snapshots.length - 1].repo_metrics?.lines_of_code || 0;
+            }
+            const locPerDay = snapshots.length > 0 ? (locEnd - locStart) / snapshots.length : 0;
+
+            // Calculate test files change
+            let testStart = 0, testEnd = 0;
+            if (snapshots.length > 0) {
+                testStart = snapshots[0].repo_metrics?.test_files || 0;
+                testEnd = snapshots[snapshots.length - 1].repo_metrics?.test_files || 0;
+            }
+            const weeksInPeriod = Math.max(snapshots.length / 7, 1);
+            const testFilesPerWeek = (testEnd - testStart) / weeksInPeriod;
+
+            return {
+                commitsPerDay: Math.round(commitsPerDay * 100) / 100,
+                locPerDay: Math.round(locPerDay),
+                testFilesPerWeek: Math.round(testFilesPerWeek * 100) / 100,
+                totalCommits: totalCommits,
+                locChange: locEnd - locStart,
+                testChange: testEnd - testStart,
+                days: snapshots.length
+            };
+        }
+
         // Period Selector Functions
         function setPeriod(period) {
             const buttons = document.querySelectorAll('.period-tab');
@@ -1656,34 +1734,43 @@ Quality Score = (Test_Coverage × 0.35)
         }
 
         function updateVelocityMetrics(start, end) {
-            // Sample velocity calculations (in production, this would use real data from history.json)
+            // Get snapshots for current and previous period
+            const currentSnapshots = getSnapshotsInRange(start, end);
+
+            // Calculate previous period (same duration, shifted back)
             const startDate = new Date(start);
             const endDate = new Date(end);
-            const days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            const durationMs = endDate.getTime() - startDate.getTime();
 
-            // Current period metrics
-            const currentCommitsPerDay = 4.8;
-            const currentLocPerDay = 487;
-            const currentTestsPerWeek = 0.8;
+            const prevEndDate = new Date(startDate.getTime() - 1);
+            const prevStartDate = new Date(prevEndDate.getTime() - durationMs);
 
-            // Previous period (same duration, shifted back)
-            const previousDays = days;
-            const previousCommitsPerDay = 3.7;
-            const previousLocPerDay = 423;
-            const previousTestsPerWeek = 0.8;
+            const prevStart = prevStartDate.toISOString().split('T')[0];
+            const prevEnd = prevEndDate.toISOString().split('T')[0];
+            const previousSnapshots = getSnapshotsInRange(prevStart, prevEnd);
 
-            // Update cards
-            document.getElementById('velocity-commits-current').textContent = currentCommitsPerDay.toFixed(1);
-            document.getElementById('velocity-commits-previous').textContent = previousCommitsPerDay.toFixed(1);
-            document.getElementById('velocity-loc-current').textContent = currentLocPerDay;
-            document.getElementById('velocity-loc-previous').textContent = previousLocPerDay;
-            document.getElementById('velocity-tests-current').textContent = currentTestsPerWeek.toFixed(1);
-            document.getElementById('velocity-tests-previous').textContent = previousTestsPerWeek.toFixed(1);
+            // Calculate metrics
+            const current = calculateVelocityMetrics(currentSnapshots);
+            const previous = calculateVelocityMetrics(previousSnapshots);
 
-            // Calculate trends
-            const commitsTrend = ((currentCommitsPerDay - previousCommitsPerDay) / previousCommitsPerDay * 100).toFixed(0);
-            const locTrend = ((currentLocPerDay - previousLocPerDay) / previousLocPerDay * 100).toFixed(0);
-            const testsTrend = ((currentTestsPerWeek - previousTestsPerWeek) / previousTestsPerWeek * 100).toFixed(0);
+            // Handle division by zero
+            const commitsTrend = previous.commitsPerDay > 0
+                ? ((current.commitsPerDay - previous.commitsPerDay) / previous.commitsPerDay * 100).toFixed(0)
+                : 0;
+            const locTrend = previous.locPerDay !== 0
+                ? ((current.locPerDay - previous.locPerDay) / Math.abs(previous.locPerDay) * 100).toFixed(0)
+                : 0;
+            const testsTrend = previous.testFilesPerWeek > 0
+                ? ((current.testFilesPerWeek - previous.testFilesPerWeek) / previous.testFilesPerWeek * 100).toFixed(0)
+                : 0;
+
+            // Update cards with real data
+            document.getElementById('velocity-commits-current').textContent = current.commitsPerDay.toFixed(2);
+            document.getElementById('velocity-commits-previous').textContent = previous.commitsPerDay.toFixed(2);
+            document.getElementById('velocity-loc-current').textContent = current.locPerDay;
+            document.getElementById('velocity-loc-previous').textContent = previous.locPerDay;
+            document.getElementById('velocity-tests-current').textContent = current.testFilesPerWeek.toFixed(2);
+            document.getElementById('velocity-tests-previous').textContent = previous.testFilesPerWeek.toFixed(2);
 
             // Update trend badges
             updateTrendBadge('velocity-commits-trend', commitsTrend);
@@ -1691,12 +1778,16 @@ Quality Score = (Test_Coverage × 0.35)
             updateTrendBadge('velocity-tests-trend', testsTrend);
 
             // Update detail text
-            document.getElementById('velocity-commits-detail').textContent = `${commitsTrend > 0 ? '+' : ''}${(currentCommitsPerDay - previousCommitsPerDay).toFixed(1)} commits/day`;
-            document.getElementById('velocity-loc-detail').textContent = `${locTrend > 0 ? '+' : ''}${currentLocPerDay - previousLocPerDay} LOC/day`;
-            document.getElementById('velocity-tests-detail').textContent = testsTrend === '0' ? 'No change' : `${testsTrend > 0 ? '+' : ''}${(currentTestsPerWeek - previousTestsPerWeek).toFixed(2)} per week`;
+            const commitsDelta = (current.commitsPerDay - previous.commitsPerDay).toFixed(2);
+            const locDelta = (current.locPerDay - previous.locPerDay);
+            const testsDelta = (current.testFilesPerWeek - previous.testFilesPerWeek).toFixed(2);
+
+            document.getElementById('velocity-commits-detail').textContent = `${commitsDelta > 0 ? '+' : ''}${commitsDelta} commits/day`;
+            document.getElementById('velocity-loc-detail').textContent = `${locDelta > 0 ? '+' : ''}${locDelta} LOC/day`;
+            document.getElementById('velocity-tests-detail').textContent = testsDelta == 0 ? 'No change' : `${testsDelta > 0 ? '+' : ''}${testsDelta} per week`;
 
             // Update charts
-            renderVelocityCharts(days);
+            renderVelocityCharts(currentSnapshots, previousSnapshots);
         }
 
         function updateTrendBadge(elementId, percentage) {
@@ -1717,28 +1808,49 @@ Quality Score = (Test_Coverage × 0.35)
             }
         }
 
-        function renderVelocityCharts(days) {
+        function updateTrendBadge(elementId, percentage) {
+            const element = document.getElementById(elementId);
+            const trend = parseFloat(percentage);
+
+            element.classList.remove('up', 'down', 'neutral');
+
+            if (trend > 0.5) {
+                element.classList.add('up');
+                element.textContent = `↑ +${percentage}%`;
+            } else if (trend < -0.5) {
+                element.classList.add('down');
+                element.textContent = `↓ ${percentage}%`;
+            } else {
+                element.classList.add('neutral');
+                element.textContent = '→ ±0%';
+            }
+        }
+
+        function renderVelocityCharts(currentSnapshots, previousSnapshots) {
+            const current = calculateVelocityMetrics(currentSnapshots);
+            const previous = calculateVelocityMetrics(previousSnapshots);
+
             // Velocity Comparison Chart
             const ctx1 = document.getElementById('velocityComparisonChart');
             if (ctx1 && ctx1.chart) {
                 ctx1.chart.destroy();
             }
 
-            new Chart(ctx1, {
+            ctx1.chart = new Chart(ctx1, {
                 type: 'bar',
                 data: {
-                    labels: ['Commits/Day', 'LOC/Day (÷100)', 'Tests/Week'],
+                    labels: ['Commits/Day', 'LOC/Day (÷10)', 'Tests/Week'],
                     datasets: [
                         {
                             label: 'Current Period',
-                            data: [4.8, 4.87, 0.8],
+                            data: [current.commitsPerDay, current.locPerDay / 10, current.testFilesPerWeek],
                             backgroundColor: '#007bff',
                             borderColor: '#0056b3',
                             borderWidth: 1
                         },
                         {
                             label: 'Previous Period',
-                            data: [3.7, 4.23, 0.8],
+                            data: [previous.commitsPerDay, previous.locPerDay / 10, previous.testFilesPerWeek],
                             backgroundColor: '#e9ecef',
                             borderColor: '#adb5bd',
                             borderWidth: 1
@@ -1767,32 +1879,48 @@ Quality Score = (Test_Coverage × 0.35)
                 ctx2.chart.destroy();
             }
 
-            const labels = [];
-            for (let i = 0; i < Math.min(days, 30); i++) {
-                labels.push(`Day ${i + 1}`);
-            }
+            // Generate day-by-day commit data
+            const currentDailyData = {};
+            const previousDailyData = {};
 
-            new Chart(ctx2, {
+            currentSnapshots.forEach(s => {
+                if (s.daily_commits) {
+                    Object.assign(currentDailyData, s.daily_commits);
+                }
+            });
+
+            previousSnapshots.forEach(s => {
+                if (s.daily_commits) {
+                    Object.assign(previousDailyData, s.daily_commits);
+                }
+            });
+
+            const allDates = [...new Set([...Object.keys(currentDailyData), ...Object.keys(previousDailyData)])].sort();
+            const recentDates = allDates.slice(-30);
+
+            ctx2.chart = new Chart(ctx2, {
                 type: 'line',
                 data: {
-                    labels: labels,
+                    labels: recentDates,
                     datasets: [
                         {
                             label: 'Current Period',
-                            data: Array(Math.min(days, 30)).fill(4.8).map(() => 4.8 + (Math.random() - 0.5) * 2),
+                            data: recentDates.map(d => currentDailyData[d] || 0),
                             borderColor: '#007bff',
                             backgroundColor: 'rgba(0, 123, 255, 0.1)',
                             tension: 0.4,
-                            fill: true
+                            fill: true,
+                            pointRadius: 3
                         },
                         {
                             label: 'Previous Period',
-                            data: Array(Math.min(days, 30)).fill(3.7).map(() => 3.7 + (Math.random() - 0.5) * 2),
+                            data: recentDates.map(d => previousDailyData[d] || 0),
                             borderColor: '#adb5bd',
                             backgroundColor: 'rgba(173, 181, 189, 0.1)',
                             tension: 0.4,
                             fill: true,
-                            borderDash: [5, 5]
+                            borderDash: [5, 5],
+                            pointRadius: 3
                         }
                     ]
                 },
@@ -1803,6 +1931,11 @@ Quality Score = (Test_Coverage × 0.35)
                         mode: 'index',
                         intersect: false
                     },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
                     plugins: {
                         legend: {
                             position: 'bottom'
@@ -1812,9 +1945,13 @@ Quality Score = (Test_Coverage × 0.35)
             });
         }
 
-        // Initialize period selector on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            const dataLoaded = await loadHistoryData();
             applyPeriod('30d');
+            if (!dataLoaded) {
+                console.warn('History data not available');
+            }
         });
     </script>
 </body>
