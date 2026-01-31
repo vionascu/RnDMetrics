@@ -1,0 +1,335 @@
+{
+  "vionascu_trailwaze": {
+    "project": "vionascu_trailwaze",
+    "source_file": "/Users/viionascu/Projects/trailwaze/apps/mobile/__tests__/mvp-epics.test.js",
+    "collection_method": "Jest test file parsing",
+    "epics": [
+      {
+        "epic_id": "epic-1",
+        "epic_number": "1",
+        "epic_title": "Mobile app foundation (React Native + Expo)",
+        "total_tests": 4,
+        "user_stories": [
+          {
+            "id": "US1.1",
+            "title": "US1.1 - Launch the app on a phone",
+            "test_count": 2
+          },
+          {
+            "id": "US1.2",
+            "title": "US1.2 - Minimal repo structure",
+            "test_count": 2
+          }
+        ],
+        "us_count": 2
+      },
+      {
+        "epic_id": "epic-2",
+        "epic_number": "2",
+        "epic_title": "Offline maps (MapLibre + MBTiles)",
+        "total_tests": 8,
+        "user_stories": [
+          {
+            "id": "US2.1",
+            "title": "US2.1 - See an offline map",
+            "test_count": 2
+          },
+          {
+            "id": "US2.2",
+            "title": "US2.2 - Show position on the map",
+            "test_count": 2
+          },
+          {
+            "id": "US2.3",
+            "title": "US2.3 - Display GPX tracks",
+            "test_count": 2
+          },
+          {
+            "id": "US2.4",
+            "title": "US2.4 - Themed layers (bear, ice, obstacles)",
+            "test_count": 2
+          }
+        ],
+        "us_count": 4
+      },
+      {
+        "epic_id": "epic-3",
+        "epic_number": "3",
+        "epic_title": "Local storage (reports, cache, sync)",
+        "total_tests": 6,
+        "user_stories": [
+          {
+            "id": "US3.1",
+            "title": "US3.1 - Save reports locally",
+            "test_count": 2
+          },
+          {
+            "id": "US3.2",
+            "title": "US3.2 - Cache tracks and reports",
+            "test_count": 2
+          },
+          {
+            "id": "US3.3",
+            "title": "US3.3 - Sync queue",
+            "test_count": 2
+          }
+        ],
+        "us_count": 3
+      },
+      {
+        "epic_id": "epic-4",
+        "epic_number": "4",
+        "epic_title": "Fast backend for sync (Supabase/Firebase)",
+        "total_tests": 4,
+        "user_stories": [
+          {
+            "id": "US4.1",
+            "title": "US4.1 - Automatic sync when signal returns",
+            "test_count": 2
+          },
+          {
+            "id": "US4.2",
+            "title": "US4.2 - New reports from my area",
+            "test_count": 2
+          }
+        ],
+        "us_count": 2
+      },
+      {
+        "epic_id": "epic-5",
+        "epic_number": "5",
+        "epic_title": "Weather, wind, alerts",
+        "total_tests": 4,
+        "user_stories": [
+          {
+            "id": "US5.1",
+            "title": "US5.1 - Simple forecast for key points",
+            "test_count": 2
+          },
+          {
+            "id": "US5.2",
+            "title": "US5.2 - Essential route-level alerts",
+            "test_count": 2
+          }
+        ],
+        "us_count": 2
+      },
+      {
+        "epic_id": "epic-6",
+        "epic_number": "6",
+        "epic_title": "Waze-style reporting without signal",
+        "total_tests": 30,
+        "user_stories": [
+          {
+            "id": "US6.1",
+            "title": "US6.1 - Fast reporting button",
+            "test_count": 2
+          },
+          {
+            "id": "US6.2",
+            "title": "US6.2 - Choose report type",
+            "test_count": 2
+          },
+          {
+            "id": "US6.3",
+            "title": "US6.3 - Add photo and text",
+            "test_count": 2
+          },
+          {
+            "id": "US6.4",
+            "title": "US6.4 - Automatic expiration (TTL)",
+            "test_count": 24
+          }
+        ],
+        "us_count": 4
+      }
+    ],
+    "total_epics": 6,
+    "total_user_stories": 17,
+    "total_tests": 56
+  },
+  "vionascu_trail-equip": {
+    "project": "vionascu_trail-equip",
+    "source_file": "/Users/viionascu/Projects/TrailEquip/docs/MVP_EPICS.md",
+    "collection_method": "MVP_EPICS.md + test file analysis",
+    "epics": [
+      {
+        "epic_id": "epic-1",
+        "epic_number": "1",
+        "epic_title": "Trail Discovery & Exploration",
+        "user_stories": [
+          {
+            "id": "US1.1",
+            "title": "View Trail List",
+            "test_count": 3
+          },
+          {
+            "id": "US1.2",
+            "title": "Filter Trails by Difficulty",
+            "test_count": 7
+          },
+          {
+            "id": "US1.3",
+            "title": "Search Trails by Name",
+            "test_count": 0
+          },
+          {
+            "id": "US1.4",
+            "title": "View Trail Details",
+            "test_count": 0
+          },
+          {
+            "id": "US1.5",
+            "title": "View Trail on Map",
+            "test_count": 5
+          }
+        ],
+        "us_count": 5,
+        "total_tests": 15
+      },
+      {
+        "epic_id": "epic-2",
+        "epic_number": "2",
+        "epic_title": "OpenStreetMap Integration",
+        "user_stories": [
+          {
+            "id": "US2.1",
+            "title": "Import All Bucegi Trails",
+            "test_count": 1
+          },
+          {
+            "id": "US2.2",
+            "title": "Import Trails by Geographic Area",
+            "test_count": 0
+          },
+          {
+            "id": "US2.3",
+            "title": "Export Trail as GeoJSON",
+            "test_count": 2
+          },
+          {
+            "id": "US2.4",
+            "title": "Export Trail as GPX",
+            "test_count": 4
+          }
+        ],
+        "us_count": 4,
+        "total_tests": 7
+      },
+      {
+        "epic_id": "epic-3",
+        "epic_number": "3",
+        "epic_title": "Weather Integration & Trail Planning",
+        "user_stories": [
+          {
+            "id": "US3.1",
+            "title": "View 7-Day Weather Forecast",
+            "test_count": 0
+          },
+          {
+            "id": "US3.2",
+            "title": "Get Equipment Recommendations",
+            "test_count": 4
+          },
+          {
+            "id": "US3.3",
+            "title": "View Weather Warnings",
+            "test_count": 0
+          }
+        ],
+        "us_count": 3,
+        "total_tests": 4
+      },
+      {
+        "epic_id": "epic-4",
+        "epic_number": "4",
+        "epic_title": "Community Hazard Reporting",
+        "user_stories": [
+          {
+            "id": "US4.1",
+            "title": "Report Trail Hazard",
+            "test_count": 3
+          },
+          {
+            "id": "US4.2",
+            "title": "View Hazard Reports",
+            "test_count": 4
+          }
+        ],
+        "us_count": 2,
+        "total_tests": 7
+      },
+      {
+        "epic_id": "epic-5",
+        "epic_number": "5",
+        "epic_title": "Trail Export & GPS Support",
+        "user_stories": [
+          {
+            "id": "US5.1",
+            "title": "Export Multiple Trails",
+            "test_count": 2
+          },
+          {
+            "id": "US5.2",
+            "title": "Import GPX from External Source",
+            "test_count": 3
+          }
+        ],
+        "us_count": 2,
+        "total_tests": 5
+      },
+      {
+        "epic_id": "epic-6",
+        "epic_number": "6",
+        "epic_title": "API Gateway & Microservices",
+        "user_stories": [
+          {
+            "id": "US6.1",
+            "title": "Route API Requests",
+            "test_count": 0
+          },
+          {
+            "id": "US6.2",
+            "title": "Health Check All Services",
+            "test_count": 0
+          },
+          {
+            "id": "US6.3",
+            "title": "Automatic Service Recovery",
+            "test_count": 0
+          }
+        ],
+        "us_count": 3,
+        "total_tests": 0
+      },
+      {
+        "epic_id": "epic-7",
+        "epic_number": "7",
+        "epic_title": "Production Deployment & Scaling",
+        "user_stories": [
+          {
+            "id": "US7.1",
+            "title": "Deploy Application to Production",
+            "test_count": 0
+          },
+          {
+            "id": "US7.2",
+            "title": "Database Scaling",
+            "test_count": 0
+          },
+          {
+            "id": "US7.3",
+            "title": "Configure Environment Variables",
+            "test_count": 0
+          }
+        ],
+        "us_count": 3,
+        "total_tests": 0
+      }
+    ],
+    "total_epics": 7,
+    "total_user_stories": 22,
+    "total_tests": 8,
+    "test_files_found": 8
+  }
+}

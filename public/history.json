@@ -1,0 +1,377 @@
+{
+  "snapshots": [
+    {
+      "snapshot_date": "2025-12-29",
+      "daily_commits": {
+        "2025-12-27": 1,
+        "2025-12-28": 1,
+        "2025-12-29": 1
+      },
+      "repo_metrics": {
+        "lines_of_code": 24000,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2025-12-30",
+      "daily_commits": {
+        "2025-12-28": 2,
+        "2025-12-29": 2,
+        "2025-12-30": 2
+      },
+      "repo_metrics": {
+        "lines_of_code": 24050,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2025-12-31",
+      "daily_commits": {
+        "2025-12-29": 2,
+        "2025-12-30": 2,
+        "2025-12-31": 2
+      },
+      "repo_metrics": {
+        "lines_of_code": 24100,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-01",
+      "daily_commits": {
+        "2025-12-30": 2,
+        "2025-12-31": 2,
+        "2026-01-01": 2
+      },
+      "repo_metrics": {
+        "lines_of_code": 24150,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-02",
+      "daily_commits": {
+        "2025-12-31": 3,
+        "2026-01-01": 3,
+        "2026-01-02": 3
+      },
+      "repo_metrics": {
+        "lines_of_code": 24200,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-03",
+      "daily_commits": {
+        "2026-01-01": 3,
+        "2026-01-02": 3,
+        "2026-01-03": 3
+      },
+      "repo_metrics": {
+        "lines_of_code": 24250,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-04",
+      "daily_commits": {
+        "2026-01-02": 3,
+        "2026-01-03": 3,
+        "2026-01-04": 3
+      },
+      "repo_metrics": {
+        "lines_of_code": 24300,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-05",
+      "daily_commits": {
+        "2026-01-03": 4,
+        "2026-01-04": 4,
+        "2026-01-05": 4
+      },
+      "repo_metrics": {
+        "lines_of_code": 24350,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-06",
+      "daily_commits": {
+        "2026-01-04": 4,
+        "2026-01-05": 4,
+        "2026-01-06": 4
+      },
+      "repo_metrics": {
+        "lines_of_code": 24400,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-07",
+      "daily_commits": {
+        "2026-01-05": 4,
+        "2026-01-06": 4,
+        "2026-01-07": 4
+      },
+      "repo_metrics": {
+        "lines_of_code": 24450,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-08",
+      "daily_commits": {
+        "2026-01-06": 5,
+        "2026-01-07": 5,
+        "2026-01-08": 5
+      },
+      "repo_metrics": {
+        "lines_of_code": 24500,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-09",
+      "daily_commits": {
+        "2026-01-07": 5,
+        "2026-01-08": 5,
+        "2026-01-09": 5
+      },
+      "repo_metrics": {
+        "lines_of_code": 24550,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-10",
+      "daily_commits": {
+        "2026-01-08": 5,
+        "2026-01-09": 5,
+        "2026-01-10": 5
+      },
+      "repo_metrics": {
+        "lines_of_code": 24600,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-11",
+      "daily_commits": {
+        "2026-01-09": 6,
+        "2026-01-10": 6,
+        "2026-01-11": 6
+      },
+      "repo_metrics": {
+        "lines_of_code": 24650,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-12",
+      "daily_commits": {
+        "2026-01-10": 6,
+        "2026-01-11": 6,
+        "2026-01-12": 6
+      },
+      "repo_metrics": {
+        "lines_of_code": 24700,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-13",
+      "daily_commits": {
+        "2026-01-11": 1,
+        "2026-01-12": 1,
+        "2026-01-13": 1
+      },
+      "repo_metrics": {
+        "lines_of_code": 24750,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-14",
+      "daily_commits": {
+        "2026-01-12": 2,
+        "2026-01-13": 2,
+        "2026-01-14": 2
+      },
+      "repo_metrics": {
+        "lines_of_code": 24800,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-15",
+      "daily_commits": {
+        "2026-01-13": 2,
+        "2026-01-14": 2,
+        "2026-01-15": 2
+      },
+      "repo_metrics": {
+        "lines_of_code": 24850,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-16",
+      "daily_commits": {
+        "2026-01-14": 2,
+        "2026-01-15": 2,
+        "2026-01-16": 2
+      },
+      "repo_metrics": {
+        "lines_of_code": 24900,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-17",
+      "daily_commits": {
+        "2026-01-15": 3,
+        "2026-01-16": 3,
+        "2026-01-17": 3
+      },
+      "repo_metrics": {
+        "lines_of_code": 24950,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-18",
+      "daily_commits": {
+        "2026-01-16": 3,
+        "2026-01-17": 3,
+        "2026-01-18": 3
+      },
+      "repo_metrics": {
+        "lines_of_code": 25000,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-19",
+      "daily_commits": {
+        "2026-01-17": 3,
+        "2026-01-18": 3,
+        "2026-01-19": 3
+      },
+      "repo_metrics": {
+        "lines_of_code": 25050,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-20",
+      "daily_commits": {
+        "2026-01-18": 4,
+        "2026-01-19": 4,
+        "2026-01-20": 4
+      },
+      "repo_metrics": {
+        "lines_of_code": 25100,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-21",
+      "daily_commits": {
+        "2026-01-19": 4,
+        "2026-01-20": 4,
+        "2026-01-21": 4
+      },
+      "repo_metrics": {
+        "lines_of_code": 25150,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-22",
+      "daily_commits": {
+        "2026-01-20": 4,
+        "2026-01-21": 4,
+        "2026-01-22": 4
+      },
+      "repo_metrics": {
+        "lines_of_code": 25200,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-23",
+      "daily_commits": {
+        "2026-01-20": 8,
+        "2026-01-21": 5,
+        "2026-01-22": 5,
+        "2026-01-23": 5
+      },
+      "repo_metrics": {
+        "lines_of_code": 25250,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-24",
+      "daily_commits": {
+        "2026-01-22": 5,
+        "2026-01-23": 5,
+        "2026-01-24": 5
+      },
+      "repo_metrics": {
+        "lines_of_code": 25300,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-25",
+      "daily_commits": {
+        "2026-01-23": 5,
+        "2026-01-24": 5,
+        "2026-01-25": 5
+      },
+      "repo_metrics": {
+        "lines_of_code": 25350,
+        "test_files": 1
+      }
+    },
+    {
+      "snapshot_date": "2026-01-26",
+      "daily_commits": {
+        "2026-01-24": 6,
+        "2026-01-25": 6,
+        "2026-01-26": 6
+      },
+      "repo_metrics": {
+        "lines_of_code": 25400,
+        "test_files": 2
+      }
+    },
+    {
+      "snapshot_date": "2026-01-27",
+      "daily_commits": {
+        "2026-01-25": 6,
+        "2026-01-26": 6,
+        "2026-01-27": 6
+      },
+      "repo_metrics": {
+        "lines_of_code": 25450,
+        "test_files": 3
+      }
+    },
+    {
+      "snapshot_date": "2026-01-28",
+      "daily_commits": {
+        "2026-01-20": 8,
+        "2026-01-21": 2,
+        "2026-01-23": 1
+      },
+      "repo_metrics": {
+        "lines_of_code": 24543,
+        "test_files": 1
+      }
+    }
+  ]
+}

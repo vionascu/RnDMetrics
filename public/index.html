@@ -1124,14 +1124,16 @@
                 }
             }
 
-            // Build KPI cards
-            let kpiHtml = '<div class="exec-summary">';
+            // Build clean summary with BIG numbers
+            let html = '<div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 30px; margin-bottom: 30px;">';
+            html += '<h2 style="margin-bottom: 30px; color: #00d9ff;">🎯 Performance Summary</h2>';
+            html += '<div class="exec-summary">';
 
             const metrics = [
-                { key: 'deployment_frequency', label: 'Deployment Frequency', icon: '🚀', suffix: '/day' },
-                { key: 'lead_time', label: 'Lead Time for Changes', icon: '⏱️', suffix: 'hrs' },
-                { key: 'change_failure_rate', label: 'Change Failure Rate', icon: '⚠️', suffix: '%' },
-                { key: 'mttr', label: 'Mean Time to Recovery', icon: '🔧', suffix: 'hrs' }
+                { key: 'deployment_frequency', label: 'Deploy Speed', icon: '🚀', suffix: 'x/day', benchmark: 'Elite: >1/day' },
+                { key: 'lead_time', label: 'Time to Market', icon: '⏱️', suffix: 'hrs', benchmark: 'Elite: <24hrs' },
+                { key: 'change_failure_rate', label: 'Quality', icon: '✅', suffix: '%', benchmark: 'Elite: <15%' },
+                { key: 'mttr', label: 'Recovery Time', icon: '⚡', suffix: 'hrs', benchmark: 'Elite: <1hr' }
             ];
 
             for (const metric of metrics) {
@@ -1140,90 +1142,116 @@
 
                 const color = getHealthColor(data.classification || 'medium');
                 const value = data.value || 0;
+                const status = data.classification ? data.classification.toUpperCase() : 'N/A';
 
-                kpiHtml += `
-                    <div class="kpi-card" style="border-top: 3px solid ${color};">
-                        <div class="kpi-label">${metric.icon} ${metric.label}</div>
-                        <div class="kpi-value" style="color: ${color};">${value.toFixed(1)} ${metric.suffix}</div>
-                        <div class="kpi-classification" style="background: ${color}22; color: ${color}; border: 1px solid ${color};">
-                            ${data.classification ? data.classification.toUpperCase() : 'N/A'}
+                html += `
+                    <div class="kpi-card" style="border-top: 4px solid ${color}; cursor: pointer; transition: all 0.3s;"
+                         onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)'"
+                         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                        <div style="font-size: 2.5em; margin: 15px 0;">${metric.icon}</div>
+                        <div class="kpi-label">${metric.label}</div>
+                        <div class="kpi-value" style="color: ${color}; font-size: 3em; font-weight: bold; margin: 15px 0;">${value.toFixed(1)}</div>
+                        <div style="color: #a0a0a0; font-size: 0.9em; margin-bottom: 10px;">${metric.suffix}</div>
+                        <div class="kpi-classification" style="background: ${color}22; color: ${color}; border: 2px solid ${color}; padding: 8px 16px; font-weight: bold; font-size: 0.9em;">
+                            ${status}
                         </div>
-                        <div class="kpi-interpretation">
-                            ${metric.key === 'deployment_frequency' ? 'Higher is better - Elite teams deploy multiple times daily' :
-                              metric.key === 'lead_time' ? 'Lower is better - Elite teams deploy within 24 hours' :
-                              metric.key === 'change_failure_rate' ? 'Lower is better - Elite teams have <15% failure rate' :
-                              'Lower is better - Elite teams recover in <1 hour'}
+                        <div style="font-size: 0.8em; color: #888; margin-top: 10px;">${metric.benchmark}</div>
+                    </div>
+                `;
+            }
+
+            html += '</div></div>';
+
+            // Insights - collapsible
+            const insights = generateExecutiveInsights(doraMetrics);
+            if (insights.length > 0) {
+                html += '<div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; margin-bottom: 30px; cursor: pointer;" onclick="this.querySelector(\'.insight-details\').style.display = this.querySelector(\'.insight-details\').style.display === \'none\' ? \'block\' : \'none\';">';
+                html += '<h3 style="margin-bottom: 15px;">📌 ' + (insights.length === 1 ? 'Key Alert' : 'Key Alerts') + ' (' + insights.length + ')</h3>';
+                html += '<div class="insight-details" style="margin-top: 15px;">';
+
+                for (const insight of insights) {
+                    html += `
+                        <div style="padding: 12px; margin-bottom: 10px; border-left: 4px solid ${insight.type === 'success' ? '#00ff88' : insight.type === 'warning' ? '#ffaa00' : insight.type === 'alert' ? '#ff9900' : '#ff3366'}; background: rgba(255,255,255,0.02);">
+                            <strong>${insight.title}</strong><br>
+                            <span style="font-size: 0.9em; color: #a0a0a0;">${insight.message}</span><br>
+                            <span style="font-size: 0.85em; color: #888; margin-top: 5px; display: block;">💡 ${insight.recommendation}</span>
+                        </div>
+                    `;
+                }
+
+                html += '</div></div>';
+            }
+
+            // Epics summary - collapsible
+            let totalEpics = 0, epicsWithTests = 0, totalTests = 0;
+            for (const [metricId, metric] of Object.entries(allMetrics)) {
+                if (!metricId.includes(project) && project !== 'all') continue;
+                if (metricId.includes('epic_total')) totalEpics = metric.value;
+                if (metricId.includes('epic_covered')) epicsWithTests = metric.value;
+                if (metricId.includes('_test_') && metricId.includes('count')) totalTests += (metric.value || 0);
+            }
+
+            if (totalEpics > 0) {
+                const epicCoverage = Math.round((epicsWithTests / totalEpics) * 100);
+                html += `
+                    <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; cursor: pointer; margin-bottom: 30px;"
+                         onclick="this.querySelector('.epic-details').style.display = this.querySelector('.epic-details').style.display === 'none' ? 'block' : 'none';">
+                        <h3 style="margin-bottom: 15px;">📋 Epics: ${totalEpics} total</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; color: #00ff88; font-weight: bold;">${epicsWithTests}</div>
+                                <div style="font-size: 0.9em; color: #a0a0a0;">With Tests</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; color: #00d9ff; font-weight: bold;">${totalEpics - epicsWithTests}</div>
+                                <div style="font-size: 0.9em; color: #a0a0a0;">No Tests</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; color: #ffaa00; font-weight: bold;">${epicCoverage}%</div>
+                                <div style="font-size: 0.9em; color: #a0a0a0;">Coverage</div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; overflow: hidden;">
+                            <div style="background: linear-gradient(to right, #00ff88, #00d9ff); height: 100%; width: ${epicCoverage}%;"></div>
+                        </div>
+                        <div class="epic-details" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <p style="color: #a0a0a0; margin-bottom: 10px;">✅ <strong>${epicsWithTests} epics</strong> have test coverage</p>
+                            <p style="color: #a0a0a0;">⚠️ <strong>${totalEpics - epicsWithTests} epics</strong> need test coverage</p>
                         </div>
                     </div>
                 `;
             }
 
-            kpiHtml += '</div>';
+            // Code Quality - collapsible
+            let testCount = 0, churnRatio = 0;
+            for (const [metricId, metric] of Object.entries(allMetrics)) {
+                if (!metricId.includes(project) && project !== 'all') continue;
+                if (metricId.includes('test') && metricId.includes('count') && !metricId.includes('epic')) testCount += (metric.value || 0);
+                if (metricId.includes('churn_ratio')) churnRatio = metric.value;
+            }
 
-            // Build insights section
-            const insights = generateExecutiveInsights(doraMetrics);
-            let insightHtml = '<div class="exec-insights">';
-            insightHtml += '<h2>📋 Key Insights</h2>';
-            insightHtml += '<div class="insight-list">';
-
-            if (insights.length === 0) {
-                insightHtml += '<div style="color: #a0a0a0;">Loading insights...</div>';
-            } else {
-                for (const insight of insights) {
-                    insightHtml += `
-                        <div class="insight-item ${insight.type}">
-                            <div class="insight-title">${insight.title}</div>
-                            <div class="insight-message">${insight.message}</div>
-                            <div class="insight-recommendation">💡 ${insight.recommendation}</div>
+            html += `
+                <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; cursor: pointer;"
+                     onclick="this.querySelector('.quality-details').style.display = this.querySelector('.quality-details').style.display === 'none' ? 'block' : 'none';">
+                    <h3 style="margin-bottom: 15px;">🧪 Code Quality Snapshot</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #00d9ff; font-weight: bold;">${testCount}</div>
+                            <div style="font-size: 0.9em; color: #a0a0a0;">Tests</div>
                         </div>
-                    `;
-                }
-            }
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #ffaa00; font-weight: bold;">${churnRatio.toFixed(2)}</div>
+                            <div style="font-size: 0.9em; color: #a0a0a0;">Churn Ratio</div>
+                        </div>
+                    </div>
+                    <div class="quality-details" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9em; color: #a0a0a0;">
+                        <p>✅ <strong>${testCount} tests</strong> covering code quality</p>
+                        <p>📊 Churn ratio of <strong>${churnRatio.toFixed(2)}</strong> (${churnRatio > 0.5 ? 'active refactoring' : 'stable code'})</p>
+                    </div>
+                </div>
+            `;
 
-            insightHtml += '</div></div>';
-
-            // Build health matrix
-            let healthHtml = '<h2>📊 Project Health Matrix</h2>';
-            healthHtml += '<table class="health-matrix">';
-            healthHtml += '<thead><tr><th>Project</th><th>Deployment Freq</th><th>Lead Time</th><th>CFR</th><th>MTTR</th><th>Overall Health</th></tr></thead>';
-            healthHtml += '<tbody>';
-
-            // Collect all projects
-            const projects = new Set();
-            for (const metricId of Object.keys(allMetrics)) {
-                const proj = metricId.split('_').slice(0, 2).join('_');
-                if (proj && proj !== 'all') projects.add(proj);
-            }
-
-            for (const proj of projects) {
-                const metrics_for_proj = {};
-                for (const [metricId, metric] of Object.entries(allMetrics)) {
-                    if (!metricId.startsWith(proj)) continue;
-                    if (!metric.classification) continue;
-                    if (metricId.includes('deployment_frequency')) metrics_for_proj.df = metric.classification;
-                    else if (metricId.includes('lead_time')) metrics_for_proj.lt = metric.classification;
-                    else if (metricId.includes('change_failure_rate')) metrics_for_proj.cfr = metric.classification;
-                    else if (metricId.includes('mttr')) metrics_for_proj.mttr = metric.classification;
-                }
-
-                const projectName = proj.split('_').slice(1).join(' ').toUpperCase();
-                const overallHealth = [metrics_for_proj.df, metrics_for_proj.lt, metrics_for_proj.cfr, metrics_for_proj.mttr]
-                    .filter(Boolean)[0] || 'unknown';
-
-                healthHtml += `<tr>`;
-                healthHtml += `<td style="text-align: left;">${projectName}</td>`;
-                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.df || 'low')}22; color: ${getHealthColor(metrics_for_proj.df || 'low')};">${(metrics_for_proj.df || 'N/A').toUpperCase()}</span></td>`;
-                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.lt || 'low')}22; color: ${getHealthColor(metrics_for_proj.lt || 'low')};">${(metrics_for_proj.lt || 'N/A').toUpperCase()}</span></td>`;
-                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.cfr || 'low')}22; color: ${getHealthColor(metrics_for_proj.cfr || 'low')};">${(metrics_for_proj.cfr || 'N/A').toUpperCase()}</span></td>`;
-                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(metrics_for_proj.mttr || 'low')}22; color: ${getHealthColor(metrics_for_proj.mttr || 'low')};">${(metrics_for_proj.mttr || 'N/A').toUpperCase()}</span></td>`;
-                healthHtml += `<td><span class="health-score-cell" style="background: ${getHealthColor(overallHealth)}22; color: ${getHealthColor(overallHealth)}; font-weight: bold;">${overallHealth.toUpperCase()}</span></td>`;
-                healthHtml += '</tr>';
-            }
-
-            healthHtml += '</tbody></table>';
-
-            const finalHtml = kpiHtml + insightHtml + healthHtml;
-            document.getElementById('executive-content').innerHTML = finalHtml;
+            document.getElementById('executive-content').innerHTML = html;
         }
     </script>
 </body>
