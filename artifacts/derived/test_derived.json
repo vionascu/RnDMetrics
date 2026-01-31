@@ -1,0 +1,58 @@
+{
+  "dimension": "test",
+  "computed_at": "2026-01-31T13:42:55.431342+00:00",
+  "metrics": {
+    "vionascu_trailwaze_test_total_count": {
+      "value": 56,
+      "unit": "tests",
+      "source_metrics": [
+        "vionascu_trailwaze_tests_summary"
+      ],
+      "dimension": "test"
+    },
+    "vionascu_trailwaze_test_unit_count": {
+      "value": 56,
+      "unit": "tests",
+      "source_metrics": [
+        "vionascu_trailwaze_tests_summary"
+      ],
+      "category": "unit",
+      "dimension": "test"
+    },
+    "vionascu_trailwaze_test_pass_rate": {
+      "value": 100.0,
+      "unit": "percent",
+      "source_metrics": [
+        "vionascu_trailwaze_tests_summary"
+      ],
+      "dimension": "test",
+      "calculation": "56 passed / 56 total"
+    },
+    "vionascu_trail-equip_test_total_count": {
+      "value": 8,
+      "unit": "tests",
+      "source_metrics": [
+        "vionascu_trail-equip_tests_summary"
+      ],
+      "dimension": "test"
+    },
+    "vionascu_trail-equip_test_unit_count": {
+      "value": 8,
+      "unit": "tests",
+      "source_metrics": [
+        "vionascu_trail-equip_tests_summary"
+      ],
+      "category": "unit",
+      "dimension": "test"
+    },
+    "vionascu_trail-equip_test_pass_rate": {
+      "value": 100.0,
+      "unit": "percent",
+      "source_metrics": [
+        "vionascu_trail-equip_tests_summary"
+      ],
+      "dimension": "test",
+      "calculation": "8 passed / 8 total"
+    }
+  }
+}

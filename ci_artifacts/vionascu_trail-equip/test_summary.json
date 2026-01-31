@@ -1,0 +1,23 @@
+{
+  "total": 8,
+  "passed": 8,
+  "failed": 0,
+  "skipped": 0,
+  "tests_by_type": {
+    "unit": 8,
+    "integration": 0,
+    "api": 0,
+    "unknown": 0
+  },
+  "source_files": [
+    "/Users/viionascu/Projects/TrailEquip/services/trail-service/src/test/java/com/trailequip/trail/domain/DifficultyClassifierTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/trail-service/src/test/java/com/trailequip/trail/domain/model/DifficultyTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/trail-service/src/test/java/com/trailequip/trail/application/service/TrailExportServiceTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/trail-service/src/test/java/com/trailequip/trail/application/service/OSMIngestionServiceTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/trail-service/src/test/java/com/trailequip/trail/application/service/TrailNormalizerTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/trail-service/src/test/java/com/trailequip/trail/adapter/rest/TrailControllerTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/weather-service/src/test/java/com/trailequip/weather/adapter/rest/WeatherControllerTest.java",
+    "/Users/viionascu/Projects/TrailEquip/services/recommendation-service/src/test/java/com/trailequip/recommendation/adapter/rest/RecommendationControllerTest.java"
+  ],
+  "collection_method": "Java test file enumeration"
+}

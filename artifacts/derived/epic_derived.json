@@ -1,0 +1,58 @@
+{
+  "dimension": "epic",
+  "computed_at": "2026-01-31T13:42:55.431800+00:00",
+  "metrics": {
+    "vionascu_trailwaze_epics_epic_total": {
+      "value": 30,
+      "unit": "epics",
+      "source_metrics": [
+        "vionascu_trailwaze_epics_summary"
+      ],
+      "dimension": "epic"
+    },
+    "vionascu_trailwaze_epics_epic_covered": {
+      "value": 30,
+      "unit": "epics",
+      "source_metrics": [
+        "vionascu_trailwaze_epics_summary"
+      ],
+      "dimension": "epic",
+      "percentage": 100.0
+    },
+    "vionascu_trailwaze_epics_epic_not_covered": {
+      "value": 0,
+      "unit": "epics",
+      "source_metrics": [
+        "vionascu_trailwaze_epics_summary"
+      ],
+      "dimension": "epic",
+      "percentage": 0.0
+    },
+    "vionascu_trail-equip_epics_epic_total": {
+      "value": 7,
+      "unit": "epics",
+      "source_metrics": [
+        "vionascu_trail-equip_epics_summary"
+      ],
+      "dimension": "epic"
+    },
+    "vionascu_trail-equip_epics_epic_covered": {
+      "value": 7,
+      "unit": "epics",
+      "source_metrics": [
+        "vionascu_trail-equip_epics_summary"
+      ],
+      "dimension": "epic",
+      "percentage": 100.0
+    },
+    "vionascu_trail-equip_epics_epic_not_covered": {
+      "value": 0,
+      "unit": "epics",
+      "source_metrics": [
+        "vionascu_trail-equip_epics_summary"
+      ],
+      "dimension": "epic",
+      "percentage": 0.0
+    }
+  }
+}

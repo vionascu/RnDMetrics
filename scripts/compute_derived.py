@@ -107,7 +107,8 @@ class DerivedMetricsCompute:
                         "unit": "commits by week",
                         "source_metrics": [metric_id],
                         "calculation": f"Grouped {commits} commits by ISO week number",
-                        "total": commits
+                        "total": commits,
+                        "dimension": "activity"
                     }
 
                     # Also store total for reference
@@ -116,7 +117,8 @@ class DerivedMetricsCompute:
                         "unit": "commits",
                         "source_metrics": [metric_id],
                         "calculation": f"Total commits in period",
-                        "weekly_breakdown": commits_by_week
+                        "weekly_breakdown": commits_by_week,
+                        "dimension": "activity"
                     }
                 else:
                     # Fallback if no weekly data available (old data)
@@ -131,7 +133,8 @@ class DerivedMetricsCompute:
                                 "value": commits,
                                 "unit": "commits",
                                 "source_metrics": [metric_id],
-                                "calculation": f"Total commits over {days} days"
+                                "calculation": f"Total commits over {days} days",
+                                "dimension": "activity"
                             }
 
     def _compute_quality_metrics(self):
@@ -154,7 +157,8 @@ class DerivedMetricsCompute:
                         "value": round(pass_rate, 2),
                         "unit": "percent",
                         "source_metrics": [metric_id],
-                        "calculation": f"({total} - {failed} - {skipped}) / ({total} - {skipped}) * 100"
+                        "calculation": f"({total} - {failed} - {skipped}) / ({total} - {skipped}) * 100",
+                        "dimension": "quality"
                     }
 
             # Coverage adequacy
@@ -167,7 +171,8 @@ class DerivedMetricsCompute:
                         "value": line_coverage,
                         "unit": "percent",
                         "source_metrics": [metric_id],
-                        "adequacy": "sufficient" if line_coverage >= 70 else "needs_improvement"
+                        "adequacy": "sufficient" if line_coverage >= 70 else "needs_improvement",
+                        "dimension": "quality"
                     }
 
                 branch_coverage = raw_value.get("branch_coverage")
@@ -175,7 +180,8 @@ class DerivedMetricsCompute:
                     self.derived_data[f"{repo}_quality_coverage_branch"] = {
                         "value": branch_coverage,
                         "unit": "percent",
-                        "source_metrics": [metric_id]
+                        "source_metrics": [metric_id],
+                        "dimension": "quality"
                     }
 
     def _compute_velocity_metrics(self):
@@ -201,7 +207,8 @@ class DerivedMetricsCompute:
                     "components": {
                         "added": loc_added,
                         "deleted": loc_deleted
-                    }
+                    },
+                    "dimension": "velocity"
                 }
 
                 # Churn ratio (how much code was changed relative to added)
@@ -212,7 +219,8 @@ class DerivedMetricsCompute:
                         "value": round(churn_ratio, 2),
                         "unit": "ratio",
                         "source_metrics": [metric_id],
-                        "interpretation": "deletions per insertion (higher = more refactoring)"
+                        "interpretation": "deletions per insertion (higher = more refactoring)",
+                        "dimension": "velocity"
                     }
 
                 # Files per commit
@@ -226,7 +234,8 @@ class DerivedMetricsCompute:
                             "value": round(files_per_commit, 2),
                             "unit": "files/commit",
                             "source_metrics": [metric_id, commits_metric[0]],
-                            "calculation": f"{files_changed} files / {commits} commits"
+                            "calculation": f"{files_changed} files / {commits} commits",
+                            "dimension": "velocity"
                         }
 
     def _compute_test_metrics(self):
@@ -316,13 +325,29 @@ class DerivedMetricsCompute:
         # Group by dimension
         by_dimension = {}
         for metric_id, value in self.derived_data.items():
-            # Extract dimension: repo_dimension_metric
-            parts = metric_id.split("_", 2)
-            if len(parts) >= 2:
-                dimension = parts[1]
-                if dimension not in by_dimension:
-                    by_dimension[dimension] = {}
-                by_dimension[dimension][metric_id] = value
+            # Extract dimension from the metric's dimension field if present
+            dimension = value.get("dimension")
+
+            # Fallback: extract from metric_id pattern if no explicit dimension
+            if not dimension:
+                # Try to extract dimension from known patterns
+                if "activity" in metric_id:
+                    dimension = "activity"
+                elif "velocity" in metric_id:
+                    dimension = "velocity"
+                elif "quality" in metric_id:
+                    dimension = "quality"
+                elif "test" in metric_id:
+                    dimension = "test"
+                elif "epic" in metric_id:
+                    dimension = "epic"
+                else:
+                    # Last resort: assume it's the part before first metric type
+                    dimension = "other"
+
+            if dimension not in by_dimension:
+                by_dimension[dimension] = {}
+            by_dimension[dimension][metric_id] = value
 
         # Write each dimension
         for dimension, metrics in by_dimension.items():

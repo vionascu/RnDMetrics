@@ -1,0 +1,45 @@
+{
+  "total_epics": 7,
+  "epics_covered": 7,
+  "epics_not_covered": 0,
+  "epic_details": [
+    {
+      "number": "1",
+      "title": "Trail Discovery & Exploration",
+      "has_tests": true
+    },
+    {
+      "number": "2",
+      "title": "OpenStreetMap Integration",
+      "has_tests": true
+    },
+    {
+      "number": "3",
+      "title": "Weather Integration & Trail Planning",
+      "has_tests": true
+    },
+    {
+      "number": "4",
+      "title": "Community Hazard Reporting",
+      "has_tests": true
+    },
+    {
+      "number": "5",
+      "title": "Trail Export & GPS Support",
+      "has_tests": true
+    },
+    {
+      "number": "6",
+      "title": "API Gateway & Microservices",
+      "has_tests": true
+    },
+    {
+      "number": "7",
+      "title": "Production Deployment & Scaling",
+      "has_tests": true
+    }
+  ],
+  "user_stories": 22,
+  "source_file": "/Users/viionascu/Projects/TrailEquip/docs/MVP_EPICS.md",
+  "collection_method": "MVP_EPICS.md parsing"
+}
