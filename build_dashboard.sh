@@ -57,6 +57,11 @@ echo "📊 Preparing dashboard data..."
 # Copy manifest
 cp "$ARTIFACTS_DIR/manifest.json" "$OUTPUT_DIR/"
 
+# Copy epic coverage
+if [ -f "$ARTIFACTS_DIR/raw/epic_coverage.json" ]; then
+  cp "$ARTIFACTS_DIR/raw/epic_coverage.json" "$OUTPUT_DIR/"
+fi
+
 # Copy history if available
 if [ -f "output/history.json" ]; then
   cp output/history.json "$OUTPUT_DIR/"
@@ -79,12 +84,10 @@ for derived_file in (artifacts_path / "derived").glob("*_derived.json"):
             dimension = data.get("dimension", "unknown")
             metrics = data.get("metrics", {})
             for metric_id, metric_data in metrics.items():
+                # Preserve all fields from the metric
                 all_metrics[metric_id] = {
                     "dimension": dimension,
-                    "value": metric_data.get("value"),
-                    "unit": metric_data.get("unit", ""),
-                    "calculation": metric_data.get("calculation", ""),
-                    "source_metrics": metric_data.get("source_metrics", [])
+                    **metric_data  # Include all original fields
                 }
     except Exception as e:
         print(f"Warning: Could not process {derived_file}: {e}", file=sys.stderr)

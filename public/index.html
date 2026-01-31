@@ -463,7 +463,58 @@
 
             updateMetadata(dateFrom, dateTo);
             renderMetrics(project, dateFrom, dateTo);
+            renderEpicBreakdown(project);
             renderCharts(project, dateFrom, dateTo);
+        }
+
+        function renderEpicBreakdown(project) {
+            // Load and render epic coverage details
+            fetch('./epic-coverage.json')
+                .then(r => r.json())
+                .catch(() => null)
+                .then(data => {
+                    if (!data) return;
+
+                    const content = document.getElementById('content');
+                    if (!content) return;
+
+                    let epicHtml = '<h2>Epic & User Story Coverage</h2>';
+                    epicHtml += '<div class="epic-breakdown">';
+
+                    // Filter by project if not "all"
+                    Object.entries(data).forEach(([projectKey, projectData]) => {
+                        if (project !== 'all' && !projectKey.includes(project)) return;
+
+                        epicHtml += `<div style="margin-bottom: 20px; padding: 15px; background: rgba(0,217,255,0.05); border-left: 3px solid #00d9ff; border-radius: 4px;">`;
+                        epicHtml += `<h3 style="margin: 0 0 15px 0; color: #00d9ff;">${projectData.project || projectKey}</h3>`;
+
+                        projectData.epics.forEach(epic => {
+                            const epicTests = epic.total_tests;
+                            const usCount = epic.us_count;
+
+                            epicHtml += `<div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 4px;">`;
+                            epicHtml += `<div style="font-weight: bold; color: #ffaa00;">Epic ${epic.epic_number}: ${epic.epic_title}</div>`;
+                            epicHtml += `<div style="font-size: 0.9em; color: #a0a0a0; margin: 5px 0;">🧪 ${epicTests} tests | 📋 ${usCount} user stories</div>`;
+
+                            if (epic.user_stories && epic.user_stories.length > 0) {
+                                epicHtml += `<div style="margin-left: 20px; margin-top: 8px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.1);">`;
+                                epic.user_stories.forEach(us => {
+                                    epicHtml += `<div style="font-size: 0.85em; color: #b0b0b0; padding: 4px 0;">`;
+                                    epicHtml += `${us.id}: ${us.title} - <span style="color: #00d9ff;">${us.test_count} tests</span>`;
+                                    epicHtml += `</div>`;
+                                });
+                                epicHtml += `</div>`;
+                            }
+
+                            epicHtml += `</div>`;
+                        });
+
+                        epicHtml += `</div>`;
+                    });
+
+                    epicHtml += '</div>';
+                    content.innerHTML += epicHtml;
+                });
         }
 
         function updateMetadata(dateFrom, dateTo) {
