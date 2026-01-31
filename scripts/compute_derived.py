@@ -67,7 +67,7 @@ class DerivedMetricsCompute:
         print("  Computing activity metrics...")
 
         for metric_id, raw_value in self.raw_data.items():
-            if "commits_count" in metric_id:
+            if "commits.count" in metric_id or "commits_count" in metric_id:
                 repo = metric_id.split("_")[0]
                 commits = raw_value.get("count", 0)
                 date_range = raw_value.get("range", {})
@@ -137,7 +137,7 @@ class DerivedMetricsCompute:
         print("  Computing velocity metrics...")
 
         for metric_id, raw_value in self.raw_data.items():
-            if "diffs_stats" in metric_id:
+            if "diffs.stats" in metric_id or "diffs_stats" in metric_id:
                 repo = metric_id.split("_")[0]
 
                 loc_added = raw_value.get("loc_added", 0)
