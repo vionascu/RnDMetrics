@@ -11,6 +11,11 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
+# Step 0: Setup projects from projects.json
+echo "📁 Setting up projects from projects.json..."
+python3 scripts/setup_projects.py || exit 1
+echo ""
+
 # Default values
 RANGE="last_30_days"
 FROM_DATE=""
