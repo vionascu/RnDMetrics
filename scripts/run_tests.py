@@ -173,14 +173,11 @@ class ArtifactCollector:
             print(f"   ⚠️  Could not analyze tests: {e}")
 
     def _collect_trail_equip_artifacts(self) -> bool:
-        """Collect artifacts from Trail-Equip project using MVP_EPICS.md and real test counts."""
-        # Try both naming conventions
+        """Collect artifacts from TrailEquip project using MVP_EPICS.md and real test counts."""
         repo_path = self.projects_root / "TrailEquip"
-        if not repo_path.exists():
-            repo_path = self.projects_root / "trail-equip"
 
         if not repo_path.exists():
-            print(f"   ❌ Not found at {self.projects_root / 'TrailEquip'} or {self.projects_root / 'trail-equip'}")
+            print(f"   ❌ Not found at {repo_path}")
             return False
 
         artifacts_dir = self.ci_artifacts_dir / "vionascu_TrailEquip"

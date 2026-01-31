@@ -7,6 +7,7 @@
     },
     {
       "url": "https://github.com/vionascu/trail-equip",
+      "local_dir": "TrailEquip",
       "language": "java",
       "description": "Trail equipment recommendation system (microservices, Java/Spring)"
     }
