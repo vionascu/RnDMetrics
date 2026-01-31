@@ -1,0 +1,124 @@
+{
+  "run_timestamp": "2026-01-31T11:33:06.871328+00:00",
+  "time_range": "last_30_days",
+  "date_from": "2026-01-01T11:33:06.871858+00:00",
+  "date_to": "2026-01-31T11:33:06.871858+00:00",
+  "timezone": "UTC",
+  "preflight": {
+    "timestamp": "2026-01-31T11:33:06.871328+00:00",
+    "repos": {
+      "trail-equip": {
+        "status": "missing"
+      },
+      "trailwaze": {
+        "status": "available",
+        "path": "/Users/viionascu/Projects/RnDMetrics/../trailwaze",
+        "language": "mixed",
+        "git_head": "f13cb4609a51c7d3e611609b46455d84bf0c14a0",
+        "git_available": true,
+        "ci_artifacts_found": 0
+      }
+    },
+    "computable_metrics": {
+      "always_available": [
+        "commits.count",
+        "commits.unique_authors",
+        "diffs.loc_added",
+        "diffs.loc_deleted",
+        "diffs.files_changed",
+        "activity.commits_per_day",
+        "hotspots.top_files_by_churn"
+      ],
+      "if_ci_artifacts_exist": [
+        "tests.total",
+        "tests.passed",
+        "tests.failed",
+        "tests.skipped",
+        "tests.pass_rate",
+        "coverage.statement_percent"
+      ]
+    },
+    "na_metrics": {
+      "reason": "No CI artifacts found. To enable test/coverage metrics, provide JUnit/coverage reports in ci_artifacts_path.",
+      "metrics": [
+        "tests.*",
+        "coverage.*",
+        "flaky_tests.*"
+      ]
+    }
+  },
+  "metrics_collected": [
+    "trailwaze/commits.count",
+    "trailwaze/diffs.stats",
+    "trailwaze/docs.coverage"
+  ],
+  "evidence_map": {
+    "trailwaze/commits.count": {
+      "metric_id": "trailwaze/commits.count",
+      "repo": "trailwaze",
+      "range": {
+        "from": "2026-01-01T11:33:06.871858+00:00",
+        "to": "2026-01-31T11:33:06.871858+00:00",
+        "timezone": "UTC"
+      },
+      "collected_at": "2026-01-31T11:33:06.908051+00:00",
+      "collector_version": "ff3d55ce",
+      "source": {
+        "type": "git",
+        "details": "/Users/viionascu/Projects/RnDMetrics/../trailwaze"
+      },
+      "commands": [
+        "git log --since=2026-01-01T11:33:06.871858+00:00 --until=2026-01-31T11:33:06.871858+00:00 --format=%H%n%ai%n%an --date=iso-strict"
+      ],
+      "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/trailwaze_commits.count.json",
+      "raw_file_hash": "0fb265778269446a22b7d285f20c832aebe8364acdb05e14ad29b2e27e0a0028",
+      "derived_file": null
+    },
+    "trailwaze/diffs.stats": {
+      "metric_id": "trailwaze/diffs.stats",
+      "repo": "trailwaze",
+      "range": {
+        "from": "2026-01-01T11:33:06.871858+00:00",
+        "to": "2026-01-31T11:33:06.871858+00:00",
+        "timezone": "UTC"
+      },
+      "collected_at": "2026-01-31T11:33:06.950194+00:00",
+      "collector_version": "ff3d55ce",
+      "source": {
+        "type": "git",
+        "details": "/Users/viionascu/Projects/RnDMetrics/../trailwaze"
+      },
+      "commands": [
+        "git diff --since=2026-01-01T11:33:06.871858+00:00 --until=2026-01-31T11:33:06.871858+00:00 --shortstat"
+      ],
+      "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/trailwaze_diffs.stats.json",
+      "raw_file_hash": "3b9cd8f85a714db513e4ee8ca192a84db337d085a8c0b53e5a0f73c8fb29c48a",
+      "derived_file": null
+    },
+    "trailwaze/docs.coverage": {
+      "metric_id": "trailwaze/docs.coverage",
+      "repo": "trailwaze",
+      "range": {
+        "from": "2026-01-01T11:33:06.871858+00:00",
+        "to": "2026-01-31T11:33:06.871858+00:00",
+        "timezone": "UTC"
+      },
+      "collected_at": "2026-01-31T11:35:05.072541+00:00",
+      "collector_version": "ff3d55ce",
+      "source": {
+        "type": "git",
+        "details": "/Users/viionascu/Projects/RnDMetrics/../trailwaze"
+      },
+      "commands": [
+        "scanned trailwaze for mixed documentation"
+      ],
+      "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/trailwaze_docs.coverage.json",
+      "raw_file_hash": "3e1e90ab92cdd82aeeed981674275776134b129f42f63a41670ff9072a6b1cfb",
+      "derived_file": null
+    }
+  },
+  "quality_gates": {
+    "evidence_completeness": "PASS",
+    "determinism_check": "PENDING"
+  }
+}

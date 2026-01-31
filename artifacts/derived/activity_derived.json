@@ -1,0 +1,14 @@
+{
+  "dimension": "activity",
+  "computed_at": "2026-01-31T11:39:54.790513+00:00",
+  "metrics": {
+    "trailwaze_activity_commits_per_day": {
+      "value": 0.48,
+      "unit": "commits/day",
+      "source_metrics": [
+        "trailwaze_commits.count"
+      ],
+      "calculation": "15 commits / 31 days"
+    }
+  }
+}

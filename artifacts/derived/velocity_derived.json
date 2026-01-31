@@ -1,0 +1,17 @@
+{
+  "dimension": "velocity",
+  "computed_at": "2026-01-31T11:39:54.793311+00:00",
+  "metrics": {
+    "trailwaze_velocity_loc_net": {
+      "value": 0,
+      "unit": "lines",
+      "source_metrics": [
+        "trailwaze_diffs.stats"
+      ],
+      "components": {
+        "added": 0,
+        "deleted": 0
+      }
+    }
+  }
+}

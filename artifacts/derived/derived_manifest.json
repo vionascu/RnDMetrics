@@ -1,0 +1,13 @@
+{
+  "computed_at": "2026-01-31T11:39:54.793437+00:00",
+  "source_manifest": "2026-01-31T11:33:06.871328+00:00",
+  "total_derived_metrics": 2,
+  "by_dimension": {
+    "activity": 1,
+    "velocity": 1
+  },
+  "all_metrics": [
+    "trailwaze_activity_commits_per_day",
+    "trailwaze_velocity_loc_net"
+  ]
+}
