@@ -1,17 +1,10 @@
 name: Build and deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'docs/**'
-      - 'public/**'
-      - '.github/workflows/pages-build-deployment.yml'
-
-  pull_request:
-    branches:
-      - main
+  # This workflow is DISABLED - deployment is handled by metrics.yml
+  # Keeping it only to avoid breaking existing deployment history
+  workflow_dispatch:
+    # Manual trigger only for debugging
 
 permissions:
   contents: read
