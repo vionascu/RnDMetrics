@@ -121,11 +121,41 @@ jobs:
             mkdir -p public
           fi
 
-          # Copy metrics data and evidence
-          mkdir -p public/data
-          cp artifacts/manifest.json public/data/ 2>/dev/null || true
-          cp artifacts/raw/*.json public/data/ 2>/dev/null || true
-          cp artifacts/derived/*.json public/data/ 2>/dev/null || true
+          # Copy metrics data to PUBLIC ROOT (dashboard expects them there)
+          echo "📊 Copying metrics data..."
+          cp artifacts/manifest.json public/ 2>/dev/null && echo "  ✅ manifest.json" || echo "  ⚠️  manifest.json not found"
+          cp output/history.json public/ 2>/dev/null && echo "  ✅ history.json" || echo "  ⚠️  history.json not found"
+
+          # Generate derived-metrics.json from all derived files
+          python3 << 'METRICS_EOF'
+          import json
+          from pathlib import Path
+
+          all_metrics = {}
+          derived_path = Path("artifacts/derived")
+
+          for derived_file in derived_path.glob("*_derived.json"):
+            try:
+              with open(derived_file) as f:
+                data = json.load(f)
+                dimension = data.get("dimension", "unknown")
+                metrics = data.get("metrics", {})
+                for metric_id, metric_data in metrics.items():
+                  all_metrics[metric_id] = {
+                    "dimension": dimension,
+                    "value": metric_data.get("value"),
+                    "unit": metric_data.get("unit", ""),
+                    "calculation": metric_data.get("calculation", ""),
+                    "source_metrics": metric_data.get("source_metrics", [])
+                  }
+            except Exception as e:
+              print(f"Warning: {derived_file}: {e}")
+
+          with open("public/derived-metrics.json", 'w') as f:
+            json.dump(all_metrics, f, indent=2)
+
+          print(f"✅ Generated derived-metrics.json with {len(all_metrics)} metrics")
+          METRICS_EOF
 
           # Copy documentation
           mkdir -p public/docs
@@ -133,6 +163,9 @@ jobs:
           cp README_METRICS_SYSTEM.md public/ 2>/dev/null || true
 
           echo "✅ Web content prepared"
+          echo ""
+          echo "📍 Files in public/:"
+          ls -lh public/ | grep -E "\.json|\.html|\.md"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
