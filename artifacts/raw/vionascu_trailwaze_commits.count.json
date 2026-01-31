@@ -1,8 +1,104 @@
 {
   "count": 15,
   "range": {
-    "from": "2026-01-01T12:02:30.725602+00:00",
-    "to": "2026-01-31T12:02:30.725602+00:00"
+    "from": "2026-01-01T13:29:15.681263+00:00",
+    "to": "2026-01-31T13:29:15.681263+00:00"
   },
-  "command": "git log --since=2026-01-01T12:02:30.725602+00:00 --until=2026-01-31T12:02:30.725602+00:00 --format=%H%n%ai%n%an --date=iso-strict"
+  "commits_by_week": {
+    "2026-W05": 3,
+    "2026-W04": 12
+  },
+  "commits_list": [
+    {
+      "hash": "f13cb4609a51c7d3e611609b46455d84bf0c14a0",
+      "date": "2026-01-28 12:15:04 +0100",
+      "author": "Victor Ionascu",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4995d4b9000314b2341358924f7108bccc51f3ca",
+      "date": "2026-01-28 12:13:57 +0100",
+      "author": "Victor Ionascu",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "5b47541e8becc73e871b4c21243e83a7207e57f7",
+      "date": "2026-01-28 12:05:00 +0100",
+      "author": "Victor Ionascu",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "80acf333771bb4dadda630c738f15a43c37d9298",
+      "date": "2026-01-23 09:09:06 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "904d35e92408c7a0c232a144c0aa45f0ca4cc5a0",
+      "date": "2026-01-23 09:03:52 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "0058e2fe97a3a39a5bc1c154806948ad4c29e4b2",
+      "date": "2026-01-21 17:10:20 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "bc730b74ddd63ef4da51eacfee57f2edb88fe59c",
+      "date": "2026-01-21 11:05:22 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "ac7a7f38e8bc6fdd2e4a5e9e245fa80ba5d2e627",
+      "date": "2026-01-20 22:20:56 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "992200f060910891525dd7588b802cab2290398b",
+      "date": "2026-01-20 22:20:38 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "384c772d74bd3d9ad4babf81a32e4d3e073a27c9",
+      "date": "2026-01-20 21:39:30 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "73a540f1133a90a0fc1a96273ceb0286394beec1",
+      "date": "2026-01-20 21:35:19 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "dae9268240b9338e75506dd1c48740663b3bc293",
+      "date": "2026-01-20 21:31:18 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "0d7a8af9762d2408b81c7b895c2766144437b3a8",
+      "date": "2026-01-20 21:14:20 +0200",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "33bdc67a862db56be12440b4ce6eefdafbfd9006",
+      "date": "2026-01-20 18:57:46 +0000",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    },
+    {
+      "hash": "2bbd77592944c63b9822cf523f69e240c7996251",
+      "date": "2026-01-20 18:33:31 +0000",
+      "author": "Victor Ionascu",
+      "week": "2026-W04"
+    }
+  ],
+  "command": "git log --since=2026-01-01T13:29:15.681263+00:00 --until=2026-01-31T13:29:15.681263+00:00 --format=%H%n%ai%n%an --date=iso-strict"
 }

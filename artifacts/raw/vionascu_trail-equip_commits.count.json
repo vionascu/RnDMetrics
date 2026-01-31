@@ -1,8 +1,823 @@
 {
-  "count": 132,
+  "count": 135,
   "range": {
-    "from": "2026-01-01T12:02:30.725602+00:00",
-    "to": "2026-01-31T12:02:30.725602+00:00"
+    "from": "2026-01-01T13:29:15.681263+00:00",
+    "to": "2026-01-31T13:29:15.681263+00:00"
   },
-  "command": "git log --since=2026-01-01T12:02:30.725602+00:00 --until=2026-01-31T12:02:30.725602+00:00 --format=%H%n%ai%n%an --date=iso-strict"
+  "commits_by_week": {
+    "2026-W05": 135
+  },
+  "commits_list": [
+    {
+      "hash": "b3c66ab96da85da9e1776321cf9b4297cf52bf95",
+      "date": "2026-01-31 15:28:07 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "2b6b0ff7dfcdb10ba94102a56474e024c801a8c0",
+      "date": "2026-01-31 15:21:17 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "38bdb2014c38d2eb06fd0a24e3ce4d61a32d6fbe",
+      "date": "2026-01-31 15:14:57 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "b47c5a737e266193be6169e9679acc4851ab334a",
+      "date": "2026-01-31 13:44:36 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "9a7d667ab91531dac7232f703213395ddfd3ecba",
+      "date": "2026-01-31 13:34:16 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e90cef2cc5a90e031b89a02cbfc253e310773120",
+      "date": "2026-01-31 13:25:37 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6a0a686f278e2ec6cae38ccdea8dba26cf7b5879",
+      "date": "2026-01-31 13:16:51 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "cbdf4d067efae6ceec1e4a73122f5c0243dfc637",
+      "date": "2026-01-31 13:08:39 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "840f2f8e341801bcb7b46413058ee09ab708a5bf",
+      "date": "2026-01-31 13:05:17 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "32ad7f3b84618edd4ecdf7f46aeb909264c607a7",
+      "date": "2026-01-31 12:54:57 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "36812e7d8bbf09872256932a0e5f0502de4639e8",
+      "date": "2026-01-31 12:43:07 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "cd8571b083f464b3c9b21915666697be8d4e8d46",
+      "date": "2026-01-31 12:36:43 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "c1e79a6c75a0641321016fcf9de642a9e9f3d725",
+      "date": "2026-01-31 12:32:57 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "1864f7da450ea0856c16983f98f6fd2e6e461042",
+      "date": "2026-01-31 12:30:02 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "32502f53c0aa2426e9fc427b004f510c26c84736",
+      "date": "2026-01-31 11:06:42 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "95b60534fc3660ac44b418946e8b2d01641c4114",
+      "date": "2026-01-31 10:39:38 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "d4433eb842d1cbd32e0f744e18c23c179a214835",
+      "date": "2026-01-31 10:34:02 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "3000bd5049e3065bab018eff0cf194465311d5bd",
+      "date": "2026-01-31 10:30:23 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "a275911ed11bbd9cc6fefa8b7050d789e9936c29",
+      "date": "2026-01-31 10:27:10 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ff25e42dbc1ef52e4894040df96375794b6e6670",
+      "date": "2026-01-31 10:20:39 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "b68882fa16e238397c107e2bb6612d32e9a79919",
+      "date": "2026-01-31 10:16:25 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "3f004610818c1645a0104d0bb39958379501fb3d",
+      "date": "2026-01-31 10:10:28 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e9ab681346f7e8b42f2da9b983444092baaf1146",
+      "date": "2026-01-31 10:08:27 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "7bfc03ce7388da9ffeb9172662020c3251ebc011",
+      "date": "2026-01-31 09:59:45 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ba143a54fdcc0997de6d6e42301a0650c3575176",
+      "date": "2026-01-31 09:58:45 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "8f49dd33ebbb988d55e5b16b2b5ac9ffe8649ba5",
+      "date": "2026-01-31 09:58:16 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "7292feb9d2195e9fffee5a429dfb0c3addc90437",
+      "date": "2026-01-31 09:57:42 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "143557918d6ffdaefd72e3c631c13c858c73c875",
+      "date": "2026-01-31 09:57:11 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "1e76046b654717def4352a999134d1d5fdea4488",
+      "date": "2026-01-31 09:56:22 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "5fdf5257ee6e7c93467a8b0321827ee1a85cd2fc",
+      "date": "2026-01-31 09:51:08 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "b26f4b0cccae658b7bbf8e722fd0621165742d0d",
+      "date": "2026-01-31 09:50:31 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "eeec7651a529f795634bb76c08d6cf4187d8e4e6",
+      "date": "2026-01-31 09:50:03 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "fbb5004aef1de4a490536314c45ede9d1b866991",
+      "date": "2026-01-31 09:49:23 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "06248e0880c5ecc06ad47e015b5f2dca6e3f82a6",
+      "date": "2026-01-31 09:48:28 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e00a7241d58d37515740489ae9d173feba9941fe",
+      "date": "2026-01-31 09:46:07 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "a414d040850951e61a76b4e2447ebc06b98bba86",
+      "date": "2026-01-31 09:44:33 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "aa16042f1d0036bb2f4540e550d80dd5ee675c9c",
+      "date": "2026-01-31 09:41:32 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "c49fa4c8b381d1e319de3dbaae8d0f5b351aa4f8",
+      "date": "2026-01-31 09:38:16 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "7911c3b28a6629dd294865124c44bd13b0d37c5b",
+      "date": "2026-01-30 17:10:48 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "74095e919a36ef641ac19af299d61a1d4bff8b26",
+      "date": "2026-01-30 16:25:37 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "d54faa98e7f95b8d9fda866f324c2aa5c97d33b8",
+      "date": "2026-01-30 16:21:16 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "8441d0818e1374f4ae054aa61ded750dfee1d59e",
+      "date": "2026-01-30 16:15:38 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "c16bd3c5565a6f037036167f974b8d4d9c132c45",
+      "date": "2026-01-30 16:14:34 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "3944f629ca0d4667c1f3480e307bbc060c0767bb",
+      "date": "2026-01-30 16:12:48 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "70589af8b0756537433b360c3bc1942ce4ab7c4d",
+      "date": "2026-01-30 15:17:12 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "103bcee7ae35707b21b3c9c30aac98bbd170be88",
+      "date": "2026-01-30 12:18:19 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "15700bd64b1546f28a86217aa54bf4b715a6f989",
+      "date": "2026-01-30 12:17:02 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "7980ce327dbf685ca2556ac2c003091802b24d92",
+      "date": "2026-01-30 12:06:47 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4762c18a4534eddbee99aaece823a8c678bac230",
+      "date": "2026-01-30 11:59:43 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "53eac839e6585500af61cde78d35a33e85c5bbc4",
+      "date": "2026-01-30 11:48:14 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "d99712d3090f8e858c3ed4ae2023f37aee96661d",
+      "date": "2026-01-30 11:35:54 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "b977c59c16b4045b5b4629b296af4f1ce103f98a",
+      "date": "2026-01-30 11:28:16 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "9044ac0136cf76bbb569bc989e4d9df41551d5da",
+      "date": "2026-01-30 11:03:45 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "855bd9987b79f9cc2125b08bee737d83c8bb36d0",
+      "date": "2026-01-30 11:00:23 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "560e838fa178198b6fe0945351a7fb0b3c955aaf",
+      "date": "2026-01-30 10:57:53 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "2870df28d10456122ad2d64405f2b4ba7e19f7af",
+      "date": "2026-01-30 10:55:48 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4528ba77e3287e7353f45d80e54aa78d960186fa",
+      "date": "2026-01-30 10:33:28 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4afc881cbd87eb356912b96ea9d19ff57be6b703",
+      "date": "2026-01-30 10:28:08 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4ddc1490e26221af8a686f86240e7342812c3dc8",
+      "date": "2026-01-30 10:27:27 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "61663d15701490eb0b9f6f2c9cb2dca72b5e2e9d",
+      "date": "2026-01-30 10:27:01 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "b75ede06f525b4d062ede0406eeb05647d296c10",
+      "date": "2026-01-30 10:17:39 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ff09db07cdbd7862feed2dabd2742f9fbc020944",
+      "date": "2026-01-30 10:17:16 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "0b7d2d75f7a4b4854188088f8dfaefb4387bc2d7",
+      "date": "2026-01-30 10:16:36 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "cefd2b09971bcbf69bef4dd763080cb7f6bf2b17",
+      "date": "2026-01-30 10:15:11 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "a42b1f97ef73df62085be22f134c7b4fc433d198",
+      "date": "2026-01-30 10:08:43 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "27e2bc876f8735b84918353f6d63e9e3a06bab6a",
+      "date": "2026-01-30 10:05:30 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "569e23ba7b3cfbfb7645e0f3879a20d44822389e",
+      "date": "2026-01-30 10:02:39 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "7f67acea3fbd0ac8ad06348c0243373c2befd5d8",
+      "date": "2026-01-30 09:33:43 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "7274525ad98a18efd785c760040a8bc870826fe4",
+      "date": "2026-01-30 09:25:06 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "fabdd8d17ecb07ea607c95dfb009c673faa5f58e",
+      "date": "2026-01-30 08:10:51 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "be879bdb4deb6529dae736e5fc68621473804de2",
+      "date": "2026-01-30 08:07:06 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "32bba76b40172b196d91f8c6e7f602e95ce3296c",
+      "date": "2026-01-30 08:00:20 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "f92b8e360aed53b44c725d5dd1d64571e5278018",
+      "date": "2026-01-30 07:49:32 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "5d14197bac36667d4cac9750b3d9ee0d7d90372a",
+      "date": "2026-01-30 07:44:20 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4a0dfec96676cd262c37ea1956b85007667486ad",
+      "date": "2026-01-30 07:40:44 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "f7e10cb24f68f2499f2a47f9e348d55f5c511bed",
+      "date": "2026-01-30 07:36:30 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "a61ca3e7eef4523eb0dcb7648aeed63c484e10e1",
+      "date": "2026-01-30 07:29:05 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "1fedbdf20ba5b60b3c1c61fa7b85ceaa6e7fd78a",
+      "date": "2026-01-29 18:21:47 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "511cc5ec9ad9e3ed810836aeab7ce803bc9c5d21",
+      "date": "2026-01-29 18:16:22 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6efebb28a6851fb50b7386ec11382d14765a79af",
+      "date": "2026-01-29 15:47:56 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "87f7ac4e6891da16fefd2a900498865be493cfef",
+      "date": "2026-01-29 15:43:37 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "039ee4fa41dcdcfd60b8178dcef8c49270390fc4",
+      "date": "2026-01-29 15:40:40 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "2c3863a6b1b220ebb8a6d69281f8c32680814aa8",
+      "date": "2026-01-29 15:37:10 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "8ff7f2c9c3e60008475f4317413a93445f5a4c8c",
+      "date": "2026-01-29 15:29:58 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "d06f34c840c7850475f999672de4e61653be415c",
+      "date": "2026-01-29 15:24:26 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "05347f643617e02e192d70b23a7e90fbfc2b7ab5",
+      "date": "2026-01-29 15:19:51 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "67af61f440f8f60d7e83237c2076ef415c0b4b94",
+      "date": "2026-01-29 15:16:13 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "5d1d2c484e4ae6021d8ba5a8b2aa8ba0a79dea9a",
+      "date": "2026-01-29 15:11:35 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ab7349e32540c059630e6e0a49cb1b18f00af45c",
+      "date": "2026-01-29 15:08:12 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "5df8510aacfaeada4db257ed11cbab5ac8c58eb7",
+      "date": "2026-01-29 15:04:04 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "44689eb03fe9edda125ce458073a499849e1cdd6",
+      "date": "2026-01-29 14:58:44 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "c45a0dcdd7fe4d3c89269e74e94c64fb98453324",
+      "date": "2026-01-29 14:54:52 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e0d0deff441269a52c5e3a6520f0664e073ec724",
+      "date": "2026-01-29 14:50:41 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "fd720207e93777874004e766f7e6710b155bb898",
+      "date": "2026-01-29 14:47:24 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "61c1e3b5354124aca6064cae3917b1296d969671",
+      "date": "2026-01-29 14:44:20 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ef2d638345f8f90661a2d14c4f5ec811239c87b7",
+      "date": "2026-01-29 11:53:06 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ced614eea97f1cef557179b2c4fa5c9d485651a4",
+      "date": "2026-01-29 11:52:35 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "25e24c081e113138c7d433a5ac662b3395f0973d",
+      "date": "2026-01-29 11:45:08 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "4a2291c8777c7a161cd637448e5aa5db45ec1d43",
+      "date": "2026-01-29 10:53:33 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "fceccf3e9e0e874a18ba1d490eddb507548b3297",
+      "date": "2026-01-29 08:50:20 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "fe64898e3eb58ef35e1b4e5a28f0ade37a0e8e0c",
+      "date": "2026-01-29 08:45:40 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "794c9ddc2d0503cb153d9e805f84dfedde393666",
+      "date": "2026-01-29 08:42:34 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "c620a47df53933ee763eb72b60975e968b04a317",
+      "date": "2026-01-29 08:41:13 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6a1169a82407235cdb526a17242b1e99ca4689bf",
+      "date": "2026-01-29 08:02:04 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "00eb3b91aa92fdc3655535ceeb39e7b6e38f2dd3",
+      "date": "2026-01-29 08:01:17 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "d77ff039337dcd714ad18192c9450d813f4306de",
+      "date": "2026-01-29 07:41:06 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "33755bc3029e35e55cb0ef454531f561aefe75ec",
+      "date": "2026-01-28 15:39:39 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "3f4b0651488ed33e957c87f6689c348e2985621c",
+      "date": "2026-01-28 15:34:08 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "f5e28e2f28ad1471cfe1d9c0ee3666c0045d4400",
+      "date": "2026-01-28 15:29:52 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6cb8e7294af82942f7987c75c548e6ac9c59401e",
+      "date": "2026-01-28 15:22:18 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "3a2d4376c11aad11cd0c52507a2d989f5d5136c1",
+      "date": "2026-01-28 15:21:55 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "65ae0a3c2a42b8050bb3b7ed06c4dbcb6a6994eb",
+      "date": "2026-01-28 15:14:06 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "fb9a072c6934b8d3054283ab17ae337080a9b453",
+      "date": "2026-01-28 15:10:54 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e0529a65dd2c89add6c34555d0e4eb790410c17e",
+      "date": "2026-01-28 15:05:58 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "472b14ef5269565db4d49f19f9cb89c7ca6c4958",
+      "date": "2026-01-28 15:04:25 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "9326f2ff24c78ea183917b1b9e5806cc8b60346d",
+      "date": "2026-01-28 15:03:50 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "32a3af2222b42aa12e6552403d13dd24791623eb",
+      "date": "2026-01-28 15:01:13 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6161d5c7606b444b9769c5c4f289f350b2850a7c",
+      "date": "2026-01-28 14:59:08 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "1a9d605652a6102df6a4187c3ba6bc55aaeeb2b6",
+      "date": "2026-01-28 14:55:32 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "bb9c3a3de900aedcaa85817dc40dd39336af1424",
+      "date": "2026-01-28 14:53:14 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "8bedd2c82d58ae10a47d0895a57cbf6a052e79f6",
+      "date": "2026-01-28 14:45:07 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "f61a31dbd80b6c1f9d52383f226e6f29b940e30a",
+      "date": "2026-01-28 14:43:42 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "ee51f9281af92675d789d394bc0f5b35cbac6552",
+      "date": "2026-01-28 14:40:30 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "8b79eb48d4ff7c0d5241e15e28ee40385e11ca31",
+      "date": "2026-01-28 14:38:26 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6fcf88b843a96e7e4a3dd665140033419f7f1d9b",
+      "date": "2026-01-28 14:28:59 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "bb19bf0c8b01dfec08c90ccde609067589ce5d48",
+      "date": "2026-01-28 14:28:04 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "454b8545a8a45cf3a7125aa8eea4dcd3180a71d9",
+      "date": "2026-01-28 14:27:43 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "0f3188e8c0783c2049e58c729570ad652b9f6036",
+      "date": "2026-01-28 14:16:17 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "73b05d924424ce27cda6284cdc6ac84066b82a2b",
+      "date": "2026-01-28 14:15:18 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6df462a1c9f2cebab73373fe3b82d19f0debd31f",
+      "date": "2026-01-28 14:14:41 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "63a555aa8433111a4bda974389e8d567f0329cde",
+      "date": "2026-01-28 14:14:23 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "a76d4d28bc642327beb255b07d3b94c8d06f641d",
+      "date": "2026-01-28 14:11:57 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e48ff3783b995034dfba4c6d717e472267f92057",
+      "date": "2026-01-28 14:10:52 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "71fc52d803544ef425cdab5259028725c98f2bd2",
+      "date": "2026-01-28 14:10:17 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "caf0d646630b7d92de50063128946b926476e4b9",
+      "date": "2026-01-28 14:09:13 +0100",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    }
+  ],
+  "command": "git log --since=2026-01-01T13:29:15.681263+00:00 --until=2026-01-31T13:29:15.681263+00:00 --format=%H%n%ai%n%an --date=iso-strict"
 }

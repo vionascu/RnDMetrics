@@ -1,0 +1,7 @@
+{
+  "total_epics": 30,
+  "epics_covered": 30,
+  "epics_not_covered": 0,
+  "source_file": "/Users/viionascu/Projects/trailwaze/apps/mobile/__tests__/mvp-epics.test.js",
+  "collection_method": "Jest describe block analysis"
+}

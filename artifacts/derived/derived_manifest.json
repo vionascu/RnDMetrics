@@ -1,15 +1,23 @@
 {
-  "computed_at": "2026-01-31T12:02:46.715453+00:00",
-  "source_manifest": "2026-01-31T12:02:30.724899+00:00",
-  "total_derived_metrics": 4,
+  "computed_at": "2026-01-31T13:31:01.411314+00:00",
+  "source_manifest": "2026-01-31T13:29:15.680661+00:00",
+  "total_derived_metrics": 12,
   "by_dimension": {
-    "trailwaze": 2,
-    "trail-equip": 2
+    "trailwaze": 9,
+    "trail-equip": 3
   },
   "all_metrics": [
-    "vionascu_trailwaze_activity_commits_per_day",
-    "vionascu_trail-equip_activity_commits_per_day",
+    "vionascu_trailwaze_activity_commits_weekly",
+    "vionascu_trailwaze_activity_commits_total",
+    "vionascu_trail-equip_activity_commits_weekly",
+    "vionascu_trail-equip_activity_commits_total",
     "vionascu_trailwaze_velocity_loc_net",
-    "vionascu_trail-equip_velocity_loc_net"
+    "vionascu_trail-equip_velocity_loc_net",
+    "vionascu_trailwaze_test_total_count",
+    "vionascu_trailwaze_test_unit_count",
+    "vionascu_trailwaze_test_pass_rate",
+    "vionascu_trailwaze_epics_epic_total",
+    "vionascu_trailwaze_epics_epic_covered",
+    "vionascu_trailwaze_epics_epic_not_covered"
   ]
 }

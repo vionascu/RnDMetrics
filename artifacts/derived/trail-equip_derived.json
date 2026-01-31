@@ -1,14 +1,28 @@
 {
   "dimension": "trail-equip",
-  "computed_at": "2026-01-31T12:02:46.715368+00:00",
+  "computed_at": "2026-01-31T13:31:01.411138+00:00",
   "metrics": {
-    "vionascu_trail-equip_activity_commits_per_day": {
-      "value": 4.26,
-      "unit": "commits/day",
+    "vionascu_trail-equip_activity_commits_weekly": {
+      "value": {
+        "2026-W05": 135
+      },
+      "unit": "commits by week",
       "source_metrics": [
         "vionascu_trail-equip_commits.count"
       ],
-      "calculation": "132 commits / 31 days"
+      "calculation": "Grouped 135 commits by ISO week number",
+      "total": 135
+    },
+    "vionascu_trail-equip_activity_commits_total": {
+      "value": 135,
+      "unit": "commits",
+      "source_metrics": [
+        "vionascu_trail-equip_commits.count"
+      ],
+      "calculation": "Total commits in period",
+      "weekly_breakdown": {
+        "2026-W05": 135
+      }
     },
     "vionascu_trail-equip_velocity_loc_net": {
       "value": 0,

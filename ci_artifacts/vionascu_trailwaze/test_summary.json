@@ -1,0 +1,14 @@
+{
+  "total": 56,
+  "passed": 56,
+  "failed": 0,
+  "skipped": 0,
+  "tests_by_type": {
+    "unit": 56,
+    "integration": 0,
+    "api": 0,
+    "unknown": 0
+  },
+  "source_file": "/Users/viionascu/Projects/trailwaze/apps/mobile/__tests__/mvp-epics.test.js",
+  "collection_method": "Jest test file analysis"
+}

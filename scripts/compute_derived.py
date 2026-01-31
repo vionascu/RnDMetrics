@@ -38,6 +38,8 @@ class DerivedMetricsCompute:
             self._compute_activity_metrics()
             self._compute_quality_metrics()
             self._compute_velocity_metrics()
+            self._compute_test_metrics()
+            self._compute_epic_metrics()
 
             # Write derived metrics
             self._write_derived_data()
@@ -226,6 +228,86 @@ class DerivedMetricsCompute:
                             "source_metrics": [metric_id, commits_metric[0]],
                             "calculation": f"{files_changed} files / {commits} commits"
                         }
+
+    def _compute_test_metrics(self):
+        """Compute test-related derived metrics."""
+        print("  Computing test metrics...")
+
+        for metric_id, raw_value in self.raw_data.items():
+            if "tests_summary" in metric_id:
+                repo = self._extract_project_name(metric_id)
+                total_tests = raw_value.get("total", 0)
+                passed_tests = raw_value.get("passed", 0)
+                failed_tests = raw_value.get("failed", 0)
+
+                # Store total test count
+                self.derived_data[f"{repo}_test_total_count"] = {
+                    "value": total_tests,
+                    "unit": "tests",
+                    "source_metrics": [metric_id],
+                    "dimension": "test"
+                }
+
+                # Store test breakdown by type
+                tests_by_type = raw_value.get("tests_by_type", {})
+                for test_type, count in tests_by_type.items():
+                    if count > 0:
+                        self.derived_data[f"{repo}_test_{test_type}_count"] = {
+                            "value": count,
+                            "unit": "tests",
+                            "source_metrics": [metric_id],
+                            "category": test_type,
+                            "dimension": "test"
+                        }
+
+                # Calculate pass rate
+                if total_tests > 0:
+                    pass_rate = (passed_tests / total_tests) * 100
+                    self.derived_data[f"{repo}_test_pass_rate"] = {
+                        "value": round(pass_rate, 2),
+                        "unit": "percent",
+                        "source_metrics": [metric_id],
+                        "dimension": "test",
+                        "calculation": f"{passed_tests} passed / {total_tests} total"
+                    }
+
+    def _compute_epic_metrics(self):
+        """Compute epic coverage metrics."""
+        print("  Computing epic metrics...")
+
+        for metric_id, raw_value in self.raw_data.items():
+            if "epics_summary" in metric_id:
+                repo = self._extract_project_name(metric_id)
+
+                total_epics = raw_value.get("total_epics", 0)
+                epics_covered = raw_value.get("epics_covered", 0)
+                epics_not_covered = raw_value.get("epics_not_covered", 0)
+
+                # Total epics
+                self.derived_data[f"{repo}_epic_total"] = {
+                    "value": total_epics,
+                    "unit": "epics",
+                    "source_metrics": [metric_id],
+                    "dimension": "epic"
+                }
+
+                # Epics covered
+                self.derived_data[f"{repo}_epic_covered"] = {
+                    "value": epics_covered,
+                    "unit": "epics",
+                    "source_metrics": [metric_id],
+                    "dimension": "epic",
+                    "percentage": (epics_covered / total_epics * 100) if total_epics > 0 else 0
+                }
+
+                # Epics not covered
+                self.derived_data[f"{repo}_epic_not_covered"] = {
+                    "value": epics_not_covered,
+                    "unit": "epics",
+                    "source_metrics": [metric_id],
+                    "dimension": "epic",
+                    "percentage": (epics_not_covered / total_epics * 100) if total_epics > 0 else 0
+                }
 
     def _write_derived_data(self):
         """Write computed derived metrics to files."""

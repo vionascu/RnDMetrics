@@ -372,35 +372,56 @@ class MetricsCollector:
 
     def _collect_test_metrics(self):
         """Collect test metrics (if CI artifacts exist)."""
-        print("[TEST METRICS] Checking for CI artifacts...")
+        print("[TEST METRICS] Checking for test artifacts...")
+
+        ci_artifacts_base = self.root / "ci_artifacts"
 
         for repo_config in self.config["repos"]:
             repo_name = repo_config["name"]
-            ci_path = repo_config.get("ci_artifacts_path")
 
-            if not ci_path:
-                continue
+            # Build expected ci_artifacts path
+            # e.g., ci_artifacts/vionascu_trailwaze/
+            ci_repo_dir = ci_artifacts_base / repo_name
 
-            ci_full_path = self.root / ci_path
-            if not ci_full_path.exists():
+            if not ci_repo_dir.exists():
+                print(f"  ⚠️  {repo_name}: no artifacts in {ci_repo_dir}")
                 continue
 
             print(f"  📊 {repo_name}...")
 
-            # Look for JUnit XML reports
-            junit_files = list(ci_full_path.glob("**/TEST-*.xml")) or \
-                         list(ci_full_path.glob("**/surefire-reports/*.xml")) or \
-                         list(ci_full_path.glob("**/junit.xml"))
+            # Try to load pregenerated test summary
+            test_summary_file = ci_repo_dir / "test_summary.json"
+            if test_summary_file.exists():
+                try:
+                    with open(test_summary_file, 'r') as f:
+                        test_data = json.load(f)
 
-            if junit_files:
-                self._collect_metric(
-                    metric_id=f"{repo_name}/tests.summary",
-                    repo_name=repo_name,
-                    repo_path=self.root / repo_config["path"],
-                    collector_fn=lambda p: self._parse_junit_reports(junit_files)
-                )
-            else:
-                print(f"    ⚠️  No JUnit XML found in {ci_path}")
+                    # Save as raw metric
+                    raw_file = self.raw_dir / f"{repo_name}_tests_summary.json"
+                    with open(raw_file, 'w') as f:
+                        json.dump(test_data, f, indent=2, default=str)
+
+                    print(f"    ✅ Collected test summary: {test_data['total']} tests")
+
+                except Exception as e:
+                    print(f"    ❌ Error reading test summary: {e}")
+
+            # Try to load pregenerated epic summary
+            epic_summary_file = ci_repo_dir / "epic_summary.json"
+            if epic_summary_file.exists():
+                try:
+                    with open(epic_summary_file, 'r') as f:
+                        epic_data = json.load(f)
+
+                    # Save as raw metric
+                    raw_file = self.raw_dir / f"{repo_name}_epics_summary.json"
+                    with open(raw_file, 'w') as f:
+                        json.dump(epic_data, f, indent=2, default=str)
+
+                    print(f"    ✅ Collected epic summary: {epic_data['total_epics']} epics")
+
+                except Exception as e:
+                    print(f"    ❌ Error reading epic summary: {e}")
 
     def _parse_junit_reports(self, junit_files: List[Path]) -> Tuple[Dict, List[str]]:
         """Parse JUnit XML reports and extract test metrics."""
