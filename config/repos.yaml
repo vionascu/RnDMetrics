@@ -1,0 +1,51 @@
+# Evidence-backed metrics system configuration
+# All repos scanned locally. CI artifacts can be added via ci_artifacts_path.
+
+repos:
+  - name: TrailEquip
+    path: ../TrailEquip
+    default_branch: main
+    language: java
+    ci_artifacts_path: ../ci_artifacts/TrailEquip
+    description: "Trail equipment recommendation system (microservices, Java/Spring)"
+
+  - name: TrailWaze
+    path: ../TrailWaze
+    default_branch: main
+    language: mixed
+    ci_artifacts_path: ../ci_artifacts/TrailWaze
+    description: "Trail navigation mobile/web app (React Native/React)"
+
+  - name: RnDMetrics
+    path: .
+    default_branch: main
+    language: python
+    ci_artifacts_path: ../ci_artifacts/RnDMetrics
+    description: "R&D metrics collection and analytics system (Python)"
+
+# Time zone for all timestamps
+timezone: UTC
+
+# Documentation coverage definition (choose one per language):
+# - python_docstrings: % public modules/functions/classes with docstrings
+# - java_javadoc: % public classes/methods with Javadoc
+# - javascript_jsdoc: % public functions with JSDoc
+docs_coverage_strategy:
+  default: "code_comments"  # method: code_comments | api_spec | readme_sections
+  TrailEquip: "java_javadoc"
+  TrailWaze: "javascript_jsdoc"
+  RnDMetrics: "python_docstrings"
+
+# AI-generated code tracking (default: N/A unless explicit signal)
+ai_tracking:
+  enabled: false
+  signal_type: "commit_trailer"  # Options: commit_trailer | pr_label | file_header
+  signal_value: "AI-Generated: true"
+  note: "No explicit AI attribution policy found. Defaulting to N/A."
+
+# Quality gates
+quality_gates:
+  coverage_min_percent: 0     # Don't enforce minimum coverage (data may be N/A)
+  test_pass_rate_min_percent: 0  # Don't enforce (tests may be N/A)
+  enforce_evidence_completeness: true  # FAIL build if metrics lack evidence
+  enforce_determinism: true   # FAIL if collection is non-deterministic
