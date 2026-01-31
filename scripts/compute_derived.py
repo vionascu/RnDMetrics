@@ -49,6 +49,31 @@ class DerivedMetricsCompute:
             print(f"❌ Derived metrics computation failed: {e}")
             return False
 
+    def _extract_project_name(self, metric_id: str) -> str:
+        """Extract project name from metric ID.
+
+        Handles formats like:
+        - vionascu_trailwaze_commits.count
+        - vionascu_trail-equip_commits.count
+        - trailwaze_commits.count
+
+        Returns the full project prefix including hyphens/underscores.
+        """
+        # Remove the metric type suffix (.count, .stats, etc.)
+        parts = metric_id.split('_')
+
+        # Find where the metric type starts
+        # Common metric types: commits, diffs, tests, coverage, docs
+        metric_types = ['commits', 'diffs', 'tests', 'coverage', 'docs']
+
+        for i in range(len(parts) - 1, -1, -1):
+            if any(mt in parts[i].lower() for mt in metric_types):
+                # Found metric type, everything before is project
+                return '_'.join(parts[:i])
+
+        # Fallback: assume it's all but the last part
+        return '_'.join(parts[:-1]) if len(parts) > 1 else parts[0]
+
     def _load_raw_data(self):
         """Load all raw data files."""
         print("  Loading raw data...")
@@ -68,7 +93,7 @@ class DerivedMetricsCompute:
 
         for metric_id, raw_value in self.raw_data.items():
             if "commits.count" in metric_id or "commits_count" in metric_id:
-                repo = metric_id.split("_")[0]
+                repo = self._extract_project_name(metric_id)
                 commits = raw_value.get("count", 0)
                 date_range = raw_value.get("range", {})
 
@@ -95,7 +120,7 @@ class DerivedMetricsCompute:
         # Test pass rate
         for metric_id, raw_value in self.raw_data.items():
             if "tests_summary" in metric_id:
-                repo = metric_id.split("_")[0]
+                repo = self._extract_project_name(metric_id)
 
                 total = raw_value.get("total", 0)
                 failed = raw_value.get("failed", 0)
@@ -113,7 +138,7 @@ class DerivedMetricsCompute:
 
             # Coverage adequacy
             if "coverage_summary" in metric_id:
-                repo = metric_id.split("_")[0]
+                repo = self._extract_project_name(metric_id)
 
                 line_coverage = raw_value.get("line_coverage")
                 if line_coverage is not None:
@@ -138,7 +163,7 @@ class DerivedMetricsCompute:
 
         for metric_id, raw_value in self.raw_data.items():
             if "diffs.stats" in metric_id or "diffs_stats" in metric_id:
-                repo = metric_id.split("_")[0]
+                repo = self._extract_project_name(metric_id)
 
                 loc_added = raw_value.get("loc_added", 0)
                 loc_deleted = raw_value.get("loc_deleted", 0)

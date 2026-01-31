@@ -268,8 +268,7 @@
                 <div class="control-group">
                     <label class="control-label">📁 Select Project(s)</label>
                     <select id="projectSelector" onchange="applyFilters()">
-                        <option value="all">All Projects</option>
-                        <option value="trailwaze">Trailwaze</option>
+                        <!-- Populated by JavaScript -->
                     </select>
                 </div>
                 <div class="control-group">
@@ -307,6 +306,7 @@
         window.addEventListener('load', async () => {
             try {
                 await loadMetrics();
+                populateProjectSelector();
                 initializeDateInputs();
                 applyFilters();
             } catch (err) {
@@ -334,6 +334,35 @@
             const histResp = await fetch('./history.json');
             if (!histResp.ok) throw new Error('Failed to load history');
             historyData = await histResp.json();
+        }
+
+        function populateProjectSelector() {
+            // Extract unique projects from metric IDs
+            const projects = new Set();
+            Object.keys(allMetrics).forEach(metricId => {
+                // metricId format: "project_name_metric_type"
+                // Extract project prefix (everything before last underscore and metric type)
+                const parts = metricId.split('_');
+                if (parts.length > 1) {
+                    // Remove the metric type suffix (last part)
+                    const projectPrefix = parts.slice(0, -2).join('_');
+                    if (projectPrefix) projects.add(projectPrefix);
+                }
+            });
+
+            const selector = document.getElementById('projectSelector');
+            selector.innerHTML = '<option value="all">All Projects</option>';
+
+            // Add project options in sorted order
+            Array.from(projects).sort().forEach(project => {
+                const option = document.createElement('option');
+                option.value = project;
+                // Format display name (remove underscores, capitalize)
+                option.textContent = project.replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                selector.appendChild(option);
+            });
+
+            console.log('✅ Projects loaded:', Array.from(projects));
         }
 
         function initializeDateInputs() {
@@ -372,8 +401,8 @@
             Object.entries(allMetrics).forEach(([metricId, metric]) => {
                 // Filter by project if not "all"
                 if (project !== 'all') {
-                    const metricProject = metricId.split('_')[0];
-                    if (metricProject !== project) return;
+                    // Check if metric ID starts with the project prefix
+                    if (!metricId.startsWith(project + '_')) return;
                 }
 
                 const dimension = metric.dimension || 'other';

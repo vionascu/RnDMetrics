@@ -1,15 +1,15 @@
 {
-  "computed_at": "2026-01-31T11:56:20.180597+00:00",
-  "source_manifest": "2026-01-31T11:56:03.572154+00:00",
+  "computed_at": "2026-01-31T12:02:46.715453+00:00",
+  "source_manifest": "2026-01-31T12:02:30.724899+00:00",
   "total_derived_metrics": 4,
   "by_dimension": {
-    "activity": 2,
-    "velocity": 2
+    "trailwaze": 2,
+    "trail-equip": 2
   },
   "all_metrics": [
-    "vionascu_activity_commits_per_day",
-    "trailwaze_activity_commits_per_day",
-    "vionascu_velocity_loc_net",
-    "trailwaze_velocity_loc_net"
+    "vionascu_trailwaze_activity_commits_per_day",
+    "vionascu_trail-equip_activity_commits_per_day",
+    "vionascu_trailwaze_velocity_loc_net",
+    "vionascu_trail-equip_velocity_loc_net"
   ]
 }

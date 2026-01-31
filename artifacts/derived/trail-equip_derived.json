@@ -1,0 +1,25 @@
+{
+  "dimension": "trail-equip",
+  "computed_at": "2026-01-31T12:02:46.715368+00:00",
+  "metrics": {
+    "vionascu_trail-equip_activity_commits_per_day": {
+      "value": 4.26,
+      "unit": "commits/day",
+      "source_metrics": [
+        "vionascu_trail-equip_commits.count"
+      ],
+      "calculation": "132 commits / 31 days"
+    },
+    "vionascu_trail-equip_velocity_loc_net": {
+      "value": 0,
+      "unit": "lines",
+      "source_metrics": [
+        "vionascu_trail-equip_diffs.stats"
+      ],
+      "components": {
+        "added": 0,
+        "deleted": 0
+      }
+    }
+  }
+}

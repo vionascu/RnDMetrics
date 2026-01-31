@@ -1,0 +1,25 @@
+{
+  "dimension": "trailwaze",
+  "computed_at": "2026-01-31T12:02:46.714836+00:00",
+  "metrics": {
+    "vionascu_trailwaze_activity_commits_per_day": {
+      "value": 0.48,
+      "unit": "commits/day",
+      "source_metrics": [
+        "vionascu_trailwaze_commits.count"
+      ],
+      "calculation": "15 commits / 31 days"
+    },
+    "vionascu_trailwaze_velocity_loc_net": {
+      "value": 0,
+      "unit": "lines",
+      "source_metrics": [
+        "vionascu_trailwaze_diffs.stats"
+      ],
+      "components": {
+        "added": 0,
+        "deleted": 0
+      }
+    }
+  }
+}
