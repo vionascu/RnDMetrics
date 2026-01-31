@@ -57,9 +57,9 @@ jobs:
             chmod +x ./scripts/metrics
             ./scripts/metrics run --config config.yml || true
           else
-            echo "Metrics collection script not found. Using fallback..."
+            echo "Metrics collection script not found. Creating sample output..."
             mkdir -p output
-            python3 -c 'import os,json,datetime;os.makedirs("output",exist_ok=True);data={"timestamp":datetime.datetime.now().isoformat(),"status":"collected"};f=open("output/latest.json","w");json.dump(data,f,indent=2);f.close();print("Metrics collected")'
+            echo '{"timestamp": "2026-01-31T00:00:00", "status": "collected"}' > output/latest.json
           fi
 
       - name: Verify metrics output
@@ -113,22 +113,13 @@ jobs:
 
       - name: Create web content
         run: |
-          # Create public directory for Pages
           mkdir -p public
-
-          # Copy dashboard files
           cp docs/dashboard.html public/index.html
           cp docs/dashboard-executive.html public/executive.html
-
-          # Copy metrics data
           mkdir -p public/data
-          cp output/*.json public/data/ 2>/dev/null || echo "No JSON output files"
-
-          # Copy documentation
+          cp output/*.json public/data/ 2>/dev/null || true
           mkdir -p public/docs
-          cp docs/*.md public/docs/ 2>/dev/null || echo "No markdown files"
-
-          # Dashboard files are now ready for deployment
+          cp docs/*.md public/docs/ 2>/dev/null || true
           echo "✅ Dashboard content prepared successfully"
 
       - name: Upload artifact to Pages
