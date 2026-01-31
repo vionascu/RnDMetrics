@@ -340,14 +340,25 @@
             // Extract unique projects from metric IDs
             const projects = new Set();
             Object.keys(allMetrics).forEach(metricId => {
-                // metricId format: "project_name_metric_type"
-                // Extract project prefix (everything before last underscore and metric type)
+                // Extract project from metricId by looking at dimension property
+                const metric = allMetrics[metricId];
+                const dimension = metric.dimension || '';
+
+                // The dimension tells us the project name (e.g., "trailwaze", "trail-equip")
+                // Reconstruct full project name by finding it in the metric ID
                 const parts = metricId.split('_');
-                if (parts.length > 1) {
-                    // Remove the metric type suffix (last part)
-                    const projectPrefix = parts.slice(0, -2).join('_');
-                    if (projectPrefix) projects.add(projectPrefix);
+
+                // Project name is everything before the first "activity" or "velocity"
+                let projectName = '';
+                for (let i = 0; i < parts.length; i++) {
+                    if (parts[i] === 'activity' || parts[i] === 'velocity' || parts[i] === 'quality' || parts[i] === 'test') {
+                        // Found metric type, everything before is project
+                        projectName = parts.slice(0, i).join('_');
+                        break;
+                    }
                 }
+
+                if (projectName) projects.add(projectName);
             });
 
             const selector = document.getElementById('projectSelector');
