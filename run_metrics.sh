@@ -72,7 +72,20 @@ fi
 source venv/bin/activate
 pip install -q pyyaml 2>/dev/null || true
 
-# Run collection
+# Step 1a: Collect test and epic artifacts
+echo "📦 Collecting test and epic artifacts..."
+echo ""
+
+python3 scripts/run_tests.py
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "⚠️  Test artifact collection had issues (may continue if some tests not available)"
+fi
+
+echo ""
+
+# Step 1b: Run collection
 echo "🔍 Running metrics collection..."
 echo ""
 

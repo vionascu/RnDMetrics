@@ -183,7 +183,7 @@ class ArtifactCollector:
             print(f"   ❌ Not found at {self.projects_root / 'TrailEquip'} or {self.projects_root / 'trail-equip'}")
             return False
 
-        artifacts_dir = self.ci_artifacts_dir / "vionascu_trail-equip"
+        artifacts_dir = self.ci_artifacts_dir / "vionascu_TrailEquip"
         artifacts_dir.mkdir(parents=True, exist_ok=True)
 
         test_results_dir = artifacts_dir / "test-results"

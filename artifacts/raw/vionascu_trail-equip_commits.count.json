@@ -1,13 +1,43 @@
 {
-  "count": 136,
+  "count": 141,
   "range": {
-    "from": "2026-01-01T13:53:15.900502+00:00",
-    "to": "2026-01-31T13:53:15.900502+00:00"
+    "from": "2026-01-01T14:02:41.567664+00:00",
+    "to": "2026-01-31T14:02:41.567664+00:00"
   },
   "commits_by_week": {
-    "2026-W05": 136
+    "2026-W05": 141
   },
   "commits_list": [
+    {
+      "hash": "9788c581932290324dd3261ed2743e35758fee3d",
+      "date": "2026-01-31 15:58:10 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "f29abbb6f00230cd57650127323b9dfdc96f8b46",
+      "date": "2026-01-31 15:54:40 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "e8e19aa36df46710abc4b24ddf792230b229de06",
+      "date": "2026-01-31 15:47:37 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "71cb6aef53bfc254cb4abeb5b66e454af6d2d110",
+      "date": "2026-01-31 15:47:18 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
+    {
+      "hash": "6b4aba6c3c0c4fc922249b7feb0e6a6bd6ce8d65",
+      "date": "2026-01-31 15:42:48 +0200",
+      "author": "TrailEquip Developer",
+      "week": "2026-W05"
+    },
     {
       "hash": "f79d1481a707aa257a69822236236843fc56c019",
       "date": "2026-01-31 15:33:55 +0200",
@@ -825,5 +855,5 @@
       "week": "2026-W05"
     }
   ],
-  "command": "git log --since=2026-01-01T13:53:15.900502+00:00 --until=2026-01-31T13:53:15.900502+00:00 --format=%H%n%ai%n%an --date=iso-strict"
+  "command": "git log --since=2026-01-01T14:02:41.567664+00:00 --until=2026-01-31T14:02:41.567664+00:00 --format=%H%n%ai%n%an --date=iso-strict"
 }
