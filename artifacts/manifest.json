@@ -1,11 +1,11 @@
 {
-  "run_timestamp": "2026-01-31T13:49:48.146884+00:00",
+  "run_timestamp": "2026-01-31T13:53:15.899897+00:00",
   "time_range": "last_30_days",
-  "date_from": "2026-01-01T13:49:48.148413+00:00",
-  "date_to": "2026-01-31T13:49:48.148413+00:00",
+  "date_from": "2026-01-01T13:53:15.900502+00:00",
+  "date_to": "2026-01-31T13:53:15.900502+00:00",
   "timezone": "UTC",
   "preflight": {
-    "timestamp": "2026-01-31T13:49:48.146884+00:00",
+    "timestamp": "2026-01-31T13:53:15.899897+00:00",
     "repos": {
       "vionascu_trailwaze": {
         "status": "available",
@@ -65,96 +65,96 @@
       "metric_id": "vionascu_trailwaze/commits.count",
       "repo": "vionascu_trailwaze",
       "range": {
-        "from": "2026-01-01T13:49:48.148413+00:00",
-        "to": "2026-01-31T13:49:48.148413+00:00",
+        "from": "2026-01-01T13:53:15.900502+00:00",
+        "to": "2026-01-31T13:53:15.900502+00:00",
         "timezone": "UTC"
       },
-      "collected_at": "2026-01-31T13:49:48.203529+00:00",
-      "collector_version": "75457171",
+      "collected_at": "2026-01-31T13:53:15.956106+00:00",
+      "collector_version": "28a8f488",
       "source": {
         "type": "git",
         "details": "/Users/viionascu/Projects/RnDMetrics/../trailwaze"
       },
       "commands": [
-        "git log --since=2026-01-01T13:49:48.148413+00:00 --until=2026-01-31T13:49:48.148413+00:00 --format=%H%n%ai%n%an --date=iso-strict"
+        "git log --since=2026-01-01T13:53:15.900502+00:00 --until=2026-01-31T13:53:15.900502+00:00 --format=%H%n%ai%n%an --date=iso-strict"
       ],
       "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/vionascu_trailwaze_commits.count.json",
-      "raw_file_hash": "49aad92cf6f59308533cf09f63f2e1a5993eb4a9befc3aa910f5474eb16fa841",
+      "raw_file_hash": "0c013baa51ee1fbb879356b3fee1de12c2cc4453a882456dbdb3f570e854bd00",
       "derived_file": null
     },
     "vionascu_trailwaze/diffs.stats": {
       "metric_id": "vionascu_trailwaze/diffs.stats",
       "repo": "vionascu_trailwaze",
       "range": {
-        "from": "2026-01-01T13:49:48.148413+00:00",
-        "to": "2026-01-31T13:49:48.148413+00:00",
+        "from": "2026-01-01T13:53:15.900502+00:00",
+        "to": "2026-01-31T13:53:15.900502+00:00",
         "timezone": "UTC"
       },
-      "collected_at": "2026-01-31T13:49:48.242652+00:00",
-      "collector_version": "75457171",
+      "collected_at": "2026-01-31T13:53:15.994270+00:00",
+      "collector_version": "28a8f488",
       "source": {
         "type": "git",
         "details": "/Users/viionascu/Projects/RnDMetrics/../trailwaze"
       },
       "commands": [
-        "git diff --since=2026-01-01T13:49:48.148413+00:00 --until=2026-01-31T13:49:48.148413+00:00 --shortstat"
+        "git diff --since=2026-01-01T13:53:15.900502+00:00 --until=2026-01-31T13:53:15.900502+00:00 --shortstat"
       ],
       "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/vionascu_trailwaze_diffs.stats.json",
-      "raw_file_hash": "8e0e85f334b37da581299fd4d74ebff30e4932356b3cb1fa7c984f3a5b680b01",
+      "raw_file_hash": "7820280820b2ccfc60131d6c3ec33f08a512dfe026900dcf957d13c6a36af4fd",
       "derived_file": null
     },
     "vionascu_trail-equip/commits.count": {
       "metric_id": "vionascu_trail-equip/commits.count",
       "repo": "vionascu_trail-equip",
       "range": {
-        "from": "2026-01-01T13:49:48.148413+00:00",
-        "to": "2026-01-31T13:49:48.148413+00:00",
+        "from": "2026-01-01T13:53:15.900502+00:00",
+        "to": "2026-01-31T13:53:15.900502+00:00",
         "timezone": "UTC"
       },
-      "collected_at": "2026-01-31T13:49:48.281670+00:00",
-      "collector_version": "75457171",
+      "collected_at": "2026-01-31T13:53:16.033720+00:00",
+      "collector_version": "28a8f488",
       "source": {
         "type": "git",
         "details": "/Users/viionascu/Projects/RnDMetrics/../trail-equip"
       },
       "commands": [
-        "git log --since=2026-01-01T13:49:48.148413+00:00 --until=2026-01-31T13:49:48.148413+00:00 --format=%H%n%ai%n%an --date=iso-strict"
+        "git log --since=2026-01-01T13:53:15.900502+00:00 --until=2026-01-31T13:53:15.900502+00:00 --format=%H%n%ai%n%an --date=iso-strict"
       ],
       "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/vionascu_trail-equip_commits.count.json",
-      "raw_file_hash": "ac882a123cfc45ca022901507f19c80711b3430d8620ac1649d55b07169e4257",
+      "raw_file_hash": "3aca0afe1871a850974aedee3d4e37a2191521f7f2216e873c848290521a6419",
       "derived_file": null
     },
     "vionascu_trail-equip/diffs.stats": {
       "metric_id": "vionascu_trail-equip/diffs.stats",
       "repo": "vionascu_trail-equip",
       "range": {
-        "from": "2026-01-01T13:49:48.148413+00:00",
-        "to": "2026-01-31T13:49:48.148413+00:00",
+        "from": "2026-01-01T13:53:15.900502+00:00",
+        "to": "2026-01-31T13:53:15.900502+00:00",
         "timezone": "UTC"
       },
-      "collected_at": "2026-01-31T13:49:48.340163+00:00",
-      "collector_version": "75457171",
+      "collected_at": "2026-01-31T13:53:16.095802+00:00",
+      "collector_version": "28a8f488",
       "source": {
         "type": "git",
         "details": "/Users/viionascu/Projects/RnDMetrics/../trail-equip"
       },
       "commands": [
-        "git diff --since=2026-01-01T13:49:48.148413+00:00 --until=2026-01-31T13:49:48.148413+00:00 --shortstat"
+        "git diff --since=2026-01-01T13:53:15.900502+00:00 --until=2026-01-31T13:53:15.900502+00:00 --shortstat"
       ],
       "raw_file": "/Users/viionascu/Projects/RnDMetrics/artifacts/raw/vionascu_trail-equip_diffs.stats.json",
-      "raw_file_hash": "8e0e85f334b37da581299fd4d74ebff30e4932356b3cb1fa7c984f3a5b680b01",
+      "raw_file_hash": "7820280820b2ccfc60131d6c3ec33f08a512dfe026900dcf957d13c6a36af4fd",
       "derived_file": null
     },
     "vionascu_trailwaze/docs.coverage": {
       "metric_id": "vionascu_trailwaze/docs.coverage",
       "repo": "vionascu_trailwaze",
       "range": {
-        "from": "2026-01-01T13:49:48.148413+00:00",
-        "to": "2026-01-31T13:49:48.148413+00:00",
+        "from": "2026-01-01T13:53:15.900502+00:00",
+        "to": "2026-01-31T13:53:15.900502+00:00",
         "timezone": "UTC"
       },
-      "collected_at": "2026-01-31T13:50:03.533004+00:00",
-      "collector_version": "75457171",
+      "collected_at": "2026-01-31T13:53:30.775243+00:00",
+      "collector_version": "28a8f488",
       "source": {
         "type": "git",
         "details": "/Users/viionascu/Projects/RnDMetrics/../trailwaze"
@@ -170,12 +170,12 @@
       "metric_id": "vionascu_trail-equip/docs.coverage",
       "repo": "vionascu_trail-equip",
       "range": {
-        "from": "2026-01-01T13:49:48.148413+00:00",
-        "to": "2026-01-31T13:49:48.148413+00:00",
+        "from": "2026-01-01T13:53:15.900502+00:00",
+        "to": "2026-01-31T13:53:15.900502+00:00",
         "timezone": "UTC"
       },
-      "collected_at": "2026-01-31T13:50:03.695175+00:00",
-      "collector_version": "75457171",
+      "collected_at": "2026-01-31T13:53:30.825715+00:00",
+      "collector_version": "28a8f488",
       "source": {
         "type": "git",
         "details": "/Users/viionascu/Projects/RnDMetrics/../trail-equip"
