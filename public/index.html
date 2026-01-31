@@ -435,7 +435,7 @@
                     const sources = metric.source_metrics ? metric.source_metrics.join(', ') : 'N/A';
                     let valueHtml = '';
 
-                    // Handle weekly breakdown specially
+                    // Handle weekly breakdown
                     if (metric.id.includes('commits_weekly') && typeof metric.value === 'object') {
                         const weeks = Object.entries(metric.value).sort();
                         valueHtml = '<div style="font-size: 0.9em;">';
@@ -443,7 +443,53 @@
                             valueHtml += `<div style="padding: 4px 0; display: flex; justify-content: space-between;"><span>${week}:</span> <strong style="color: #00d9ff;">${count}</strong></div>`;
                         });
                         valueHtml += '</div>';
-                    } else {
+                    }
+                    // Handle test metrics with icons
+                    else if (metric.id.includes('_test_') && metric.id.includes('_count')) {
+                        const category = metric.category || 'unknown';
+                        const icon = {
+                            'unit': '🔬',
+                            'integration': '🔗',
+                            'api': '🌐'
+                        }[category] || '🧪';
+                        valueHtml = `<div>${icon} <span class="metric-value">${metric.value}</span> <span class="metric-unit">${metric.unit || ''}</span></div>`;
+                    }
+                    // Handle test pass rate with progress bar
+                    else if (metric.id.includes('_test_pass_rate')) {
+                        const percent = metric.value || 0;
+                        const color = percent >= 80 ? '#00ff88' : percent >= 60 ? '#ffaa00' : '#ff3366';
+                        valueHtml = `
+                            <div style="margin: 8px 0;">
+                                <div style="background: rgba(255,255,255,0.1); height: 24px; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: ${percent}%; background: ${color}; height: 100%; transition: width 0.3s ease;"></div>
+                                </div>
+                                <div style="text-align: center; margin-top: 6px; font-weight: bold; color: ${color};">${percent}%</div>
+                            </div>
+                        `;
+                    }
+                    // Handle epic metrics with badges
+                    else if (metric.id.includes('_epic_')) {
+                        if (metric.id.includes('_epic_covered') || (metric.id.includes('_epic_total') && metric.unit === 'epics')) {
+                            const isCovered = metric.id.includes('_covered') && !metric.id.includes('_not_covered');
+                            const percent = metric.percentage !== undefined ? metric.percentage.toFixed(1) : 'N/A';
+                            const badgeColor = isCovered ? '#00ff88' : '#ff3366';
+                            const badgeIcon = isCovered ? '✅' : '❌';
+                            const label = isCovered ? 'Covered' : (metric.id.includes('_not_covered') ? 'Not Covered' : 'Total');
+                            valueHtml = `
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="background: ${badgeColor}22; color: ${badgeColor}; padding: 6px 12px; border-radius: 16px; border: 1px solid ${badgeColor}; font-weight: bold;">
+                                        ${badgeIcon} ${metric.value} ${label}
+                                    </span>
+                                </div>
+                            `;
+                            if (metric.percentage !== undefined && !metric.id.includes('_total')) {
+                                valueHtml += `<div style="margin-top: 4px; font-size: 0.85em; color: #a0a0a0;">${percent}%</div>`;
+                            }
+                        } else {
+                            valueHtml = `<span class="metric-value">${metric.value}</span> <span class="metric-unit">${metric.unit || ''}</span>`;
+                        }
+                    }
+                    else {
                         const value = typeof metric.value === 'number' ? metric.value.toFixed(2) : (typeof metric.value === 'object' ? JSON.stringify(metric.value) : metric.value);
                         valueHtml = `<span class="metric-value">${value}</span><span class="metric-unit">${metric.unit || ''}</span>`;
                     }
