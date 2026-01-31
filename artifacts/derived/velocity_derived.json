@@ -1,7 +1,18 @@
 {
   "dimension": "velocity",
-  "computed_at": "2026-01-31T11:39:54.793311+00:00",
+  "computed_at": "2026-01-31T11:56:20.180506+00:00",
   "metrics": {
+    "vionascu_velocity_loc_net": {
+      "value": 0,
+      "unit": "lines",
+      "source_metrics": [
+        "vionascu_trail-equip_diffs.stats"
+      ],
+      "components": {
+        "added": 0,
+        "deleted": 0
+      }
+    },
     "trailwaze_velocity_loc_net": {
       "value": 0,
       "unit": "lines",

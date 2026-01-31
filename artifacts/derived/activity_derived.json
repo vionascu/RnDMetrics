@@ -1,7 +1,15 @@
 {
   "dimension": "activity",
-  "computed_at": "2026-01-31T11:39:54.790513+00:00",
+  "computed_at": "2026-01-31T11:56:20.179963+00:00",
   "metrics": {
+    "vionascu_activity_commits_per_day": {
+      "value": 4.26,
+      "unit": "commits/day",
+      "source_metrics": [
+        "vionascu_trail-equip_commits.count"
+      ],
+      "calculation": "132 commits / 31 days"
+    },
     "trailwaze_activity_commits_per_day": {
       "value": 0.48,
       "unit": "commits/day",
