@@ -1,124 +1,55 @@
-# 🚀 Quick Start Guide
-
-## Your Dashboard is Live!
-
-### 📊 Access Your Dashboard
-
-**Visit:** https://vionascu.github.io/RnDMetrics/
-
-This link shows your real-time metrics with complete evidence trails.
-
----
+# Quick Start Guide - RnDMetrics Dashboard
 
 ## What You Have
 
-✅ **Automated Metrics Collection**
-- Runs daily at 2 AM UTC
-- Collects Git, test, coverage, and documentation metrics
-- Deploys dashboard automatically
+A fully automated evidence-backed metrics system that analyzes GitHub projects with:
+- ✅ Zero guessing policy
+- ✅ Complete audit trail
+- ✅ Interactive dashboard
+- ✅ Real-time filtering
 
-✅ **Professional Dashboard**
-- Beautiful glassmorphism UI
-- Shows all metrics with calculations
-- Links to complete evidence
+## 3-Step Workflow
 
-✅ **Evidence-Based**
-- Every metric traceable to source
-- Complete reproducibility
-- Full transparency
+### 1. Add Projects to `projects.json`
 
----
+Edit the file and list GitHub project URLs:
 
-## How to Use
-
-### View Metrics
-1. Go to: https://vionascu.github.io/RnDMetrics/
-2. See all metrics with:
-   - Real values from your repositories
-   - Calculation formulas
-   - Evidence links to raw data
-
-### Share Dashboard
-- Copy link: https://vionascu.github.io/RnDMetrics/
-- Share with team (no login required)
-- Updates automatically daily
-
-### Check Workflow Progress
-- Go to: https://github.com/vionascu/RnDMetrics/actions
-- See metrics collection status
-- Download artifacts for detailed data
-
-### Manual Trigger
-```bash
-gh workflow run metrics.yml --ref main
-# Or use GitHub UI: Actions → Run workflow
+```json
+{
+  "projects": [
+    {
+      "url": "https://github.com/vionascu/trailwaze",
+      "language": "mixed",
+      "description": "Trail navigation app"
+    },
+    {
+      "url": "https://github.com/vionascu/trail-equip",
+      "language": "java",
+      "description": "Trail equipment system"
+    }
+  ]
+}
 ```
 
----
+### 2. Run Metrics Collection
 
-## Metrics Collected
+```bash
+./run_metrics.sh --range last_30_days
+```
 
-- **Git**: Commits, LOC added/deleted, files changed
-- **Tests**: Test count, pass rate (if CI artifacts available)
-- **Coverage**: Line, branch, statement coverage (if available)
-- **Docs**: Documentation coverage by language
-- **Derived**: Velocity, quality, and activity indicators
+### 3. View Dashboard
 
----
+Open: **https://vionascu.github.io/RnDMetrics/**
 
-## Documentation
+## Dashboard Features
 
-For detailed information:
-- **[METHODOLOGY.md](Documents/METHODOLOGY.md)** - Formula reference
-- **[README_METRICS_SYSTEM.md](README_METRICS_SYSTEM.md)** - System guide
-- **[GITHUB_PAGES_METRICS.md](GITHUB_PAGES_METRICS.md)** - Setup guide
+- **Date Range Selector**: Filter metrics by time period
+- **Project Selector**: View individual or combined projects
+- **Dynamic Graphs**: Charts reload when filters change
+- **Evidence Trails**: All calculations shown with sources
 
----
+## Current Projects
 
-## Key URLs
+1. **Trailwaze** - React/React Native mobile/web app
+2. **Trail-Equip** - Java/Spring Boot microservices
 
-| What | Link |
-|------|------|
-| **Dashboard** | https://vionascu.github.io/RnDMetrics/ |
-| **Repository** | https://github.com/vionascu/RnDMetrics |
-| **Workflows** | https://github.com/vionascu/RnDMetrics/actions |
-| **Code** | https://github.com/vionascu/RnDMetrics/tree/main |
-
----
-
-## Common Questions
-
-**Q: How often do metrics update?**
-A: Daily at 2 AM UTC. Manually anytime via Actions tab.
-
-**Q: Can anyone see my dashboard?**
-A: Yes, it's public. No login required.
-
-**Q: What if I want more frequent updates?**
-A: Edit `.github/workflows/metrics.yml` to change schedule.
-
-**Q: How do I verify metrics are correct?**
-A: See evidence trail in `artifacts/manifest.json`. Each metric has the exact command used to collect it.
-
-**Q: Can I customize the dashboard?**
-A: Yes, modify `build_dashboard.sh` to change dashboard generation.
-
----
-
-## Next Steps
-
-1. ✅ Visit your dashboard: https://vionascu.github.io/RnDMetrics/
-2. ✅ Share with your team
-3. ✅ Check daily for updates (2 AM UTC)
-4. ✅ Review evidence trails for reproducibility
-
----
-
-**Your system is production ready and automatically collecting metrics.**
-
-Enjoy! 🎉
-
----
-
-**Dashboard:** https://vionascu.github.io/RnDMetrics/
-**Repository:** https://github.com/vionascu/RnDMetrics
