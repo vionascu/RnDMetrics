@@ -1,6 +1,6 @@
 {
   "dimension": "velocity",
-  "computed_at": "2026-01-31T17:11:38.080735+00:00",
+  "computed_at": "2026-01-31T18:27:35.637839+00:00",
   "metrics": {
     "vionascu_trailwaze_velocity_loc_net": {
       "value": 27889,
@@ -24,19 +24,19 @@
       "dimension": "velocity"
     },
     "vionascu_trail-equip_velocity_loc_net": {
-      "value": 26451,
+      "value": 30407,
       "unit": "lines",
       "source_metrics": [
         "vionascu_trail-equip_diffs.stats"
       ],
       "components": {
-        "added": 36459,
-        "deleted": 10008
+        "added": 40653,
+        "deleted": 10246
       },
       "dimension": "velocity"
     },
     "vionascu_trail-equip_velocity_churn_ratio": {
-      "value": 0.27,
+      "value": 0.25,
       "unit": "ratio",
       "source_metrics": [
         "vionascu_trail-equip_diffs.stats"

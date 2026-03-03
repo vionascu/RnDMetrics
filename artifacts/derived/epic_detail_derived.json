@@ -1,6 +1,6 @@
 {
   "dimension": "epic_detail",
-  "computed_at": "2026-01-31T17:11:38.127928+00:00",
+  "computed_at": "2026-01-31T18:27:35.677684+00:00",
   "metrics": {
     "vionascu_trailwaze_epic_epic-1_test_count": {
       "value": 4,
@@ -315,69 +315,277 @@
       "calculation": "Aggregated epic/US/test counts"
     },
     "vionascu_trail-equip_epic_epic-1_test_count": {
-      "value": 0,
+      "value": 15,
       "unit": "tests",
       "dimension": "epic",
       "epic_id": "epic-1",
       "epic_number": "1",
       "epic_title": "Trail Discovery & Exploration",
-      "user_stories": 0,
+      "user_stories": 5,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in Trail Discovery & Exploration"
     },
-    "vionascu_trail-equip_epic_epic-2_test_count": {
+    "vionascu_trail-equip_epic_epic-1_us_US1.1_test_count": {
+      "value": 3,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Trail Discovery & Exploration",
+      "us_id": "US1.1",
+      "us_title": "View Trail List",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for View Trail List"
+    },
+    "vionascu_trail-equip_epic_epic-1_us_US1.2_test_count": {
+      "value": 7,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Trail Discovery & Exploration",
+      "us_id": "US1.2",
+      "us_title": "Filter Trails by Difficulty",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Filter Trails by Difficulty"
+    },
+    "vionascu_trail-equip_epic_epic-1_us_US1.3_test_count": {
       "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Trail Discovery & Exploration",
+      "us_id": "US1.3",
+      "us_title": "Search Trails by Name",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Search Trails by Name"
+    },
+    "vionascu_trail-equip_epic_epic-1_us_US1.4_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Trail Discovery & Exploration",
+      "us_id": "US1.4",
+      "us_title": "View Trail Details",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for View Trail Details"
+    },
+    "vionascu_trail-equip_epic_epic-1_us_US1.5_test_count": {
+      "value": 5,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-1",
+      "epic_title": "Trail Discovery & Exploration",
+      "us_id": "US1.5",
+      "us_title": "View Trail on Map",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for View Trail on Map"
+    },
+    "vionascu_trail-equip_epic_epic-2_test_count": {
+      "value": 7,
       "unit": "tests",
       "dimension": "epic",
       "epic_id": "epic-2",
       "epic_number": "2",
       "epic_title": "OpenStreetMap Integration",
-      "user_stories": 0,
+      "user_stories": 4,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in OpenStreetMap Integration"
     },
-    "vionascu_trail-equip_epic_epic-3_test_count": {
+    "vionascu_trail-equip_epic_epic-2_us_US2.1_test_count": {
+      "value": 1,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "OpenStreetMap Integration",
+      "us_id": "US2.1",
+      "us_title": "Import All Bucegi Trails",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Import All Bucegi Trails"
+    },
+    "vionascu_trail-equip_epic_epic-2_us_US2.2_test_count": {
       "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "OpenStreetMap Integration",
+      "us_id": "US2.2",
+      "us_title": "Import Trails by Geographic Area",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Import Trails by Geographic Area"
+    },
+    "vionascu_trail-equip_epic_epic-2_us_US2.3_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "OpenStreetMap Integration",
+      "us_id": "US2.3",
+      "us_title": "Export Trail as GeoJSON",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Export Trail as GeoJSON"
+    },
+    "vionascu_trail-equip_epic_epic-2_us_US2.4_test_count": {
+      "value": 4,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-2",
+      "epic_title": "OpenStreetMap Integration",
+      "us_id": "US2.4",
+      "us_title": "Export Trail as GPX",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Export Trail as GPX"
+    },
+    "vionascu_trail-equip_epic_epic-3_test_count": {
+      "value": 4,
       "unit": "tests",
       "dimension": "epic",
       "epic_id": "epic-3",
       "epic_number": "3",
       "epic_title": "Weather Integration & Trail Planning",
-      "user_stories": 0,
+      "user_stories": 3,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in Weather Integration & Trail Planning"
     },
-    "vionascu_trail-equip_epic_epic-4_test_count": {
+    "vionascu_trail-equip_epic_epic-3_us_US3.1_test_count": {
       "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_title": "Weather Integration & Trail Planning",
+      "us_id": "US3.1",
+      "us_title": "View 7-Day Weather Forecast",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for View 7-Day Weather Forecast"
+    },
+    "vionascu_trail-equip_epic_epic-3_us_US3.2_test_count": {
+      "value": 4,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_title": "Weather Integration & Trail Planning",
+      "us_id": "US3.2",
+      "us_title": "Get Equipment Recommendations",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Get Equipment Recommendations"
+    },
+    "vionascu_trail-equip_epic_epic-3_us_US3.3_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-3",
+      "epic_title": "Weather Integration & Trail Planning",
+      "us_id": "US3.3",
+      "us_title": "View Weather Warnings",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for View Weather Warnings"
+    },
+    "vionascu_trail-equip_epic_epic-4_test_count": {
+      "value": 7,
       "unit": "tests",
       "dimension": "epic",
       "epic_id": "epic-4",
       "epic_number": "4",
       "epic_title": "Community Hazard Reporting",
-      "user_stories": 0,
+      "user_stories": 2,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in Community Hazard Reporting"
     },
+    "vionascu_trail-equip_epic_epic-4_us_US4.1_test_count": {
+      "value": 3,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-4",
+      "epic_title": "Community Hazard Reporting",
+      "us_id": "US4.1",
+      "us_title": "Report Trail Hazard",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Report Trail Hazard"
+    },
+    "vionascu_trail-equip_epic_epic-4_us_US4.2_test_count": {
+      "value": 4,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-4",
+      "epic_title": "Community Hazard Reporting",
+      "us_id": "US4.2",
+      "us_title": "View Hazard Reports",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for View Hazard Reports"
+    },
     "vionascu_trail-equip_epic_epic-5_test_count": {
-      "value": 0,
+      "value": 5,
       "unit": "tests",
       "dimension": "epic",
       "epic_id": "epic-5",
       "epic_number": "5",
       "epic_title": "Trail Export & GPS Support",
-      "user_stories": 0,
+      "user_stories": 2,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in Trail Export & GPS Support"
+    },
+    "vionascu_trail-equip_epic_epic-5_us_US5.1_test_count": {
+      "value": 2,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-5",
+      "epic_title": "Trail Export & GPS Support",
+      "us_id": "US5.1",
+      "us_title": "Export Multiple Trails",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Export Multiple Trails"
+    },
+    "vionascu_trail-equip_epic_epic-5_us_US5.2_test_count": {
+      "value": 3,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-5",
+      "epic_title": "Trail Export & GPS Support",
+      "us_id": "US5.2",
+      "us_title": "Import GPX from External Source",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Import GPX from External Source"
     },
     "vionascu_trail-equip_epic_epic-6_test_count": {
       "value": 0,
@@ -386,11 +594,50 @@
       "epic_id": "epic-6",
       "epic_number": "6",
       "epic_title": "API Gateway & Microservices",
-      "user_stories": 0,
+      "user_stories": 3,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in API Gateway & Microservices"
+    },
+    "vionascu_trail-equip_epic_epic-6_us_US6.1_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "API Gateway & Microservices",
+      "us_id": "US6.1",
+      "us_title": "Route API Requests",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Route API Requests"
+    },
+    "vionascu_trail-equip_epic_epic-6_us_US6.2_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "API Gateway & Microservices",
+      "us_id": "US6.2",
+      "us_title": "Health Check All Services",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Health Check All Services"
+    },
+    "vionascu_trail-equip_epic_epic-6_us_US6.3_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-6",
+      "epic_title": "API Gateway & Microservices",
+      "us_id": "US6.3",
+      "us_title": "Automatic Service Recovery",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Automatic Service Recovery"
     },
     "vionascu_trail-equip_epic_epic-7_test_count": {
       "value": 0,
@@ -399,16 +646,55 @@
       "epic_id": "epic-7",
       "epic_number": "7",
       "epic_title": "Production Deployment & Scaling",
-      "user_stories": 0,
+      "user_stories": 3,
       "source_metrics": [
         "epic_coverage"
       ],
       "calculation": "Total tests in Production Deployment & Scaling"
     },
+    "vionascu_trail-equip_epic_epic-7_us_US7.1_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-7",
+      "epic_title": "Production Deployment & Scaling",
+      "us_id": "US7.1",
+      "us_title": "Deploy Application to Production",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Deploy Application to Production"
+    },
+    "vionascu_trail-equip_epic_epic-7_us_US7.2_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-7",
+      "epic_title": "Production Deployment & Scaling",
+      "us_id": "US7.2",
+      "us_title": "Database Scaling",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Database Scaling"
+    },
+    "vionascu_trail-equip_epic_epic-7_us_US7.3_test_count": {
+      "value": 0,
+      "unit": "tests",
+      "dimension": "epic",
+      "epic_id": "epic-7",
+      "epic_title": "Production Deployment & Scaling",
+      "us_id": "US7.3",
+      "us_title": "Configure Environment Variables",
+      "source_metrics": [
+        "epic_coverage"
+      ],
+      "calculation": "Tests for Configure Environment Variables"
+    },
     "vionascu_trail-equip_epic_summary": {
       "value": {
         "epics": 7,
-        "user_stories": 0,
+        "user_stories": 22,
         "tests": 8
       },
       "dimension": "epic",

@@ -1,6 +1,6 @@
 {
   "dimension": "activity",
-  "computed_at": "2026-01-31T17:11:38.076597+00:00",
+  "computed_at": "2026-01-31T18:27:35.637259+00:00",
   "metrics": {
     "vionascu_trailwaze_activity_commits_weekly": {
       "value": {
@@ -30,25 +30,25 @@
     },
     "vionascu_trail-equip_activity_commits_weekly": {
       "value": {
-        "2026-W05": 97
+        "2026-W05": 153
       },
       "unit": "commits by week",
       "source_metrics": [
         "vionascu_trail-equip_commits.count"
       ],
-      "calculation": "Grouped 97 commits by ISO week number",
-      "total": 97,
+      "calculation": "Grouped 153 commits by ISO week number",
+      "total": 153,
       "dimension": "activity"
     },
     "vionascu_trail-equip_activity_commits_total": {
-      "value": 97,
+      "value": 153,
       "unit": "commits",
       "source_metrics": [
         "vionascu_trail-equip_commits.count"
       ],
       "calculation": "Total commits in period",
       "weekly_breakdown": {
-        "2026-W05": 97
+        "2026-W05": 153
       },
       "dimension": "activity"
     }
